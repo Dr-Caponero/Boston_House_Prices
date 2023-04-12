@@ -17,7 +17,12 @@ format:
 Os dados de preços de 506 casas em Boston publicados em HHarrison, D. and Rubinfeld, D.L. 'Hedonic prices and the demand for clean air', J. Environ. Economics & Management, vol.5, 81-102, 1978.  
 Os dados podem ser acessados em:  https://www.kaggle.com/datasets/fedesoriano/the-boston-houseprice-data.  
 
-### Informações do conteúdo
+### Objetivo
+
+O objetivo deste trabalho será determinar, a partir de técnicas de regressão linear, o preço de casas em Boston com base nos dados fornecidos pelo banco de dados análisado.
+
+
+### Informações do conteúdo do banco de dados
 
 :::{.incrementyal}
 1) CRIM: índice de criminalidade per capita por bairro.    
