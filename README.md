@@ -1,6 +1,6 @@
 # Boston House Prices
  Trabalho final da disciplina de Análise de Regressão
-# Instruções
+# Descrição
 
 ## Projeto de Análise de Dados
 Desenvolvimento e apresentação de um projeto de análise de dados usando métodos de análise de regressão, da seguinte forma:
