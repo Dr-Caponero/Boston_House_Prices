@@ -541,7 +541,7 @@ d8 <- dados |>
   labs(
     title = 'Distância',
     y = 'Valor Médio',
-    x = 'Distâsncias Ponderadas'
+    x = 'Distâncias Ponderadas'
   )+
   scale_y_continuous(
     labels = scales::number_format(
@@ -664,6 +664,269 @@ d13 <- dados |>
     plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
   )
 ```
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+b1 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = CRIM)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Criminalidade',
+    x = "Posição",
+    y = "Índice"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b2 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = ZN)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Zonamento',
+    x = "Posição",
+    y = "Proporção do Terreno"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b3 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = INDUS)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Empresas',
+    x = "Posição",
+    y = 'Hectares Ocupados'
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b4 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = NOX)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Óxidos Nítricos',
+    x = "Posição",
+    y = "Partes por 10 milhões"
+   ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b5 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = RM)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Cômodos',
+    x = "Posição",
+    y = "Quantidade"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b6 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = AGE)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Idade',
+    x = "Posição",
+    y = "Proporção antes de 1940"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b7 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = DIS)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Distância',
+    x = "Posição",
+    y = "Distâncias Ponderadas"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b8 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = RAD)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Acessibilidade',
+    x = "Posição",
+    y = "Índice"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b9 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = TAX)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Imposto',
+    x = "Posição",
+    y = "Valor por $10.000"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b10 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = PTRATIO)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Aluno/Professor',
+    x = "Posição",
+    y = "Proporção"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b11 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = B)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Negros',
+    x = "Posição",
+    y = "Proporção"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b12 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = LSTAT)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Classe',
+    x = "Posição",
+    y = '% de \"Classe Baixa\"'
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+b13 <- dados|>
+  mutate(
+    CHAS = as_factor(CHAS),
+    CHAS = lvls_revalue(CHAS, c("Na Margem", "Afastado"))
+  )|>
+  ggplot(aes(x = CHAS, y = MEDV)) +
+  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  labs(
+    title = 'Valor',
+    x = "Posição",
+    y = "Valor Médio"
+  ) +
+  scale_y_continuous(
+    labels = scales::number_format(
+      dig.mark = ".",
+      decimal.mark = ","))
+
+
+(b1+b2)/(b3+b4) + plot_annotation(
+  title = "Figura 4: BoxPlots entre a posição em relação ao Charles River e demais variáveis em análise.") &
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(b5+b6)/(b7+b8) + plot_annotation() & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(b9+b10)/(b11+b12) + plot_annotation() & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(b13+plot_spacer())/(plot_spacer() + plot_spacer())  + plot_annotation(
+  caption = "Fonte: StatLib - Carnegie Mellon University") & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0))
+
+```
+
 
 
 
