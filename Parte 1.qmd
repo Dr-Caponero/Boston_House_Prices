@@ -1,0 +1,676 @@
+---
+title: "Banco de dados: Boston House Prices"
+author: "Fernado Bispo, Jeff Caponero"
+format:
+    pdf:
+      toc: true
+      toc-title: Sumário
+      colorlinks: true
+      documentclass: report
+      papersize: letter
+      number-sections: false
+---
+
+\newpage
+
+## Sobre o banco de dados
+
+### Contexto
+
+Os dados de preços de 506 casas em Boston publicados em HHarrison, D. and Rubinfeld, D.L. 'Hedonic prices and the demand for clean air', J. Environ. Economics & Management, vol.5, 81-102, 1978.  
+Os dados podem ser acessados em:  https://www.kaggle.com/datasets/fedesoriano/the-boston-houseprice-data.  
+
+### Objetivo
+
+O objetivo deste trabalho será determinar, a partir de técnicas de regressão linear, o preço de casas em Boston com base nos dados fornecidos pelo banco de dados análisado.
+
+
+### Informações do conteúdo do banco de dados
+
+:::{.incrementyal}
+1) CRIM: índice de criminalidade per capita por bairro.    
+2) ZN: proporção de terreno residencial zoneada para lotes acima de 25.000 sq.ft.  
+3) INDUS: proporção de hectares de negócios não varejistas por bairro.  
+4) CHAS: Margem do rio Charles (1 se o trecho margeia o rio; 0 caso contrário).  
+5) NOX: concentração de óxidos nítricos (partes por 10 milhões) [partes/10M].  
+6) RM: número médio de cômodos por habitação.  
+7) AGE: proporção de unidades próprias construídas antes de 1940.  
+8) DIS: distâncias ponderadas para cinco centros de emprego de Boston.  
+9) RAD: índice de acessibilidade às rodovias radiais.  
+10) TAX: valor total do imposto predial por \$10.000 [\$/10k].  
+11) PTRATIO: proporção aluno-professor por bairro.  
+12) B: O resultado da equação $B=1000(Bk - 0,63)^2$ onde $Bk$ é a proporção de negros por bairro.    
+13) LSTAT: % da população de "classe baixa".  
+:::
+
+### Variável de saída:
+1) MEDV: Valor médio de residências ocupadas pelo proprietário em US\$1.000 [k\$].  
+
+### Fonte
+
+StatLib - Carnegie Mellon University
+
+## Análise Descritiva
+
+```{r}
+#| echo: false
+#| warning: false
+#| 
+
+
+setwd("~/Dropbox/Estatística/StatisticWorks/Boston_House_Prices")
+set.seed(7)
+
+if (!require(pacman))
+  install.packages("pacman")
+library(pacman)
+
+pacman::p_load(tidyverse, janitor, kableExtra, summarytools, moments, ggthemes, patchwork, glue, ggpubr)
+
+# DADOS ----
+dados <- read.csv("boston.csv")
+
+dados <- dados |> 
+  mutate(
+    CRIM = as.numeric(CRIM),
+    ZN = as.numeric(ZN),
+    INDUS = as.numeric(INDUS),
+    CHAS = as.numeric(CHAS),
+    NOX = as.numeric(NOX),
+    RM = as.numeric(RM),
+    AGE = as.numeric(AGE),
+    DIS = as.numeric(DIS),
+    RAD = as.numeric(RAD),
+    TAX = as.numeric(TAX),
+    PTRATIO = as.numeric(PTRATIO),
+    B = as.numeric(B),
+    LSTAT = as.numeric(LSTAT),
+    MEDV = as.numeric(MEDV)
+    )
+```
+
+```{r}
+#| echo: false
+dados|>
+    summarytools::descr(
+      stats = c("min", "q1", "med", "mean","q3", "max",  "sd", "cv"),
+      justify = "c",
+      style = "grid",
+      transpose = T
+    ) |>
+    kbl(
+      caption = "Medidas Resumo dos dados",
+      digits = 2,
+      format.args=list(big.mark=".", decimal.mark=","),
+      align = "c", 
+      row.names = T,
+      col.names =
+        c("Min", "Q1", "Med", "Média", "Q3", "Max", "D.Padrão", "CV")
+    )|>
+    footnote(general = "Fonte: StatLib - Carnegie Mellon University") |>
+    kable_material(c("striped", "hover", "condensed"))|>
+  kable_styling(
+    full_width = F,
+    position = 'center', latex_options = 'HOLD_position'
+  ) |>
+  kable_material()
+```
+
+
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-align: center
+#| fig-pos: H
+
+g1 <- dados|>
+  ggplot() +
+    aes(x = CRIM) +
+  geom_histogram(
+    aes(y = ..density..),
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Criminalidade",
+    x = "Índice",
+    y = "Densidade"
+  )
+
+g2 <- dados|>
+  ggplot() +
+    aes(x = ZN) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 1,
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Zoneamento",
+    x = "Proporção do Terreno",
+    y = "Densidade"
+  )
+
+g3 <- dados|>
+  ggplot() +
+    aes(x = INDUS) +
+  geom_histogram(
+    aes(y = ..density..),
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Empresas",
+    x = "Hectares Ocupados",
+    y = "Densidade"
+  )
+
+g4 <- dados|>
+  ggplot() +
+    aes(x = CHAS) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 5,
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Margem",
+    x = "Margem do Charles River",
+    y = "Densidade"
+  )
+
+g5 <- dados|>
+  ggplot() +
+  aes(x = NOX) +
+  geom_histogram(
+    aes(y = ..density..),
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Óxidos Nitricos",
+    x = "Partes por 10 milhões",
+    y = "Densidade"
+  )
+
+g6 <- dados|>
+  ggplot() +
+  aes(x = RM) +
+  geom_histogram(
+    aes(y = ..density..),
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Cômodos",
+    x = "Quantidade",
+    y = "Densidade"
+  )
+
+
+g7 <- dados|>
+  ggplot() +
+  aes(x = AGE) +
+  geom_histogram(
+    aes(y = ..density..),
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Idade",
+    x = "Proporção antes de 1940",
+    y = "Densidade"
+  )
+
+
+g8 <- dados|>
+  ggplot() +
+  aes(x = DIS) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 5,
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Distância",
+    x = "Distâncias Ponderadas",
+    y = "Densidade"
+  )
+
+
+g9 <- dados|>
+  ggplot() +
+  aes(x = RAD) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 5,
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Acessibilidade",
+    x = "Índice",
+    y = "Densidade"
+  )
+
+
+g10 <- dados|>
+  ggplot() +
+  aes(x = TAX) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 5,
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Imposto",
+    x = "Valor por $10.000",
+    y = "Densidade"
+  )
+
+
+g11 <- dados|>
+  ggplot() +
+  aes(x = PTRATIO) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 5,
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Aluno/Professor",
+    x = "Proporção",
+    y = "Densidade"
+  )
+
+
+g12 <- dados|>
+  ggplot() +
+  aes(x = B) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 5,
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Negros",
+    x = "Proporção",
+    y = "Densidade"
+  )
+
+
+g13 <- dados|>
+  ggplot() +
+  aes(x = LSTAT) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 5,
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Classe",
+    x = '% de \"Classe Baixa\"',
+    y = "Densidade"
+  )
+
+
+g14 <- dados|>
+  ggplot() +
+  aes(x = MEDV) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 5,
+    fill = "lightblue",
+    colour = "darkblue") +
+  geom_density(
+    alpha = 0.2,
+    fill = "blue",
+    colour = "blue") +
+  labs(
+    title = "Valor",
+    x = "Valor Médio",
+    y = "Densidade"
+  )
+
+(g1+g2)/(g3+g4) + plot_annotation(
+  title = "Figura 2: Histogramas das variáveis em análise.") &
+  theme_bw(base_size = 8) &
+  theme(
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(g5+g6)/(g7+g8) + plot_annotation() & 
+  theme_bw(base_size = 8) &
+  theme(
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(g9+g10)/(g11+g12) + plot_annotation() & 
+  theme_bw(base_size = 8) &
+  theme(
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+
+(g13+g14)/(plot_spacer() + plot_spacer()) +
+  plot_annotation(
+  caption = "Fonte: StatLib - Carnegie Mellon University") & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-align: center
+#| fig-pos: H
+
+d1 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = CRIM, color = CRIM)) +
+  geom_point()+
+  labs(
+    title = 'Criminalidade',
+    y = 'Valor Médio',
+    x = 'Índice'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d2 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = ZN, color = ZN)) +
+  geom_point()+
+  labs(
+    title = 'Zoneamento',
+    y = 'Valor Médio',
+    x = 'Proporção do Terreno'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d3 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = INDUS, color = INDUS)) +
+  geom_point()+
+  labs(
+    title = 'Empresas',
+    y = 'Valor Médio',
+    x = 'Hectares Ocupados'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d4 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = CHAS, color = CHAS)) +
+  geom_point()+
+  labs(
+    title = 'Margem',
+    y = 'Valor Médio',
+    x = 'Margem do Charles River'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d5 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = NOX, color = NOX)) +
+  geom_point()+
+  labs(
+    title = 'Óxidos Nítricos',
+    y = 'Valor Médio',
+    x = 'Partes por 10 milhões'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d6 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = RM, color = RM)) +
+  geom_point()+
+  labs(
+    title = 'Cômodos',
+    y = 'Valor Médio',
+    x = 'Quantidade'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d7 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = AGE, color = AGE)) +
+  geom_point()+
+  labs(
+    title = 'Idade',
+    y = 'Valor Médio',
+    x = 'Proporção antes de 1940'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d8 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = DIS, color = DIS)) +
+  geom_point()+
+  labs(
+    title = 'Distância',
+    y = 'Valor Médio',
+    x = 'Distâsncias Ponderadas'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d9 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = RAD, color = RAD)) +
+  geom_point()+
+  labs(
+    title = 'Acessibilidade',
+    y = 'Valor Médio',
+    x = 'Índice'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d10 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = TAX, color = TAX)) +
+  geom_point()+
+  labs(
+    title = 'Imposto',
+    y = 'Valor Médio',
+    x = 'Valor por $10.000'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d11 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = PTRATIO, color = PTRATIO)) +
+  geom_point()+
+  labs(
+    title = 'Aluno/Professor',
+    y = 'Valor Médio',
+    x = 'Proporção'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d12 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = B, color = B)) +
+  geom_point()+
+  labs(
+    title = 'Negros',
+    y = 'Valor Médio',
+    x = 'Proporção'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d13 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = LSTAT, color = LSTAT)) +
+  geom_point()+
+  labs(
+    title = 'Classe',
+    y = 'Valor Médio',
+    x = '% de \"Classe Baixa\"'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+(d1+d2)/(d3+d4) + plot_annotation(
+  title = "Figura 3: Relação entre a Função Diabética e demais medições") &
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(d5+d6)/(d7+d8) + plot_annotation() & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(d9+d10)/(d11+d12) + plot_annotation() & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(d13+plot_spacer())/(plot_spacer() + plot_spacer()) +
+  plot_annotation(
+  caption = "Fonte: StatLib - Carnegie Mellon University") & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+```
+
+
+
+### Referências
+
+:::{.incrementyal}
+Harrison, David & Rubinfeld, Daniel. (1978). Hedonic housing prices and the demand for clean air. Journal of Environmental Economics and Management. 5. 81-102. 10.1016/0095-0696(78)90006-2. 
+
+Belsley, David A. & Kuh, Edwin. & Welsch, Roy E. (1980). Regression diagnostics: identifying influential data and sources of collinearity. New York: Wiley.
+:::
