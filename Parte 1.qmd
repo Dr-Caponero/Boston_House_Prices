@@ -1034,7 +1034,7 @@ d1<- dados |>
   ggplot(aes(
     x = res, 
     y = reglstat$effects)) +
-  geom_point()+
+  geom_point(colour="tomato")+
   labs(
     title = '',
     y = 'Resíduos',
@@ -1058,7 +1058,7 @@ d2 <- dados |>
       big.mark = ".",
       decimal.mark = ","
     ))+
-  stat_qq() + stat_qq_line(col="blue") 
+  stat_qq(colour="tomato") + stat_qq_line(col="blue") 
   
 
 
