@@ -993,12 +993,12 @@ aux <-  cbind(summary(regcrim)$r.squared,summary(regzn)$r.squared,summary(regind
 resultados <- rbind(resultados,aux)
 
 colnames(resultados) <- c("CRIM", "ZN", "INDUS", "CHAS", "NOX", "RM", "AGE", "DIS", "RAD", "TAX", "PTRATIO", "B", "LSTAT")
-rownames(resultados) <- c("beta0", "sigma0", "beta1", "sigma1", "p-valor", "Coef. Corr.")
+rownames(resultados) <- c("$\\beta_0$", "$\\sigma_0$", "$\\beta_1$", "$\\sigma_1$", "p-valor", "$\\hat \\rho$")
 
 r1 <-  resultados[,1:7]
 r2 <-  resultados[,8:13]
 r1 |>
-     kbl(
+     kbl(format = "latex", escape = FALSE,
       caption = "Valores dos modelos de regressão linear simples.",
       digits = 3,
       format.args=list(big.mark=".", decimal.mark=","),
@@ -1011,7 +1011,7 @@ r1 |>
     position = 'center', latex_options = 'HOLD_position'
     )
 r2 |>
-     kbl(
+     kbl(format = "latex", escape = FALSE,
       digits = 3,
       format.args=list(big.mark=".", decimal.mark=","),
       align = "c",
