@@ -91,6 +91,8 @@ dados <- dados |>
 
 ```{r}
 #| echo: false
+#| #| warning: false
+
 dados|>
     summarytools::descr(
       stats = c("min", "q1", "med", "mean","q3", "max",  "sd", "cv"),
@@ -414,258 +416,6 @@ g14 <- dados|>
   )
 ```
 
-
-```{r}
-#| echo: false
-#| warning: false
-#| fig-align: center
-#| fig-pos: H
-
-d1 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = CRIM, color = CRIM)) +
-  geom_point()+
-  labs(
-    title = 'Criminalidade',
-    y = 'Valor Médio',
-    x = 'Índice'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d2 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = ZN, color = ZN)) +
-  geom_point()+
-  labs(
-    title = 'Zoneamento',
-    y = 'Valor Médio',
-    x = 'Proporção do Terreno'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d3 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = INDUS, color = INDUS)) +
-  geom_point()+
-  labs(
-    title = 'Empresas',
-    y = 'Valor Médio',
-    x = 'Hectares Ocupados'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d4 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = CHAS, color = CHAS)) +
-  geom_point()+
-  labs(
-    title = 'Margem',
-    y = 'Valor Médio',
-    x = 'Margem do Charles River'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d5 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = NOX, color = NOX)) +
-  geom_point()+
-  labs(
-    title = 'Óxidos Nítricos',
-    y = 'Valor Médio',
-    x = 'Partes por 10 milhões'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d6 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = RM, color = RM)) +
-  geom_point()+
-  labs(
-    title = 'Cômodos',
-    y = 'Valor Médio',
-    x = 'Quantidade'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d7 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = AGE, color = AGE)) +
-  geom_point()+
-  labs(
-    title = 'Idade',
-    y = 'Valor Médio',
-    x = 'Proporção antes de 1940'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d8 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = DIS, color = DIS)) +
-  geom_point()+
-  labs(
-    title = 'Distância',
-    y = 'Valor Médio',
-    x = 'Distâncias Ponderadas'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d9 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = RAD, color = RAD)) +
-  geom_point()+
-  labs(
-    title = 'Acessibilidade',
-    y = 'Valor Médio',
-    x = 'Índice'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d10 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = TAX, color = TAX)) +
-  geom_point()+
-  labs(
-    title = 'Imposto',
-    y = 'Valor Médio',
-    x = 'Valor por $10.000'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d11 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = PTRATIO, color = PTRATIO)) +
-  geom_point()+
-  labs(
-    title = 'Aluno/Professor',
-    y = 'Valor Médio',
-    x = 'Proporção'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d12 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = B, color = B)) +
-  geom_point()+
-  labs(
-    title = 'Negros',
-    y = 'Valor Médio',
-    x = 'Proporção'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-d13 <- dados |>
-  ggplot(aes(
-    y = MEDV, 
-    x = LSTAT, color = LSTAT)) +
-  geom_point()+
-  labs(
-    title = 'Classe',
-    y = 'Valor Médio',
-    x = '% de \"Classe Baixa\"'
-  )+
-  scale_y_continuous(
-    labels = scales::number_format(
-      big.mark = ".",
-      decimal.mark = ","
-    ))
-
-(d1+d2)/(d3+d4) + plot_annotation(
-  title = "Figura 3: Relação entre a Função Diabética e demais medições") &
-  theme_bw(base_size = 8) &
-  theme(
-    legend.position = "none",
-    plot.tag.position = c(0, 1),
-    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
-  )
-
-(d5+d6)/(d7+d8) + plot_annotation() & 
-  theme_bw(base_size = 8) &
-  theme(
-    legend.position = "none",
-    plot.tag.position = c(0, 1),
-    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
-  )
-
-(d9+d10)/(d11+d12) + plot_annotation() & 
-  theme_bw(base_size = 8) &
-  theme(
-    legend.position = "none",
-    plot.tag.position = c(0, 1),
-    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
-  )
-
-(d13+plot_spacer())/(plot_spacer() + plot_spacer()) +
-  plot_annotation(
-  caption = "Fonte: StatLib - Carnegie Mellon University") & 
-  theme_bw(base_size = 8) &
-  theme(
-    legend.position = "none",
-    plot.tag.position = c(0, 1),
-    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
-  )
-```
-
-
 ```{r}
 #| echo: false
 #| warning: false
@@ -893,7 +643,7 @@ b13 <- dados|>
 
 
 (b1+b2)/(b3+b4) + plot_annotation(
-  title = "Figura 4: BoxPlots entre a posição em relação ao Charles River e demais variáveis em análise.") &
+  title = "Figura 3: BoxPlots entre a posição em relação ao Charles River e demais variáveis em análise.") &
   theme_bw(base_size = 8) &
   theme(
     legend.position = "none",
@@ -929,6 +679,346 @@ b13 <- dados|>
 
 
 
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-align: center
+#| fig-pos: H
+
+d1 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = CRIM, color = CRIM)) +
+  geom_point()+
+  labs(
+    title = 'Criminalidade',
+    y = 'Valor Médio',
+    x = 'Índice'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d2 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = ZN, color = ZN)) +
+  geom_point()+
+  labs(
+    title = 'Zoneamento',
+    y = 'Valor Médio',
+    x = 'Proporção do Terreno'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d3 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = INDUS, color = INDUS)) +
+  geom_point()+
+  labs(
+    title = 'Empresas',
+    y = 'Valor Médio',
+    x = 'Hectares Ocupados'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d4 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = CHAS, color = CHAS)) +
+  geom_point()+
+  labs(
+    title = 'Margem',
+    y = 'Valor Médio',
+    x = 'Margem do Charles River'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d5 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = NOX, color = NOX)) +
+  geom_point()+
+  labs(
+    title = 'Óxidos Nítricos',
+    y = 'Valor Médio',
+    x = 'Partes por 10 milhões'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d6 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = RM, color = RM)) +
+  geom_point()+
+  labs(
+    title = 'Cômodos',
+    y = 'Valor Médio',
+    x = 'Quantidade'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d7 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = AGE, color = AGE)) +
+  geom_point()+
+  labs(
+    title = 'Idade',
+    y = 'Valor Médio',
+    x = 'Proporção antes de 1940'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d8 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = DIS, color = DIS)) +
+  geom_point()+
+  labs(
+    title = 'Distância',
+    y = 'Valor Médio',
+    x = 'Distâncias Ponderadas'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d9 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = RAD, color = RAD)) +
+  geom_point()+
+  labs(
+    title = 'Acessibilidade',
+    y = 'Valor Médio',
+    x = 'Índice'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d10 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = TAX, color = TAX)) +
+  geom_point()+
+  labs(
+    title = 'Imposto',
+    y = 'Valor Médio',
+    x = 'Valor por $10.000'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d11 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = PTRATIO, color = PTRATIO)) +
+  geom_point()+
+  labs(
+    title = 'Aluno/Professor',
+    y = 'Valor Médio',
+    x = 'Proporção'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d12 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = B, color = B)) +
+  geom_point()+
+  labs(
+    title = 'Negros',
+    y = 'Valor Médio',
+    x = 'Proporção'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d13 <- dados |>
+  ggplot(aes(
+    y = MEDV, 
+    x = LSTAT, color = LSTAT)) +
+  geom_point()+
+  labs(
+    title = 'Classe',
+    y = 'Valor Médio',
+    x = '% de \"Classe Baixa\"'
+  )+
+  geom_smooth(method=lm, se=TRUE)+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+(d1+d2)/(d3+d4) + plot_annotation(
+  title = "Figura 4: Relação entre a Função Diabética e demais medições") &
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(d5+d6)/(d7+d8) + plot_annotation() & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(d9+d10)/(d11+d12) + plot_annotation() & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+
+(d13+plot_spacer())/(plot_spacer() + plot_spacer()) +
+  plot_annotation(
+  caption = "Fonte: StatLib - Carnegie Mellon University") & 
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+```
+
+```{r}
+#| echo: false
+#| warning: false
+
+regcrim <- lm(dados$MEDV~dados$CRIM)
+regzn <- lm(dados$MEDV~dados$ZN)
+regindus <- lm(dados$MEDV~dados$INDUS)
+regchas <- lm(dados$MEDV~dados$CHAS)
+regnox <- lm(dados$MEDV~dados$NOX)
+regrm <- lm(dados$MEDV~dados$RM)
+regage <- lm(dados$MEDV~dados$AGE)
+regdis <- lm(dados$MEDV~dados$DIS)
+regrad <- lm(dados$MEDV~dados$RAD)
+regtax <- lm(dados$MEDV~dados$TAX)
+regptratio <- lm(dados$MEDV~dados$PTRATIO)
+regb <- lm(dados$MEDV~dados$B)
+reglstat <- lm(dados$MEDV~dados$LSTAT)
+
+resultados <-  cbind(summary(regcrim)$coefficients[1,],summary(regzn)$coefficients[1,],summary(regindus)$coefficients[1,],summary(regchas)$coefficients[1,],summary(regnox)$coefficients[1,],summary(regrm)$coefficients[1,],summary(regage)$coefficients[1,],summary(regdis)$coefficients[1,],summary(regrad)$coefficients[1,],summary(regtax)$coefficients[1,],summary(regptratio)$coefficients[1,],summary(regb)$coefficients[1,],summary(reglstat)$coefficients[1,])
+
+resultados <-  resultados[-c(3,4),]
+
+aux <-  cbind(summary(regcrim)$coefficients[2,],summary(regzn)$coefficients[2,],summary(regindus)$coefficients[2,],summary(regchas)$coefficients[2,],summary(regnox)$coefficients[2,],summary(regrm)$coefficients[2,],summary(regage)$coefficients[2,],summary(regdis)$coefficients[2,],summary(regrad)$coefficients[2,],summary(regtax)$coefficients[2,],summary(regptratio)$coefficients[2,],summary(regb)$coefficients[2,],summary(reglstat)$coefficients[2,])
+
+aux <- aux[-c(3,4),]
+resultados <- rbind(resultados,aux)
+
+lmp <- function (modelobject) {
+    if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
+    f <- summary(modelobject)$fstatistic
+    p <- pf(f[1],f[2],f[3],lower.tail=F)
+    attributes(p) <- NULL
+    return(p)
+}
+
+
+
+aux <-  cbind(lmp(regcrim),lmp(regzn),lmp(regindus),lmp(regchas),lmp(regnox),lmp(regrm),lmp(regage),lmp(regdis),lmp(regrad),lmp(regtax),lmp(regptratio),lmp(regb),lmp(reglstat))
+
+resultados <- rbind(resultados,aux)
+
+aux <-  cbind(summary(regcrim)$r.squared,summary(regzn)$r.squared,summary(regindus)$r.squared,summary(regchas)$r.squared,summary(regnox)$r.squared,summary(regrm)$r.squared,summary(regage)$r.squared,summary(regdis)$r.squared,summary(regrad)$r.squared,summary(regtax)$r.squared,summary(regptratio)$r.squared,summary(regb)$r.squared,summary(reglstat)$r.squared)
+
+resultados <- rbind(resultados,aux)
+
+colnames(resultados) <- c("CRIM", "ZN", "INDUS", "CHAS", "NOX", "RM", "AGE", "DIS", "RAD", "TAX", "PTRATIO", "B", "LSTAT")
+rownames(resultados) <- c("beta0", "sigma0", "beta1", "sigma1", "p-valor", "Coef. Corr.")
+
+r1 <-  resultados[,1:6]
+r2 <-  resultados[,7:13]
+r1 |>
+     kbl(
+      caption = "Valores dos modelos de regressão linear simples.",
+      digits = 2,
+      format.args=list(big.mark=".", decimal.mark=","),
+      align = "c",
+      row.names = T
+    )|>
+    kable_material(c("striped", "hover", "condensed"))|>
+    kable_styling(
+    full_width = F,
+    position = 'center', latex_options = 'HOLD_position'
+    )
+r2 |>
+     kbl(
+      digits = 2,
+      format.args=list(big.mark=".", decimal.mark=","),
+      align = "c",
+      row.names = T
+    )|>
+    kable_material(c("striped", "hover", "condensed"))|>
+    kable_styling(
+    full_width = F,
+    position = 'center', latex_options = 'HOLD_position'
+    )
+```
 
 ### Referências
 
