@@ -991,8 +991,8 @@ resultados <- rbind(resultados,aux)
 colnames(resultados) <- c("CRIM", "ZN", "INDUS", "CHAS", "NOX", "RM", "AGE", "DIS", "RAD", "TAX", "PTRATIO", "B", "LSTAT")
 rownames(resultados) <- c("beta0", "sigma0", "beta1", "sigma1", "p-valor", "Coef. Corr.")
 
-r1 <-  resultados[,1:6]
-r2 <-  resultados[,7:13]
+r1 <-  resultados[,1:7]
+r2 <-  resultados[,8:13]
 r1 |>
      kbl(
       caption = "Valores dos modelos de regressão linear simples.",
