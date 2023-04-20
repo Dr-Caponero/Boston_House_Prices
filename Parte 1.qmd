@@ -9,6 +9,12 @@ format:
       documentclass: report
       papersize: letter
       number-sections: false
+      include-in-header:
+      - text: |
+          \usepackage{caption}
+          \captionsetup[table]{name=Tabela} 
+      - file: packages.tex
+      - macros.tex 
 ---
 
 \newpage
