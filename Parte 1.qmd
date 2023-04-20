@@ -1098,7 +1098,7 @@ Como:
 t.ks = ks.test(res, "pnorm", mean(res), sd(res))
 ```
 
-Avalia o grau de concordância entre a distribuição de um conjunto de valores observados e determinada distribuição teórica. Consiste em comparar a distribuição de frequência acumulada da distribuição teórica com aquela observada. Realizado o teste obteve-se um p-valor de `r round(t.ks[[2]][1],3)`, o que inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
+Avalia o grau de concordância entre a distribuição de um conjunto de valores observados e determinada distribuição teórica. Consiste em comparar a distribuição de frequência acumulada da distribuição teórica com aquela observada. Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.ks[[2]][1],3)`, o que inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
 
 ##### Teste de Shapiro-Wilks
 
@@ -1113,7 +1113,7 @@ t.sw = shapiro.test(res)
 ```
 
 O teste de Shapiro-Wilks é um procedimento alternativo ao teste de Kolmogorov-Smirnov para avaliar normalidade.
-Realizado o teste obteve-se um p-valor de `r round(t.sw[[2]][1],3)`, o que, semelhantemente, inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.sw[[2]][1],3)`, o que, semelhantemente, inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
 
 ##### Teste de Goldfeld-Quandt
 
@@ -1128,7 +1128,7 @@ t.gq = gqtest(reglstat)
 ```
 
 Esse teste envolve o ajuste de dois modelos de regressão, separando-se as observações das duas extremidades da distribuição da variável dependente.
-Realizado o teste obteve-se um p-valor de `r round(t.gq[[5]][1],3)`, o que demanda rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%. Entretanto, como o p-valor obtido é próximo do necessário para a rejeição da hipotese nula, cabe um novo teste para a confirmação do resultado obtido.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.gq[[5]][1],3)`, o que demanda rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%. Entretanto, como o p-valor obtido é próximo do necessário para a rejeição da hipotese nula, cabe um novo teste para a confirmação do resultado obtido.
 
 ##### Teste de Breush-Pagan
 
@@ -1143,7 +1143,7 @@ t.bp = bptest(reglstat, studentize = FALSE)
 
 Esse teste é baseado no ajuste de um modelo de regressão em que a variável dependente é definida pelos resíduos do modelo de interesse.
 Se grande parte da variabilidade dos resíduos não é explicada pelo modelo, então rejeita-se a hipótese de homocedasticidade.
-Realizado o teste obteve-se um p-valor de `r round(t.bp[[4]][1],3)`, desta foram deve-se rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.bp[[4]][1],3)`, desta foram deve-se rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%.
 
 ##### Teste de Park
 
@@ -1158,7 +1158,7 @@ t.p = summary(lm(res2 ~ dados$LSTAT))
 
 Esse teste é baseado no ajuste de um modelo de regressão em que a variável dependente é definida pelos quadrados dos resíduos do modelo de interesse.
 Nesse caso, se $\beta_1$ diferir significativamente de zero, rejeita-se a hipótese de homocedasticidade.
-O valor de $\beta_1$ obtido no teste foi de `r round(t.p[[4]][2],3)` com p-valor de `r round(t.p[[4]][8],3)`.
+O valor de $\beta_1$ obtido no teste foi de `r round(t.p[[4]][2],3)` com p-valor de aproximadamente `r round(t.p[[4]][8],3)`.
 Por esse teste não se deve rejeitar a hipótese de homocedasticidade, com confiabilidade de 95%.
 
 ##### Teste F para linearidade
