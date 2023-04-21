@@ -12,7 +12,8 @@ format:
       include-in-header:
       - text: |
           \usepackage{caption}
-          \captionsetup[table]{name=Tabela} 
+          \captionsetup[table]{name=Tabela}
+
       - file: packages.tex
       - macros.tex 
 ---
@@ -24,7 +25,8 @@ format:
 ### Contexto
 
 Os dados de preços de 506 casas em Boston publicados em HHarrison, D. and Rubinfeld, D.L. 'Hedonic prices and the demand for clean air', J. Environ. Economics & Management, vol.5, 81-102, 1978.  
-Os dados podem ser acessados em:  https://www.kaggle.com/datasets/fedesoriano/the-boston-houseprice-data.  
+Os dados podem ser acessados em:  
+https://www.kaggle.com/datasets/fedesoriano/the-boston-houseprice-data.  
 
 ### Objetivo
 
@@ -59,6 +61,7 @@ StatLib - Carnegie Mellon University
 \newpage
 
 ## Análise Descritiva
+
 
 ```{r}
 #| echo: false
@@ -121,7 +124,6 @@ dados|>
       col.names =
         c("Min", "Q1", "Med", "Média", "Q3", "Max", "D.Padrão", "CV")
     )|>
-    footnote(general = "Fonte: StatLib - Carnegie Mellon University") |>
     kable_material(c("striped", "hover", "condensed"))|>
   kable_styling(
     full_width = F,
@@ -138,6 +140,8 @@ dados|>
 #| warning: false
 #| fig-align: center
 #| fig-pos: H
+
+
 
 g1 <- dados|>
   ggplot() +
