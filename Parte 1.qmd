@@ -62,6 +62,7 @@ StatLib - Carnegie Mellon University
 
 ## Análise Descritiva
 
+De modo a conhecer melhor o banco de dados analisado é importante realizar uma análise descritiva das variáveis que o compõem. Na Tabela 1 pode se ver um resumo das medidas destas variáveis.
 
 ```{r}
 #| echo: false
@@ -104,6 +105,8 @@ dados <- dados |>
     )
 ```
 
+
+
 ```{r}
 #| echo: false
 #| #| warning: false
@@ -133,7 +136,7 @@ dados|>
 ```
 
 
-
+Para facilitar a compreenção das medidas apresentadas na Tabela 1, a Figura 1 mostra graficamente estas distribuições.
 
 ```{r}
 #| echo: false
@@ -432,6 +435,15 @@ g14 <- dados|>
   )
 ```
 
+
+Desta análise inicial, destancam-se algumas características:
+1) CRIM: índice de criminalidade per capita por bairro é bastante baixo na maioria dos bairros;    
+2) ZN: proporção de terreno residencial zoneada para lotes acima de 25.000 sq.ft. também qtem concentração de valores zeros;  
+3) INDUS: Verifica-se uma concentração de empresas com cerca de 18 hectares em diversos bairros; 
+4) TAX: há uma concentração de imóveis com alto valor total do imposto predial;  
+5) B: A maior parte dos bairros tinha alta proporção de negros. 
+:::
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -694,7 +706,7 @@ b13 <- dados|>
 ```
 
 
-
+Pode-se verificar pela Figura 2 que praticamente todas as variáveis apresentam *outlayers*, entretanto o tratamento destes *outlayers* em todos os casos parece, salvo melhor juízo ser o mesmo. Observa-se que há cooerência entre eles, isto é, são realizades possíveis e não devem ser desprezados como se fossem erros ou dados irrelevantes. Isto se deve a tremenda variedade em tipos, propósitos e status dos imóveis avaliados. Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.
 
 ```{r}
 #| echo: false
