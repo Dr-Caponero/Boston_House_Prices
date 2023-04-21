@@ -62,7 +62,7 @@ StatLib - Carnegie Mellon University
 
 ## Análise Descritiva
 
-De modo a conhecer melhor o banco de dados analisado é importante realizar uma análise descritiva das variáveis que o compõem. Na Tabela 1 pode se ver um resumo das medidas destas variáveis.
+De modo a conhecer melhor o banco de dados analisado é importante realizar uma análise descritiva das variáveis que o compõem. Na Tabela 1 pode se ver as medidas de resumo de posição e de tendência central destas variáveis.
 
 ```{r}
 #| echo: false
@@ -402,7 +402,7 @@ g14 <- dados|>
   )
 
 (g1+g2)/(g3+g4) + plot_annotation(
-  title = "Figura 2: Histogramas das variáveis em análise.") &
+  title = "Figura 1: Histogramas das variáveis em análise.") &
   theme_bw(base_size = 8) &
   theme(
     plot.tag.position = c(0, 1),
@@ -425,8 +425,6 @@ g14 <- dados|>
 
 
 (g13+g14)/(plot_spacer() + plot_spacer()) +
-  plot_annotation(
-  caption = "Fonte: StatLib - Carnegie Mellon University") & 
   theme_bw(base_size = 8) &
   theme(
     legend.position = "none",
@@ -443,6 +441,11 @@ Desta análise inicial, destancam-se algumas características:
 4) TAX: há uma concentração de imóveis com alto valor total do imposto predial;  
 5) B: A maior parte dos bairros tinha alta proporção de negros. 
 :::
+
+## Análise de Dados Atípicos
+
+Com base na variável CHAR, que indica se o imóvel margeia ou não o Charles River, pode-se realizar a análise de disperção dos dados por meio de gráficos do tipo BoxPlot, como se vê na Figura 3.
+
 
 ```{r}
 #| echo: false
@@ -671,7 +674,7 @@ b13 <- dados|>
 
 
 (b1+b2)/(b3+b4) + plot_annotation(
-  title = "Figura 3: BoxPlots entre a posição em relação ao Charles River e demais \n variáveis em análise.") &
+  title = "Figura 2: BoxPlots entre a posição em relação ao Charles River e demais \n variáveis em análise.") &
   theme_bw(base_size = 8) &
   theme(
     legend.position = "none",
@@ -695,8 +698,7 @@ b13 <- dados|>
     plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
   )
 
-(b13+plot_spacer())/(plot_spacer() + plot_spacer())  + plot_annotation(
-  caption = "Fonte: StatLib - Carnegie Mellon University") & 
+(b13+plot_spacer())/(plot_spacer() + plot_spacer())  + plot_annotation() &
   theme_bw(base_size = 8) &
   theme(
     legend.position = "none",
@@ -707,6 +709,12 @@ b13 <- dados|>
 
 
 Pode-se verificar pela Figura 2 que praticamente todas as variáveis apresentam *outlayers*, entretanto o tratamento destes *outlayers* em todos os casos parece, salvo melhor juízo ser o mesmo. Observa-se que há cooerência entre eles, isto é, são realizades possíveis e não devem ser desprezados como se fossem erros ou dados irrelevantes. Isto se deve a tremenda variedade em tipos, propósitos e status dos imóveis avaliados. Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.
+
+## Relação entre as variáveis 
+
+Antes da proposição do modelo de regressão mais bem elaborado é conveniente uma avaliação gráfica da dispersão dos valores das variáveis em relação à variável resposta Valor Médio do imóvel. A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de tendência para os valores observados.
+
+
 
 ```{r}
 #| echo: false
@@ -936,7 +944,7 @@ d13 <- dados |>
     ))
 
 (d1+d2)/(d3+d4) + plot_annotation(
-  title = "Figura 4: Relação entre o Valor médio dos imóveis e demais medições") &
+  title = "Figura 3: Relação entre o Valor médio dos imóveis e demais medições") &
   theme_bw(base_size = 8) &
   theme(
     legend.position = "none",
@@ -961,8 +969,7 @@ d13 <- dados |>
   )
 
 (d13+plot_spacer())/(plot_spacer() + plot_spacer()) +
-  plot_annotation(
-  caption = "Fonte: StatLib - Carnegie Mellon University") & 
+  plot_annotation() &
   theme_bw(base_size = 8) &
   theme(
     legend.position = "none",
@@ -970,6 +977,11 @@ d13 <- dados |>
     plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
   )
 ```
+
+
+Na avaliação da Figura 3, observa-se que nenhuma das variáveis tem uma correlação forte com o valor médio dos imóveis. A Tabela 2, apresenta os valores calculados de $\hat \beta_0$ e $\hat\beta_1$ que estimam os valore do modelo $Y_i =\beta_0 + \beta_1X_i + \epsilon_i$ como seus respectivos erros padrão ($\sigma_0$ e $\sigma_1$), alem de calcular o p-valor desta regressão linear como forma de identificar a rejeição ou não do modelo proposto. Nesta mesma linha, o valor estimado do Coeficiente de Correlação ($\hat \rho$) também foi calculado.
+
+
 
 ```{r}
 #| echo: false
@@ -1006,8 +1018,6 @@ lmp <- function (modelobject) {
     return(p)
 }
 
-
-
 aux <-  cbind(lmp(regcrim),lmp(regzn),lmp(regindus),lmp(regchas),lmp(regnox),lmp(regrm),lmp(regage),lmp(regdis),lmp(regrad),lmp(regtax),lmp(regptratio),lmp(regb),lmp(reglstat))
 
 resultados <- rbind(resultados,aux)
@@ -1017,7 +1027,7 @@ aux <-  cbind(summary(regcrim)$r.squared,summary(regzn)$r.squared,summary(regind
 resultados <- rbind(resultados,aux)
 
 colnames(resultados) <- c("CRIM", "ZN", "INDUS", "CHAS", "NOX", "RM", "AGE", "DIS", "RAD", "TAX", "PTRATIO", "B", "LSTAT")
-rownames(resultados) <- c("$\\beta_0$", "$\\sigma_0$", "$\\beta_1$", "$\\sigma_1$", "p-valor", "$\\hat \\rho$")
+rownames(resultados) <- c("$\\hat \\beta_0$", "$\\sigma_0$", "$\\hat \\beta_1$", "$\\sigma_1$", "p-valor", "$\\hat \\rho$")
 
 r1 <-  resultados[,1:7]
 r2 <-  resultados[,8:13]
@@ -1048,6 +1058,13 @@ r2 |>
     position = 'center', latex_options = 'HOLD_position'
     )
 ```
+
+Nota-se da Tabela 2, que todas as tentativas de apresentar um modelo de regressão linear para os dados se mostraram infrutíferas. Os dados da forma como apresentados não comportam a simples regressão linar. Observe que para todas os pares de varáveis apresentadas o p-valor do modelo foi de aproximadamente 0 e os valores do coeficiente de correlação abaixo de 0,55. Desta forma, é necessãrio uma análise dos resíduos dos modelos para fundamentar a aplicação de alguma técnica de tratamento dos dados a fim de adequá-los a um modelo de regressão linear mais adequado. 
+
+
+## Análise de Resíduos
+
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -1088,7 +1105,7 @@ d2 <- dados |>
 
 
 d1+d2 + plot_annotation(
-  title = "Figura 5: Análise de resíduos do modelo de regressão da classe social com \n valor dos imóveis.") &
+  title = "Figura 4: Análise de resíduos do modelo de regressão da classe social com \n valor dos imóveis.") &
   theme_bw(base_size = 8) &
   theme(
     legend.position = "none",
