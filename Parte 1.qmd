@@ -1025,6 +1025,9 @@ resultados <- rbind(resultados,aux)
 aux <-  cbind(summary(regcrim)$r.squared,summary(regzn)$r.squared,summary(regindus)$r.squared,summary(regchas)$r.squared,summary(regnox)$r.squared,summary(regrm)$r.squared,summary(regage)$r.squared,summary(regdis)$r.squared,summary(regrad)$r.squared,summary(regtax)$r.squared,summary(regptratio)$r.squared,summary(regb)$r.squared,summary(reglstat)$r.squared)
 
 aux = sqrt(aux)
+for (i in 1:13){ 
+  if (resultados[3,i]<0) aux[i] = aux[i]*(-1)
+    }
 
 resultados <- rbind(resultados,aux)
 
@@ -1061,7 +1064,7 @@ r2 |>
     )
 ```
 
-Nota-se da Tabela 2, que todas as tentativas de apresentar um modelo de regressão linear para os dados se mostraram infrutíferas. Os dados da forma como apresentados não comportam a simples regressão linar. Observe que para todas os pares de varáveis apresentadas o p-valor do modelo foi de aproximadamente 0,000 e os valores do coeficiente de correlação abaixo de 0,74. Desta forma, é necessãrio uma análise dos resíduos dos modelos para fundamentar a aplicação de alguma técnica de tratamento dos dados a fim de adequá-los a um modelo de regressão linear mais adequado. 
+Nota-se da Tabela 2, que todas as tentativas de apresentar um modelo de regressão linear para os dados se mostraram infrutíferas. Os dados da forma como apresentados não comportam a simples regressão linar. Observe que para todas os pares de varáveis apresentadas o p-valor do modelo foi de aproximadamente 0,000 e os valores absolutos do coeficiente de correlação abaixo de 0,74. Desta forma, é necessãrio uma análise dos resíduos dos modelos para fundamentar a aplicação de alguma técnica de tratamento dos dados a fim de adequá-los a um modelo de regressão linear mais adequado. 
 
 
 ## Análise de Resíduos
