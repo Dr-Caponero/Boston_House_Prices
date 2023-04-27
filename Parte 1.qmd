@@ -1024,6 +1024,8 @@ resultados <- rbind(resultados,aux)
 
 aux <-  cbind(summary(regcrim)$r.squared,summary(regzn)$r.squared,summary(regindus)$r.squared,summary(regchas)$r.squared,summary(regnox)$r.squared,summary(regrm)$r.squared,summary(regage)$r.squared,summary(regdis)$r.squared,summary(regrad)$r.squared,summary(regtax)$r.squared,summary(regptratio)$r.squared,summary(regb)$r.squared,summary(reglstat)$r.squared)
 
+aux = sqrt(aux)
+
 resultados <- rbind(resultados,aux)
 
 colnames(resultados) <- c("CRIM", "ZN", "INDUS", "CHAS", "NOX", "RM", "AGE", "DIS", "RAD", "TAX", "PTRATIO", "B", "LSTAT")
