@@ -181,7 +181,7 @@ dados|>
     full_width = F, position = 'center', 
     latex_options = c("striped", "HOLD_position", "scale_down", "repeat_header")
   )|>
-  column_spec(1, bold = F
+  column_spec(1, bold = T
               )|>
   footnote(
     general = "StatLib - Carnegie Mellon University",
@@ -520,7 +520,7 @@ g1 <- dados|>
     title = "Unidades constuídas antes \nde 1940",
     x = "Proporção",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g2 crim ----
 g2 <- dados|>
@@ -546,7 +546,7 @@ g2 <- dados|>
     title = "Índice de Criminalidade",
     x = "Índice",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g3 dis ----
 g3 <- dados|>
@@ -575,7 +575,7 @@ g3 <- dados|>
     title = "Distância para cinco centros \nde emprego.",
     x = "Distâncias Ponderadas",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g4 indus ----
 g4 <- dados|>
@@ -599,7 +599,7 @@ g4 <- dados|>
     title = "Negócios não varejistas \npor bairro",
     x = "Proporção de hectares ocupados",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g5 lstat ----
 g5 <- dados|>
@@ -623,7 +623,7 @@ g5 <- dados|>
     title = 'População de "classe baixa"',
     x = 'Percentual',
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g6 medv ----
 g6 <- dados|>
@@ -647,7 +647,8 @@ g6 <- dados|>
     title = "Valor médio de residências \nocupadas",
     x = "Valor Médio",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
+
 ## g7 nox ----
 g7 <- dados|>
   ggplot() +
@@ -669,7 +670,7 @@ g7 <- dados|>
     title = "Concentração de Óxidos \nNitricos (NO)",
     x = "Partes por 10 milhões",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g8 ptratio ----
 g8 <- dados|>
@@ -698,7 +699,7 @@ g8 <- dados|>
     title = "Aluno/Professor por bairro",
     x = "Proporção",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g9 rm ----
 g9 <- dados|>
@@ -721,7 +722,7 @@ g9 <- dados|>
     title = "Número médio de cômodos por \nhabitação",
     x = "Quantidade",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g10 tax ----
 g10 <- dados|>
@@ -745,7 +746,7 @@ g10 <- dados|>
     title = "Taxa de imposto predial",
     x = "Valor por $10.000",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g11 zn ----
 g11 <- dados|>
@@ -769,7 +770,7 @@ g11 <- dados|>
     title = "Proporção de Terreno Zoneado",
     x = "Proporção de Terreno",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## g12 b ----
 g12 <- dados|>
@@ -793,7 +794,7 @@ g12 <- dados|>
     title = "Proporção de Negros por bairro",
     x = "Proporção",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 + g9 + g10 + g11 + g12 + 
   plot_layout(ncol = 3) + 
@@ -802,7 +803,6 @@ g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 + g9 + g10 + g11 + g12 +
     caption = "Fonte: StatLib - Carnegie Mellon University",
     tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", tag_sep = ".",
     tag_suffix = ":") &
-  theme_minimal(base_size = 7.5) &
   theme(
     plot.tag.position = c(0, 1),
     plot.tag = element_text(size = 5.5, hjust = 0, vjust = -0.4))
@@ -812,17 +812,19 @@ g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 + g9 + g10 + g11 + g12 +
 
 Desta análise inicial, destancam-se algumas características:
 
-1. O Índice de criminalidade per capita por bairro é bastante baixo na maioria dos bairros;
-2. A Proporção de terreno residencial zoneada para lotes acima de 25.000 sq.ft. contém uma alta concentração de valores zeros;
-3. Verifica-se uma concentração de empresas com cerca de 18 hectares em diversos bairros;
-4. Há uma concentração de imóveis com alto valor total do imposto predial;
-5. A maior parte dos bairros tinha alta proporção de negros. 
+- O Índice de criminalidade per capita por bairro é bastante baixo na maioria dos bairros (Sub.Fig B);
+- A Proporção de terreno residencial zoneada para lotes acima de 25.000 sq.ft. contém uma alta concentração de valores zeros (Sub.Fig K);
+- Verifica-se uma concentração de empresas com cerca de 18 hectares em diversos bairros (Sub.Fig D);
+- Há uma concentração de imóveis com alto valor total do imposto predial (Sub.Fig J);
+- A maior parte dos bairros tinha alta proporção de negros (Sub.Fig L). 
 
+
+Tendo em vista o fato de as variáveis categóricas não estarem representadas na Figura 1, foi construída a figura 2 com gráficos que possibilitam a avaliação do comportamento dessas variáveis de maneira mais adequada.
 
 ```{r fig2:Grafico_Barras+Rosca}
 #| echo: false
 #| warning: false
-#| fig-height: 5
+#| fig-height: 6
 #| fig-width: 7
 
 p1 <- dados|>
@@ -830,16 +832,17 @@ p1 <- dados|>
   geom_bar(fill = "darkblue")+ 
   geom_text(
     aes(
-      label = scales::percent((after_stat(count))/sum(after_stat(count))),
+      label = scales::percent((after_stat(count))/sum(after_stat(count)), big.mark = ".", decimal.mark = ","),
       y = after_stat(count)/sum(after_stat(count))),
-    stat = "count", vjust = -0.2, size = 2
+    stat = "count", vjust = -0.2, size = 1.8
   ) +
   labs(
     title = "Índice de Acessibilidade às Rodovias",
     x = "Índice",
-    y = "Frequência"
+    y = "Frequência Relativa"
   )+
   scale_y_continuous(labels = scales::percent)+
+  scale_x_discrete(limits = c(1:25))+
   theme_minimal()+
     theme(
     legend.position = "none", title = element_text(size = 7.5))
@@ -856,7 +859,7 @@ p2 <- dados %>%
                        label = "rotulo", lab.pos = "out",
                        lab.font = c(3, "plain", "black"),
                        fill = "chas",  color = "white",
-                       palette = c("#FC4E07", "#00AFBB"))+
+                       palette = c("darkblue", "skyblue"))+
   labs(
     title = "Imóveis que margeiam o Rio Charles"
   )+
@@ -865,6 +868,7 @@ p2 <- dados %>%
   )
 
 p1 + p2 +
+  plot_layout(nrow = 2, widths = 3) +
   plot_annotation(
     title = "Figura 2: Distribuição de Frequência das Variáveis Categóricas.",
     caption = "Fonte: StatLib - Carnegie Mellon University",
@@ -878,6 +882,10 @@ p1 + p2 +
 ```
 
 
+Avaliando a Figura 2 é possível constatar na Sub.Fig A que representa a frequência do Índice de Acessibilidade às Rodovias a existência de um comportamento tri modal e que há uma lacuna entre os índices, sendo este *gap* entre o índice 8 e o índice 24 indicando assim que há uma concentração de imóveis próximos a acessos a rodovias e que há uma parcela, cerca de 26%, que estão distantes desses acessos, podendo pressupor que esses imóveis são desvalorizados em relação aos mais próximos.
+
+A Sub.Fig B que retrata os Imóveis que margeiam o Rio Charles é possível identificar que mais de 93% não margeiam o rio, apenas uma pequena parcela margeia, podendo pressupor uma maior valorização dos imóveis que margeiam o rio.
+
 
 ## Análise de Dados Atípicos
 
@@ -888,7 +896,6 @@ Com base na variável que indica se o imóvel margeia ou não o Charles River, p
 #| warning: false
 #| fig-height: 9
 #| fig-width: 7
-
 
 # BoxPlot ----
 {
@@ -901,7 +908,7 @@ b1 <- dados|>
     title = "Unidades constuídas antes \nde 1940",
     x = "Posição",
     y = "Proporção antes de 1940"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## b2 crim ----
 b2 <- dados|>
@@ -914,7 +921,7 @@ b2 <- dados|>
     title = "Índice de Criminalidade",
     x = "Posição",
     y = "Índice"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## b3 dis ----
 b3 <- dados|>
@@ -929,7 +936,8 @@ b3 <- dados|>
   scale_y_continuous(
     labels = scales::number_format(
       dig.mark = ".",
-      decimal.mark = ","))
+      decimal.mark = ",")
+    )+theme_minimal(base_size = 7.5)
       
 ## b4 indus ----
 b4 <- dados|>
@@ -940,7 +948,7 @@ b4 <- dados|>
     title = "Negócios não varejistas \npor bairro",
     x = "Proporção de hectares ocupados",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## b5 lstat ----
 b5 <- dados|>
@@ -951,7 +959,7 @@ b5 <- dados|>
     title = 'População de "classe baixa"',
     x = "Posição",
     y = "Percentual"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## b6 medv ----
 b6 <- dados|>
@@ -962,7 +970,7 @@ b6 <- dados|>
     title = "Valor médio de residências \nocupadas",
     x = "Posição",
     y = "Valor médio"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## b7 nox ----
 b7 <- dados|>
@@ -977,7 +985,8 @@ b7 <- dados|>
   scale_y_continuous(
     labels = scales::number_format(
       dig.mark = ".",
-      decimal.mark = ","))
+      decimal.mark = ",")
+    )+theme_minimal(base_size = 7.5)
 
 ## b8 ptratio ----
 b8 <- dados|>
@@ -992,7 +1001,8 @@ b8 <- dados|>
   scale_y_continuous(
     labels = scales::number_format(
       dig.mark = ".",
-      decimal.mark = ","))
+      decimal.mark = ",")
+    )+theme_minimal(base_size = 7.5)
 
 ## b9 rm ----
 b9 <- dados|>
@@ -1003,7 +1013,7 @@ b9 <- dados|>
     title = "Número médio de cômodos por \nhabitação",
     x = "Posição",
     y = "Quantidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## b10 tax ---- 
 b10 <- dados|>
@@ -1014,7 +1024,7 @@ b10 <- dados|>
     title = "Taxa de imposto predial",
     x = "Posição",
     y = "Valor por $10.000"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## b11 zn ---- 
 b11 <- dados|>
@@ -1025,7 +1035,7 @@ b11 <- dados|>
     title = "Proporção de Terreno Zoneado",
     x = "Proporção de Terreno",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 ## b12 b ---- 
 b12 <- dados|>
@@ -1036,7 +1046,7 @@ b12 <- dados|>
     title = "Proporção de Negros por bairro",
     x = "Proporção",
     y = "Densidade"
-  )
+  )+theme_minimal(base_size = 7.5)
 
 b1 + b2 + b3 + b4 + b5 + b6 + b7 + b8 + b9 + b10 + b11 + b12 +  
   plot_layout(ncol = 3) + 
@@ -1046,7 +1056,6 @@ b1 + b2 + b3 + b4 + b5 + b6 + b7 + b8 + b9 + b10 + b11 + b12 +
     # theme = theme_minimal(plot.title = element_text(size = 10)),
     tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", tag_sep = ".",
     tag_suffix = ":") &
-  theme_minimal(base_size = 7.5) &
   theme(
     plot.tag.position = c(0, 1),
     plot.tag = element_text(size = 5.5, hjust = 0, vjust = -0.4))
@@ -1055,11 +1064,11 @@ b1 + b2 + b3 + b4 + b5 + b6 + b7 + b8 + b9 + b10 + b11 + b12 +
 ```
 
 
-Pode-se verificar pela Figura 2 que praticamente todas as variáveis apresentam *outlayers*, entretanto o tratamento destes *outlayers* em todos os casos parece, salvo melhor juízo ser o mesmo. Observa-se que há cooerência entre eles, isto é, são realizades possíveis e não devem ser desprezados como se fossem erros ou dados irrelevantes. Isto se deve a tremenda variedade em tipos, propósitos e status dos imóveis avaliados. Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.
+Pode-se verificar pela Figura 3 que cerca de 2/3 das variáveis apresentam valores atípicos (*outlayers*), entretanto o tratamento destes *outlayers* em todos os casos parece, salvo melhor juízo, ser o mesmo. Observa-se que há coerência entre eles, isto é, são realizações possíveis e não devem ser desprezadas como se fossem erros ou dados irrelevantes. Isto se deve a tremenda variedade em tipos, propósitos e status dos imóveis avaliados. Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.
 
 ## Relação entre as variáveis 
 
-Antes da proposição do modelo de regressão mais bem elaborado é conveniente uma avaliação gráfica da dispersão dos valores das variáveis em relação à variável resposta Valor Médio do imóvel. A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de tendência para os valores observados.
+Antes da proposição do modelo de regressão mais bem elaborado é conveniente uma avaliação gráfica da dispersão dos valores das variáveis em relação à variável resposta **Valor Médio do Imóvel**. A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de tendência para os valores observados.
 
 
 ```{r fig4:regressao}
@@ -1092,7 +1101,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
         big.mark = ".",
         decimal.mark = ","
       ))+
-    geom_smooth(method=lm, se=TRUE)
+    geom_smooth(method=lm, se=TRUE)+
+    theme_minimal(base_size = 7.5)
   
   ## d2 crim ----
   d2 <- dados |>
@@ -1113,7 +1123,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       color="red", method = "pearson", 
       label.x = 50, label.y = 50, show.legend = F,
       p.accuracy = 0.001, r.accuracy = 0.0001,
-      size = 2)
+      size = 2)+
+    theme_minimal(base_size = 7.5)
 
   ## d3 dis ----
   d3 <- dados |>
@@ -1139,7 +1150,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       labels = scales::number_format(
         big.mark = ".",
         decimal.mark = ","
-      ))
+      ))+
+    theme_minimal(base_size = 7.5)
   
   ## d4 indus ----
   d4 <- dados |>
@@ -1160,9 +1172,9 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       color="red", method = "pearson", 
       label.x = 1.5, label.y = 7.5, show.legend = F,
       p.accuracy = 0.001, r.accuracy = 0.0001,
-      size = 2)
-    # geom_smooth(method=lm, se=TRUE)
-  
+      size = 2)+
+    theme_minimal(base_size = 7.5)
+
   ## d5 lstat ----
   d5 <- dados |>
     ggplot(aes(
@@ -1182,7 +1194,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       color="red", method = "pearson", 
       label.x = 25, label.y = 47.5, show.legend = F,
       p.accuracy = 0.001, r.accuracy = 0.0001,
-      size = 2)
+      size = 2)+
+    theme_minimal(base_size = 7.5)
 
   ## d6 nox ----
   d6 <- dados |>
@@ -1208,7 +1221,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       labels = scales::number_format(
         big.mark = ".",
         decimal.mark = ","
-      ))
+      ))+
+    theme_minimal(base_size = 7.5)
   
   ## d7 ptratio ----
   d7 <- dados |>
@@ -1234,7 +1248,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       labels = scales::number_format(
         big.mark = ".",
         decimal.mark = ","
-      ))
+      ))+
+    theme_minimal(base_size = 7.5)
   
   ## d8 rm ----
   d8 <- dados |>
@@ -1253,9 +1268,10 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       cor.coef.name = c("rho"),
       label.sep = "; ", geom = "text",
       color="red", method = "pearson", 
-      label.x = 3.7, label.y = 47.5, show.legend = F,
+      label.x = 3.7, label.y = 45, show.legend = F,
       p.accuracy = 0.001, r.accuracy = 0.0001,
-      size = 2)
+      size = 2)+
+    theme_minimal(base_size = 7.5)
   
   ## d9 tax ----
   d9 <- dados |>
@@ -1275,7 +1291,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       color="red", method = "pearson", 
       label.x = 200, label.y = 7.5, show.legend = F,
       p.accuracy = 0.001, r.accuracy = 0.0001,
-      size = 2)
+      size = 2)+
+    theme_minimal(base_size = 7.5)
   
   ## d10 zn ----
   d10 <- dados |>
@@ -1295,7 +1312,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       color="red", method = "pearson", 
       label.x = 20, label.y = 7.5, show.legend = F,
       p.accuracy = 0.001, r.accuracy = 0.0001,
-      size = 2)
+      size = 2)+
+    theme_minimal(base_size = 7.5)
   
   ## d11 b ----
   d11 <- dados |>
@@ -1315,7 +1333,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       color="red", method = "pearson", 
       label.x = 50, label.y = 45, show.legend = F,
       p.accuracy = 0.001, r.accuracy = 0.0001,
-      size = 2)
+      size = 2)+
+    theme_minimal(base_size = 7.5)
 
   d1 + d2 + d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 +  
     plot_layout(ncol = 3) + 
@@ -1324,7 +1343,6 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
       caption = "Fonte: StatLib - Carnegie Mellon University\nValor do Coeficiente de Correlação de Pearson em vermelho",
       tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", tag_sep = ".",
       tag_suffix = ":") &
-    theme_minimal(base_size = 7.5) &
     theme(
       legend.position = "none",
       plot.tag.position = c(0, 1),
@@ -1333,7 +1351,7 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
 }
 ```
 
-Na avaliação da Figura 3, observa-se que nenhuma das variáveis tem uma correlação forte com o valor médio dos imóveis. A Tabela 2, apresenta os valores calculados de $\hat \beta_0$ e $\hat\beta_1$ que estimam os valore do modelo $Y_i =\beta_0 + \beta_1X_i + \epsilon_i$ como seus respectivos erros padrão ($\sigma_0$ e $\sigma_1$), alem de calcular o p-valor desta regressão linear como forma de identificar a rejeição ou não do modelo proposto. Nesta mesma linha, o valor estimado do Coeficiente de Correlação ($\hat \rho$) também foi calculado.
+Na avaliação da Figura 4, observa-se que nenhuma das variáveis tem uma aparente correlação forte com o valor médio dos imóveis. A Tabela 2, apresenta os valores calculados de $\hat \beta_0$ e $\hat\beta_1$ que estimam os valores do modelo $Y_i =\beta_0 + \beta_1X_i + \epsilon_i$ como seus respectivos erros padrão ($\sigma_0$ e $\sigma_1$), além de calcular o p-valor desta regressão linear como forma de identificar a rejeição ou não do modelo proposto. Nesta mesma linha, o valor estimado do Coeficiente de Determinação ($R^2$) também foi calculado.
 
 
 ```{r ajuste_modelo}
@@ -1431,12 +1449,11 @@ rownames(resultados) <- c("Índice Criminalidade", "Área Industrial", "Índice 
 # "Valor do Imóvel" = medv, "Acessibilidade Rodovias" = rad,  = zn,  = b
 
 # Inserindo o nome das linhas
-colnames(resultados) <- c("$\\beta_0$", "$\\sigma_0$", "$\\beta_1$", "$\\sigma_1$", "p-valor", "$\\hat \\rho$")
+colnames(resultados) <- c("$\\beta_0$", "$\\sigma_0$", "$\\beta_1$", "$\\sigma_1$", "p-valor", "$R^2$")
 
 ```
 
 
-Após o ajuste dos modelos exibidos na Figura 4, foi elaborada a Tabela 2 com os respectivos valores das regressões calculadas entre valor médio dos imóveis e demais medições.
 
 ```{r tab2:ajuste_modelo}
 #| echo: false
@@ -1446,15 +1463,15 @@ resultados|>
   kbl(
     caption = "Valores dos modelos de regressão linear simples.",
     format.args=list(big.mark=".", decimal.mark=","),
-    digits = 3, align = "c", row.names = T, booktabs = F,
+    digits = 3, align = "c", row.names = T, booktabs = T,
     # format = "latex", 
     escape = FALSE,
   )|>
   kable_styling(
     full_width = F, position = 'center', 
-    latex_options = c("striped", "HOLD_position", "scale_down", "repeat_header")
+    latex_options = c("striped", "HOLD_position", "repeat_header")
   )|>
-  column_spec(1, bold = F
+  column_spec(1, bold = T
   )|>
   footnote(
     general = "StatLib - Carnegie Mellon University",
@@ -1464,8 +1481,10 @@ resultados|>
   kable_material()
 ```
 
+Tendo em vista que nesse primeiro momento a proposta é a implementação de técnicas de Regressão Linear Simples - RLS, a escolha de uma variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis se faz necessária. Após análise dos gráficos de dispersão, coeficiente de correlação e avaliação dos Coeficientes de Determinação a variável escolhida foi **Pop. Classe Baixa**, logo as análises a seguir serão direcionadas a avaliar o modelo com esta variável.
 
-Nota-se da Tabela 2, que todas as tentativas de apresentar um modelo de regressão linear para os dados se mostraram infrutíferas. Os dados da forma como apresentados não comportam a simples regressão linar. Observe que para todas os pares de varáveis apresentadas o p-valor do modelo foi de aproximadamente 0,000 e os valores absolutos do coeficiente de correlação abaixo de 0,74. Desta forma, é necessãrio uma análise dos resíduos dos modelos para fundamentar a aplicação de alguma técnica de tratamento dos dados a fim de adequá-los a um modelo de regressão linear mais adequado.
+
+<!-- Nota-se da Tabela 2, que todas as tentativas de apresentar um modelo de regressão linear para os dados se mostraram infrutíferas. Os dados da forma como apresentados não comportam a simples regressão linear. Observe que para todos os pares de variáveis apresentadas o p-valor do modelo foi de aproximadamente 0,000 e os valores absolutos do Coeficiente de Determinação abaixo de 0,74. Desta forma, é necessário uma análise dos resíduos dos modelos para fundamentar a aplicação de alguma técnica de tratamento dos dados a fim de adequá-los a um modelo de regressão linear mais adequado. -->
 
 
 ## Análise de Resíduos
