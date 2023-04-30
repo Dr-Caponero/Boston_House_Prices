@@ -72,6 +72,7 @@ De modo a conhecer melhor o banco de dados analisado é importante realizar uma 
 
 setwd("~/Dropbox/Estatística/StatisticWorks/Boston_House_Prices")
 set.seed(7)
+options(OutDec=",")
 
 if (!require(pacman))
   install.packages("pacman")
@@ -109,7 +110,7 @@ dados <- dados |>
 
 ```{r}
 #| echo: false
-#| #| warning: false
+#| warning: false
 
 dados|>
     summarytools::descr(
