@@ -819,10 +819,10 @@ Desta análise inicial, destancam-se algumas características:
 5. A maior parte dos bairros tinha alta proporção de negros. 
 
 
-```{r fig2:Grafico_Barras}
+```{r fig2:Grafico_Barras+Rosca}
 #| echo: false
 #| warning: false
-#| fig-height: 9
+#| fig-height: 5
 #| fig-width: 7
 
 p1 <- dados|>
@@ -832,7 +832,7 @@ p1 <- dados|>
     aes(
       label = scales::percent((after_stat(count))/sum(after_stat(count))),
       y = after_stat(count)/sum(after_stat(count))),
-    stat = "count", vjust = -0.2, size = 3
+    stat = "count", vjust = -0.2, size = 2
   ) +
   labs(
     title = "Índice de Acessibilidade às Rodovias",
@@ -854,7 +854,7 @@ p2 <- dados %>%
     rotulo = glue::glue('{tipo}\n{n} ({pct}%)')) %>% 
   ggpubr::ggdonutchart(., "pct", 
                        label = "rotulo", lab.pos = "out",
-                       lab.font = c(4, "plain", "black"),
+                       lab.font = c(3, "plain", "black"),
                        fill = "chas",  color = "white",
                        palette = c("#FC4E07", "#00AFBB"))+
   labs(
@@ -883,7 +883,7 @@ p1 + p2 +
 
 Com base na variável que indica se o imóvel margeia ou não o Charles River, pode-se realizar a análise de disperção dos dados por meio de gráficos do tipo BoxPlot, como se vê na Figura 1.
 
-```{r fig2:BoxPlot}
+```{r fig3:BoxPlot}
 #| echo: false
 #| warning: false
 #| fig-height: 9
@@ -1053,3 +1053,607 @@ b1 + b2 + b3 + b4 + b5 + b6 + b7 + b8 + b9 + b10 + b11 + b12 +
 }
 
 ```
+
+
+Pode-se verificar pela Figura 2 que praticamente todas as variáveis apresentam *outlayers*, entretanto o tratamento destes *outlayers* em todos os casos parece, salvo melhor juízo ser o mesmo. Observa-se que há cooerência entre eles, isto é, são realizades possíveis e não devem ser desprezados como se fossem erros ou dados irrelevantes. Isto se deve a tremenda variedade em tipos, propósitos e status dos imóveis avaliados. Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.
+
+## Relação entre as variáveis 
+
+Antes da proposição do modelo de regressão mais bem elaborado é conveniente uma avaliação gráfica da dispersão dos valores das variáveis em relação à variável resposta Valor Médio do imóvel. A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de tendência para os valores observados.
+
+
+```{r fig4:regressao}
+#| echo: false
+#| warning: false
+#| fig-height: 8
+#| fig-width: 7
+
+# Dispersão ----
+{
+  ## d1 age ----
+  d1 <- dados|>
+    ggplot(aes(y = medv, x = age, color = age)) +
+    geom_point()+
+    labs(
+      title = "Unidades constuídas antes de \n1940",
+      y = 'Valor Médio (por $1.000)',
+      x = 'Proporção antes de 1940'
+    )+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 5, label.y = 7.5, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)+
+    scale_y_continuous(
+      labels = scales::number_format(
+        big.mark = ".",
+        decimal.mark = ","
+      ))+
+    geom_smooth(method=lm, se=TRUE)
+  
+  ## d2 crim ----
+  d2 <- dados |>
+    ggplot(aes(
+      y = medv, 
+      x = crim, color = crim)) +
+    geom_point()+
+    labs(
+      title = 'Índice de Criminalidade',
+      y = 'Valor Médio (por $1.000)',
+      x = 'Índice'
+    )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 50, label.y = 50, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)
+
+  ## d3 dis ----
+  d3 <- dados |>
+    ggplot(aes(
+      y = medv, 
+      x = dis, color = dis)) +
+    geom_point()+
+    labs(
+      title = "Distância para cinco centros de \nemprego.",
+      y = 'Valor Médio (por $1.000)',
+      x = 'Distâncias Ponderadas'
+    )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 9, label.y = 7.5, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)+
+    scale_x_continuous(
+      labels = scales::number_format(
+        big.mark = ".",
+        decimal.mark = ","
+      ))
+  
+  ## d4 indus ----
+  d4 <- dados |>
+    ggplot(aes(
+      y = medv, 
+      x = indus, color = indus)) +
+    geom_point()+
+    labs(
+      title = "Negócios não varejistas por \nbairro",
+      y = 'Valor Médio (por $1.000)',
+      x = 'Hectares Ocupados'
+    )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 1.5, label.y = 7.5, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)
+    # geom_smooth(method=lm, se=TRUE)
+  
+  ## d5 lstat ----
+  d5 <- dados |>
+    ggplot(aes(
+      y = medv, 
+      x = lstat, color = lstat)) +
+    geom_point()+
+    labs(
+      title = 'População de "classe baixa"',
+      y = 'Valor Médio (por $1.000)',
+      x = 'Proporção'
+    )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 25, label.y = 47.5, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)
+
+  ## d6 nox ----
+  d6 <- dados |>
+    ggplot(aes(
+      y = medv, 
+      x = nox, color = nox)) +
+    geom_point()+
+    labs(
+      title = "Concentração de Óxidos \nNitricos (NO)",
+      y = 'Valor Médio (por $1.000)',
+      x = 'Partes por 10 milhões'
+    )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 0.75, label.y = 47.5, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)+
+    scale_x_continuous(
+      labels = scales::number_format(
+        big.mark = ".",
+        decimal.mark = ","
+      ))
+  
+  ## d7 ptratio ----
+  d7 <- dados |>
+    ggplot(aes(
+      y = medv, 
+      x = ptratio, color = ptratio)) +
+    geom_point()+
+    labs(
+      title = "Aluno/Professor por bairro",
+      y = 'Valor Médio (por $1.000)',
+      x = 'Proporção'
+    )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 13, label.y = 7.5, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)+
+    scale_x_continuous(
+      labels = scales::number_format(
+        big.mark = ".",
+        decimal.mark = ","
+      ))
+  
+  ## d8 rm ----
+  d8 <- dados |>
+    ggplot(aes(
+      y = medv, 
+      x = rm, color = rm)) +
+    geom_point()+
+    labs(
+      title = "Número médio de cômodos por \nhabitação",
+      y = 'Valor Médio (por $1.000)',
+      x = 'Quantidade'
+    )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 3.7, label.y = 47.5, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)
+  
+  ## d9 tax ----
+  d9 <- dados |>
+    ggplot(aes(
+      x = tax, y = medv, color = tax)) +
+    geom_point()+
+    labs(
+      title = "Taxa de imposto predial",
+      y = 'Valor Médio (por $1.000)',
+      x = 'Valor por $10.000'
+    )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 200, label.y = 7.5, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)
+  
+  ## d10 zn ----
+  d10 <- dados |>
+    ggplot(aes(
+      x = zn, y = medv, color = zn)) +
+    geom_point()+
+  labs(
+    title = "Proporção de Terreno Zoneado",
+    x = "Proporção",
+    y = "Densidade"
+  )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 20, label.y = 7.5, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)
+  
+  ## d11 b ----
+  d11 <- dados |>
+    ggplot(aes(
+      x = b, y = medv, color = b)) +
+    geom_point()+
+  labs(
+    title = "Proporção de Negros por bairro",
+    x = "Proporção",
+    y = "Densidade"
+  )+
+    geom_smooth(method=lm, se=TRUE)+
+    ggpubr::stat_cor(
+      aes(label = ..r.label..),
+      cor.coef.name = c("rho"),
+      label.sep = "; ", geom = "text",
+      color="red", method = "pearson", 
+      label.x = 50, label.y = 45, show.legend = F,
+      p.accuracy = 0.001, r.accuracy = 0.0001,
+      size = 2)
+
+  d1 + d2 + d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 +  
+    plot_layout(ncol = 3) + 
+    plot_annotation(
+      title = "Figura 4: Reta de regressão ajustada entre o Valor médio dos imóveis e demais medições",
+      caption = "Fonte: StatLib - Carnegie Mellon University\nValor do Coeficiente de Correlação de Pearson em vermelho",
+      tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", tag_sep = ".",
+      tag_suffix = ":") &
+    theme_minimal(base_size = 7.5) &
+    theme(
+      legend.position = "none",
+      plot.tag.position = c(0, 1),
+      plot.tag = element_text(size = 5.5, hjust = 0, vjust = -0.4))
+
+}
+```
+
+Na avaliação da Figura 3, observa-se que nenhuma das variáveis tem uma correlação forte com o valor médio dos imóveis. A Tabela 2, apresenta os valores calculados de $\hat \beta_0$ e $\hat\beta_1$ que estimam os valore do modelo $Y_i =\beta_0 + \beta_1X_i + \epsilon_i$ como seus respectivos erros padrão ($\sigma_0$ e $\sigma_1$), alem de calcular o p-valor desta regressão linear como forma de identificar a rejeição ou não do modelo proposto. Nesta mesma linha, o valor estimado do Coeficiente de Correlação ($\hat \rho$) também foi calculado.
+
+
+```{r ajuste_modelo}
+#| echo: false
+#| warning: false
+
+# Ajuste do Modelo 2 ----
+
+mCrim <- lm(dados$medv~dados$crim)
+mIndus <- lm(dados$medv~dados$indus)
+mNox <- lm(dados$medv~dados$nox)
+mRm <- lm(dados$medv~dados$rm)
+mAge <- lm(dados$medv~dados$age)
+mDis <- lm(dados$medv~dados$dis)
+mTax <- lm(dados$medv~dados$tax)
+mPtratio <- lm(dados$medv~dados$ptratio)
+mLstat <- lm(dados$medv~dados$lstat)
+mZn <- lm(dados$medv~dados$zn)
+mB <- lm(dados$medv~dados$b)
+
+# Calculando e armazenando o beta0 e erro padrão0
+resultados <-  rbind(
+  summary(mCrim)$coefficients[1,],
+  summary(mIndus)$coefficients[1,],
+  summary(mNox)$coefficients[1,],
+  summary(mRm)$coefficients[1,],
+  summary(mAge)$coefficients[1,],
+  summary(mDis)$coefficients[1,],
+  summary(mTax)$coefficients[1,],
+  summary(mPtratio)$coefficients[1,],
+  summary(mLstat)$coefficients[1,],
+  summary(mZn)$coefficients[1,],
+  summary(mB)$coefficients[1,])
+
+# Removendo testes
+resultados <-  resultados[, -c(3,4)]
+
+# Calculando e armazenando o beta1 e erro padrão1
+aux <-  rbind(
+  summary(mCrim)$coefficients[2,],
+  summary(mIndus)$coefficients[2,],
+  summary(mNox)$coefficients[2,],
+  summary(mRm)$coefficients[2,],
+  summary(mAge)$coefficients[2,],
+  summary(mDis)$coefficients[2,],
+  summary(mTax)$coefficients[2,],
+  summary(mPtratio)$coefficients[2,],
+  summary(mLstat)$coefficients[2,],
+  summary(mZn)$coefficients[2,],
+  summary(mB)$coefficients[2,])
+
+# Mantém apenas beta1 e o erro padrão
+aux <- aux[, -c(3,4)]
+
+resultados <- cbind(resultados, aux)
+
+# Função para calcular o p-valor
+lmp <- function (modelobject) {
+  if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
+  f <- summary(modelobject)$fstatistic
+  p <- pf(f[1],f[2],f[3],lower.tail=F)
+  attributes(p) <- NULL
+  return(p)
+}
+
+# Calculando e armazenando o p-valor
+aux <- rbind(
+  lmp(mCrim), lmp(mIndus),
+  lmp(mNox), lmp(mRm), lmp(mAge), 
+  lmp(mDis), lmp(mTax), lmp(mPtratio),
+  lmp(mLstat), lmp(mZn),lmp(mB)
+)
+
+resultados <- cbind(resultados, aux)
+
+# Calculando e armazenando o Coeficiente de Correlação
+aux <-  rbind(
+  summary(mCrim)$r.squared,
+  summary(mIndus)$r.squared,
+  summary(mNox)$r.squared,
+  summary(mRm)$r.squared,
+  summary(mAge)$r.squared,
+  summary(mDis)$r.squared,
+  summary(mTax)$r.squared,
+  summary(mPtratio)$r.squared,
+  summary(mLstat)$r.squared,
+  summary(mZn)$r.squared,
+  summary(mB)$r.squared)
+
+resultados <- cbind(resultados, aux)
+
+# Inserindo o nome das variáveis (colunas)
+rownames(resultados) <- c("Índice Criminalidade", "Área Industrial", "Índice Oxido Nítrico", "N° Cômodos", "Idade do Imóvel", "Dist. Empregos", "Imposto Propriedade", "Prop. Prof.-Aluno", "Pop. Classe Baixa", "Prop. Terreno Zoneado", "Prop. Negros/bairro")
+
+# "Valor do Imóvel" = medv, "Acessibilidade Rodovias" = rad,  = zn,  = b
+
+# Inserindo o nome das linhas
+colnames(resultados) <- c("$\\beta_0$", "$\\sigma_0$", "$\\beta_1$", "$\\sigma_1$", "p-valor", "$\\hat \\rho$")
+
+```
+
+
+Após o ajuste dos modelos exibidos na Figura 4, foi elaborada a Tabela 2 com os respectivos valores das regressões calculadas entre valor médio dos imóveis e demais medições.
+
+```{r tab2:ajuste_modelo}
+#| echo: false
+#| warning: false
+
+resultados|>
+  kbl(
+    caption = "Valores dos modelos de regressão linear simples.",
+    format.args=list(big.mark=".", decimal.mark=","),
+    digits = 3, align = "c", row.names = T, booktabs = F,
+    # format = "latex", 
+    escape = FALSE,
+  )|>
+  kable_styling(
+    full_width = F, position = 'center', 
+    latex_options = c("striped", "HOLD_position", "scale_down", "repeat_header")
+  )|>
+  column_spec(1, bold = F
+  )|>
+  footnote(
+    general = "StatLib - Carnegie Mellon University",
+    general_title = "Fonte:",
+    footnote_as_chunk = T
+  )|>
+  kable_material()
+```
+
+
+Nota-se da Tabela 2, que todas as tentativas de apresentar um modelo de regressão linear para os dados se mostraram infrutíferas. Os dados da forma como apresentados não comportam a simples regressão linar. Observe que para todas os pares de varáveis apresentadas o p-valor do modelo foi de aproximadamente 0,000 e os valores absolutos do coeficiente de correlação abaixo de 0,74. Desta forma, é necessãrio uma análise dos resíduos dos modelos para fundamentar a aplicação de alguma técnica de tratamento dos dados a fim de adequá-los a um modelo de regressão linear mais adequado.
+
+
+## Análise de Resíduos
+
+```{r}
+#| echo: false
+#| warning: false
+#| tbl-colum: page
+
+res <- mLstat$residuals
+
+d1<- dados |>
+  ggplot(aes(
+    x = res, 
+    y = mLstat$effects)) +
+  geom_point(colour="tomato")+
+  labs(
+    title = '',
+    y = 'Resíduos',
+    x = 'Valor Médio Ajustado'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))
+
+d2 <- dados |>
+  ggplot(aes(sample=res))+
+    labs(
+    title = '',
+    y = 'Resíduos Studentizados',
+    x = 'Quantis t-Student'
+  )+
+  scale_y_continuous(
+    labels = scales::number_format(
+      big.mark = ".",
+      decimal.mark = ","
+    ))+
+  stat_qq(colour="tomato") + stat_qq_line(col="blue") 
+  
+
+
+d1+d2 + plot_annotation(
+  title = "Figura 5: Análise de resíduos do modelo de regressão da classe social com \n valor dos imóveis.") &
+  theme_bw(base_size = 8) &
+  theme(
+    legend.position = "none",
+    plot.tag.position = c(0, 1),
+    plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
+  )
+```
+
+
+### Testes de diagnóstico
+
+Pode-se ainda utilizar um conjunto de testes de diagnóstico para confirmar este novo teste de significância.
+Como:
+
+- Teste de Kolmogorov-Smirnov
+- Teste de Shapiro-Wilks
+- Teste de Goldfeld-Quandt
+- Teste de Breush-Pagan
+- Teste de Park
+- Teste F para linearidade
+- Teste para avaliação da independência dos resíduos
+
+
+##### Teste de Kolmogorov-Smirnov
+
+```{r}
+#| warning: false
+#| eval: true
+#| results: false
+#| echo: false
+t.ks = ks.test(res, "pnorm", mean(res), sd(res))
+```
+
+Avalia o grau de concordância entre a distribuição de um conjunto de valores observados e determinada distribuição teórica. Consiste em comparar a distribuição de frequência acumulada da distribuição teórica com aquela observada. Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.ks[[2]][1],3)`, o que inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
+
+##### Teste de Shapiro-Wilks
+
+```{r}
+#| warning: false
+#| eval: true
+#| results: false
+#| echo: false
+
+t.sw = shapiro.test(res)
+
+```
+
+O teste de Shapiro-Wilks é um procedimento alternativo ao teste de Kolmogorov-Smirnov para avaliar normalidade.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.sw[[2]][1],3)`, o que, semelhantemente, inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
+
+##### Teste de Goldfeld-Quandt
+
+```{r}
+#| warning: false
+#| eval: true
+#| results: false
+#| echo: false
+
+t.gq = gqtest(mLstat)
+
+```
+
+Esse teste envolve o ajuste de dois modelos de regressão, separando-se as observações das duas extremidades da distribuição da variável dependente.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.gq[[5]][1],3)`, o que demanda rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%. Entretanto, como o p-valor obtido é próximo do necessário para a rejeição da hipotese nula, cabe um novo teste para a confirmação do resultado obtido.
+
+##### Teste de Breush-Pagan
+
+```{r}
+#| warning: false
+#| eval: true
+#| results: false
+#| echo: false
+
+t.bp = bptest(mLstat, studentize = FALSE)
+```
+
+Esse teste é baseado no ajuste de um modelo de regressão em que a variável dependente é definida pelos resíduos do modelo de interesse.
+Se grande parte da variabilidade dos resíduos não é explicada pelo modelo, então rejeita-se a hipótese de homocedasticidade.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.bp[[4]][1],3)`, desta foram deve-se rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%.
+
+##### Teste de Park
+
+```{r}
+#| warning: false
+#| eval: true
+#| results: false
+#| echo: false
+res2 <- res^2
+t.p = summary(lm(res2 ~ dados$lstat))
+```
+
+Esse teste é baseado no ajuste de um modelo de regressão em que a variável dependente é definida pelos quadrados dos resíduos do modelo de interesse.
+Nesse caso, se $\beta_1$ diferir significativamente de zero, rejeita-se a hipótese de homocedasticidade.
+O valor de $\beta_1$ obtido no teste foi de `r round(t.p[[4]][2],3)` com p-valor de aproximadamente `r round(t.p[[4]][8],3)`.
+Por esse teste não se deve rejeitar a hipótese de homocedasticidade, com confiabilidade de 95%.
+
+##### Teste F para linearidade
+
+```{r}
+#| warning: false
+#| eval: true
+#| results: false
+#| echo: false
+m_kmedias <- lm(dados$medv ~ factor(dados$lstat))
+t.fl = anova(mLstat, m_kmedias)
+```
+
+O teste da falta de ajuste permite testar formalmente a adequação do ajuste do modelo de regressão.
+Neste ponto assume-se que os pressupostos de normalidade, variância constante e independência são satisfeitos, como demosntrado pelos testes realizados. A ideia central para testar a linearidade é decompor SQRes em duas partes: erro puro e falta de ajuste que vão contribuir para a definição da estatística de teste F.
+Realizado o teste obteve-se um valore de p-valor igual a `r round(t.fl[[6]][2],3)`, o que demanda a rejeição da hipótese que há uma relação linear entre as variáveis. 
+
+
+##### Teste para avaliação da independência dos resíduos
+
+```{r}
+#| warning: false
+#| eval: true
+#| results: false
+#| echo: false
+t.dw = dwtest(mLstat)
+```
+
+Tendo em vista, o resultado obtido no teste anterior esse teste pode esclarecer ainda mais o ajuste do modelo.   
+O teste para avaliação da independência dos resíduos é utilizado para detectar a presença de autocorrelação provenientes de análise de regressão.  Realizando o teste obteve-se um valor de p-valor aproximadadente igual a `r round(t.dw[[4]][1],3)`, indicando que se deve rejeitar a hipotese que não existe correlação serial entre os dados, com uma confiança de 95%.
+
+
+
+# Conclusão
+
+
+
+# Referências
+
+- Harrison, David & Rubinfeld, Daniel. (1978). Hedonic housing prices and the demand for clean air. Journal of Environmental Economics and Management. 5. 81-102. 10.1016/0095-0696(78)90006-2. 
+
+- Belsley, David A. & Kuh, Edwin. & Welsch, Roy E. (1980). Regression diagnostics: identifying influential data and sources of collinearity. New York: Wiley.
+
+
+
+
+
+
+
+
+
+
