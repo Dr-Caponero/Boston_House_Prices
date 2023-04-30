@@ -770,8 +770,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
 {
   ## d1 age ----
   d1 <- dados|>
-    ggplot(aes(y = medv, x = age, color = "#234B6E")) +
-    geom_point()+
+    ggplot(aes(y = medv, x = age)) +
+    geom_point(color = "#234B6E")+
     labs(
       title = "Unidades constuídas antes de \n1940",
       y = 'Valor Médio (por $1.000)',
@@ -797,8 +797,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   d2 <- dados |>
     ggplot(aes(
       y = medv, 
-      x = crim, color = "#234B6E")) +
-    geom_point()+
+      x = crim)) +
+    geom_point(color = "#234B6E")+
     labs(
       title = 'Índice de Criminalidade',
       y = 'Valor Médio (por $1.000)',
@@ -819,8 +819,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   d3 <- dados |>
     ggplot(aes(
       y = medv, 
-      x = dis, color = "#234B6E")) +
-    geom_point()+
+      x = dis)) +
+    geom_point(color = "#234B6E")+
     labs(
       title = "Distância para cinco centros de \nemprego.",
       y = 'Valor Médio (por $1.000)',
@@ -846,8 +846,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   d4 <- dados |>
     ggplot(aes(
       y = medv, 
-      x = indus, color = "#234B6E")) +
-    geom_point()+
+      x = indus)) +
+    geom_point(color = "#234B6E")+
     labs(
       title = "Negócios não varejistas por \nbairro",
       y = 'Valor Médio (por $1.000)',
@@ -868,8 +868,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   d5 <- dados |>
     ggplot(aes(
       y = medv, 
-      x = lstat, color = "#234B6E")) +
-    geom_point()+
+      x = lstat)) +
+    geom_point(color = "#234B6E")+
     labs(
       title = 'População de "classe baixa"',
       y = 'Valor Médio (por $1.000)',
@@ -890,8 +890,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   d6 <- dados |>
     ggplot(aes(
       y = medv, 
-      x = nox, color = "#234B6E")) +
-    geom_point()+
+      x = nox)) +
+    geom_point(color = "#234B6E")+
     labs(
       title = "Concentração de Óxidos \nNitricos (NO)",
       y = 'Valor Médio (por $1.000)',
@@ -917,8 +917,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   d7 <- dados |>
     ggplot(aes(
       y = medv, 
-      x = ptratio, color = "#234B6E")) +
-    geom_point()+
+      x = ptratio)) +
+    geom_point(color = "#234B6E")+
     labs(
       title = "Aluno/Professor por bairro",
       y = 'Valor Médio (por $1.000)',
@@ -944,8 +944,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   d8 <- dados |>
     ggplot(aes(
       y = medv, 
-      x = rm, color = "#234B6E")) +
-    geom_point()+
+      x = rm)) +
+    geom_point(color = "#234B6E")+
     labs(
       title = "Número médio de cômodos por \nhabitação",
       y = 'Valor Médio (por $1.000)',
@@ -965,8 +965,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   ## d9 tax ----
   d9 <- dados |>
     ggplot(aes(
-      x = tax, y = medv, color = "#234B6E")) +
-    geom_point()+
+      x = tax, y = medv)) +
+    geom_point(color = "#234B6E")+
     labs(
       title = "Taxa de imposto predial",
       y = 'Valor Médio (por $1.000)',
@@ -986,8 +986,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   ## d10 zn ----
   d10 <- dados |>
     ggplot(aes(
-      x = zn, y = medv, color = "#234B6E")) +
-    geom_point()+
+      x = zn, y = medv)) +
+    geom_point(color = "#234B6E")+
   labs(
     title = "Proporção de Terreno Zoneado",
     x = "Proporção",
@@ -1007,8 +1007,8 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
   ## d11 b ----
   d11 <- dados |>
     ggplot(aes(
-      x = b, y = medv, color = "#234B6E")) +
-    geom_point()+
+      x = b, y = medv)) +
+    geom_point(color = "#234B6E")+
   labs(
     title = "Proporção de Negros por bairro",
     x = "Proporção",
