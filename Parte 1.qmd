@@ -183,11 +183,11 @@ dados|>
   )|>
   column_spec(1, bold = T
               )|>
-  footnote(
-    general = "StatLib - Carnegie Mellon University",
-    general_title = "Fonte:",
-    footnote_as_chunk = T
-    )|>
+  # footnote(
+  #   general = "StatLib - Carnegie Mellon University",
+  #   general_title = "Fonte:",
+  #   footnote_as_chunk = T
+  #   )|>
   kable_material()
 
 ```
@@ -1340,7 +1340,7 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
     plot_layout(ncol = 3) + 
     plot_annotation(
       title = "Figura 4: Reta de regressão ajustada entre o Valor médio dos imóveis e demais medições",
-      caption = "Fonte: StatLib - Carnegie Mellon University\nValor do Coeficiente de Correlação de Pearson em vermelho",
+      # caption = "Fonte: StatLib - Carnegie Mellon University\nValor do Coeficiente de Correlação de Pearson em vermelho",
       tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", tag_sep = ".",
       tag_suffix = ":") &
     theme(
@@ -1351,7 +1351,105 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
 }
 ```
 
-Na avaliação da Figura 4, observa-se que nenhuma das variáveis tem uma aparente correlação forte com o valor médio dos imóveis. A Tabela 2, apresenta os valores calculados de $\hat \beta_0$ e $\hat\beta_1$ que estimam os valores do modelo $Y_i =\beta_0 + \beta_1X_i + \epsilon_i$ como seus respectivos erros padrão ($\sigma_0$ e $\sigma_1$), além de calcular o p-valor desta regressão linear como forma de identificar a rejeição ou não do modelo proposto. Nesta mesma linha, o valor estimado do Coeficiente de Determinação ($R^2$) também foi calculado.
+
+Para avaliar a significância das correlações entre as variáveis com  relação ao **Valor Médio do Imóvel** segue a Tabela 2 com os resultados do Teste de Hipóteses com nível de significância de 5% que tem como hipóteses:
+
+$$H_0: \widehat{\rho} = 0$$
+
+$$H_1: \widehat{\rho} \neq 0.$$
+```{r tab2:TesteHipo_CorPearson}
+#| echo: false
+#| warning: false
+
+# Correlação 2 ----
+
+# Cor Test
+cortestCrim <- stats::cor.test(dados$medv, dados$crim)
+cortestZn <- stats::cor.test(dados$medv, dados$zn)
+cortestIndus <- stats::cor.test(dados$medv, dados$indus)
+cortestNox <- stats::cor.test(dados$medv, dados$nox)
+cortestRm <- stats::cor.test(dados$medv, dados$rm)
+cortestAge <- stats::cor.test(dados$medv, dados$age)
+cortestDis <- stats::cor.test(dados$medv, dados$dis)
+cortestTax <- stats::cor.test(dados$medv, dados$tax)
+cortestPtratio <- stats::cor.test(dados$medv, dados$ptratio)
+cortestB <- stats::cor.test(dados$medv, dados$b)
+cortestLstat <- stats::cor.test(dados$medv, dados$lstat)
+
+# Estatística t
+resultados <- rbind(cortestCrim$statistic, 
+           cortestZn$statistic, 
+           cortestIndus$statistic,
+            cortestNox$statistic,
+            cortestRm$statistic,
+            cortestAge$statistic,
+            cortestDis$statistic,
+            cortestTax$statistic,
+            cortestPtratio$statistic,
+            cortestB$statistic,
+            cortestLstat$statistic)
+
+# p-valor
+aux <- rbind(cortestCrim$p.value,
+cortestZn$p.value,
+cortestIndus$p.value,
+cortestNox$p.value,
+cortestRm$p.value,
+cortestAge$p.value,
+cortestDis$p.value,
+cortestTax$p.value,
+cortestPtratio$p.value,
+cortestB$p.value,
+cortestLstat$p.value)
+
+resultados <- cbind(resultados, aux)
+
+# IC
+aux <- rbind(cortestCrim$conf.int[1:2],
+             cortestZn$conf.int[1:2],
+             cortestIndus$conf.int[1:2],
+             cortestNox$conf.int[1:2],
+             cortestRm$conf.int[1:2],
+             cortestAge$conf.int[1:2],
+             cortestDis$conf.int[1:2],
+             cortestTax$conf.int[1:2],
+             cortestPtratio$conf.int[1:2],
+             cortestB$conf.int[1:2],
+             cortestLstat$conf.int[1:2])
+
+resultados <- cbind(resultados, aux)
+
+rownames(resultados) <- c("Índice Criminalidade", "Prop. Terreno Zoneado", "Área Industrial", "Índice Oxido Nítrico", "N° Cômodos", "Idade do Imóvel", "Dist. Empregos", "Imposto Propriedade", "Prop. Prof.-Aluno", "Prop. Negros/bairro", "Pop. Classe Baixa")
+colnames(resultados) <- c("t", "p-valor", "LI", "LS")
+
+resultados|>
+  kbl(
+    caption = "Teste de Hipótese para Correlação",
+    digits = 5,
+    format.args=list(big.mark=".", decimal.mark=","),
+    align = "c", row.names = T, booktabs = T
+  )|>
+  kable_styling(
+    full_width = F, position = 'center', 
+    latex_options = c("striped", "HOLD_position", "repeat_header")
+  )|>
+  column_spec(1, bold = T
+  )|>
+  footnote(
+    general = "Teste realizado com 5% de significância",
+    general_title = "Nota:",
+    footnote_as_chunk = T
+  )|>
+  kable_material()
+
+
+```
+
+
+Conforme expresso na Tabela 2, levando em consideração o **p-valor** a Hipótese Nula foi rejeitada, e com 95% de confiança se pode afirmar que **é significativa a relação linear entre todas as variáveis em estudo.**
+
+
+Na avaliação da Figura 4, observa-se que nenhuma das variáveis tem uma aparente forte correlação com o valor médio dos imóveis. A Tabela 3, apresenta os valores calculados de $\hat \beta_0$ e $\hat\beta_1$ que estimam os valores do modelo $Y_i =\beta_0 + \beta_1X_i + \epsilon_i$ com seus respectivos erros padrão ($\sigma_0$ e $\sigma_1$), além de calcular o p-valor desta regressão linear como forma de identificar a rejeição ou não do modelo proposto. Nesta mesma linha, o valor estimado do Coeficiente de Determinação ($R^2$) também foi calculado.
 
 
 ```{r ajuste_modelo}
@@ -1455,7 +1553,7 @@ colnames(resultados) <- c("$\\beta_0$", "$\\sigma_0$", "$\\beta_1$", "$\\sigma_1
 
 
 
-```{r tab2:ajuste_modelo}
+```{r tab3:ajuste_modelo}
 #| echo: false
 #| warning: false
 
@@ -1464,7 +1562,6 @@ resultados|>
     caption = "Valores dos modelos de regressão linear simples.",
     format.args=list(big.mark=".", decimal.mark=","),
     digits = 3, align = "c", row.names = T, booktabs = T,
-    # format = "latex", 
     escape = FALSE,
   )|>
   kable_styling(
@@ -1472,11 +1569,6 @@ resultados|>
     latex_options = c("striped", "HOLD_position", "repeat_header")
   )|>
   column_spec(1, bold = T
-  )|>
-  footnote(
-    general = "StatLib - Carnegie Mellon University",
-    general_title = "Fonte:",
-    footnote_as_chunk = T
   )|>
   kable_material()
 ```
@@ -1500,10 +1592,10 @@ d1<- dados |>
   ggplot(aes(
     x = res, 
     y = mLstat$effects)) +
-  geom_point(colour="tomato")+
+  geom_point(colour="darkblue")+
   labs(
     title = '',
-    y = 'Resíduos',
+    y = 'Resíduos Ordinários',
     x = 'Valor Médio Ajustado'
   )+
   scale_y_continuous(
@@ -1524,7 +1616,7 @@ d2 <- dados |>
       big.mark = ".",
       decimal.mark = ","
     ))+
-  stat_qq(colour="tomato") + stat_qq_line(col="blue") 
+  stat_qq(colour="darkblue") + stat_qq_line(col="tomato") 
   
 
 
