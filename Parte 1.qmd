@@ -1264,6 +1264,44 @@ resultados|>
 Tendo em vista que nesse primeiro momento a proposta é a implementação de técnicas de Regressão Linear Simples - RLS, a escolha de uma variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis se faz necessária. Após análise dos gráficos de dispersão, coeficiente de correlação e avaliação dos Coeficientes de Determinação a variável escolhida foi **Pop. Classe Baixa**, logo as análises a seguir serão direcionadas a avaliar o modelo com esta variável.
 
 
+## Significância do Modelo
+
+Tendo em vista a necessidade de se avaliar a significância dos parâmetros, o teste de hipótese para tal situação será realizado, contendo as seguintes hipóteses:
+
+$$H_0: \hat{\beta_0} = 0$$
+$$H_1: \hat{\beta_0} \neq 0.$$
+
+As Tabelas 4  traz os principais resultados da tabela ANOVA e do Intervalo de Confiança para os parâmetros, possibilitando assim inferir com base no teste acima mencionado.
+
+```{r tab4:anova_ic}
+#| echo: false
+#| warning: false
+
+
+resultados <- cbind(anova(mLstat), confint(mLstat))
+
+rownames(resultados) <- c("$\\beta_0$", "$\\beta_1$")
+# 
+# resultados|>
+#   kbl(
+#     caption = "Análise de Variância (ANOVA) e Intervalos de Confiança para os parâmetros estimados no MRLS.",
+#     format.args=list(big.mark=".", decimal.mark=","),
+#     digits = 3, align = "c", row.names = T, booktabs = T,
+#     escape = F,
+#     col.names = c("GL", "Soma de Quadrados", "Quadrado Médio", "Estatística F-Snedecor", "p-valor", "α = 2,5%", "(1 - α) = 97,5%")
+#   )|>
+#   kable_styling(
+#     full_width = F, position = 'center',
+#     latex_options = c("striped", "HOLD_position", "repeat_header", "scale_down")
+#   )|>
+#   column_spec(1, bold = T
+#   )|>
+#   add_header_above(c(" " = 1, "ANOVA" = 5, "Intervalos de Confiança" = 2), bold = T)|>
+#   kable_material()
+```
+
+
+
 ## Análise de Resíduos
 
 Sendo de fundamental importância para a verificação da bondade do modelo, a análise de resíduos possibilita avaliar se refletem o comportamento do modelo, para tanto se construiu a Figura 5 para iniciar as análises descritas.
