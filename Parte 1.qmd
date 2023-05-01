@@ -1173,7 +1173,7 @@ resultados <-  rbind(
   summary(mB)$coefficients[1,])
 
 # Removendo testes
-resultados <-  resultados[, -c(3,4)]
+resultados <-  resultados[, -c(3)]
 
 # Calculando e armazenando o beta1 e erro padrão1
 aux <-  rbind(
@@ -1190,28 +1190,28 @@ aux <-  rbind(
   summary(mB)$coefficients[2,])
 
 # Mantém apenas beta1 e o erro padrão
-aux <- aux[, -c(3,4)]
+aux <- aux[, -c(3)]
 
 resultados <- cbind(resultados, aux)
 
 # Função para calcular o p-valor
-lmp <- function (modelobject) {
-  if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
-  f <- summary(modelobject)$fstatistic
-  p <- pf(f[1],f[2],f[3],lower.tail=F)
-  attributes(p) <- NULL
-  return(p)
-}
+# lmp <- function (modelobject) {
+#   if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
+#   f <- summary(modelobject)$fstatistic
+#   p <- pf(f[1],f[2],f[3],lower.tail=F)
+#   attributes(p) <- NULL
+#   return(p)
+# }
+# 
+# # Calculando e armazenando o p-valor
+# aux <- rbind(
+#   lmp(mCrim), lmp(mIndus),
+#   lmp(mNox), lmp(mRm), lmp(mAge), 
+#   lmp(mDis), lmp(mTax), lmp(mPtratio),
+#   lmp(mLstat), lmp(mZn),lmp(mB)
+# )
 
-# Calculando e armazenando o p-valor
-aux <- rbind(
-  lmp(mCrim), lmp(mIndus),
-  lmp(mNox), lmp(mRm), lmp(mAge), 
-  lmp(mDis), lmp(mTax), lmp(mPtratio),
-  lmp(mLstat), lmp(mZn),lmp(mB)
-)
-
-resultados <- cbind(resultados, aux)
+# resultados <- cbind(resultados, aux)
 
 # Calculando e armazenando o Coeficiente de Correlação
 aux <-  rbind(
@@ -1235,7 +1235,7 @@ rownames(resultados) <- c("Índice Criminalidade", "Área Industrial", "Índice 
 # "Valor do Imóvel" = medv, "Acessibilidade Rodovias" = rad,  = zn,  = b
 
 # Inserindo o nome das linhas
-colnames(resultados) <- c("$\\beta_0$", "$\\sigma_0$", "$\\beta_1$", "$\\sigma_1$", "p-valor", "$R^2$")
+# colnames(resultados) <- c("$\\beta_0$", "$\\sigma_0$", "$\\beta_1$", "$\\sigma_1$", "p-valor", "$R^2$")
 
 ```
 
@@ -1245,20 +1245,40 @@ colnames(resultados) <- c("$\\beta_0$", "$\\sigma_0$", "$\\beta_1$", "$\\sigma_1
 #| echo: false
 #| warning: false
 
+# resultados|>
+#   kbl(
+#     caption = "Valores dos modelos de regressão linear simples.",
+#     format.args=list(big.mark=".", decimal.mark=","),
+#     digits = 3, align = "c", row.names = T, booktabs = T,
+#     escape = FALSE,
+#   )|>
+#   kable_styling(
+#     full_width = F, position = 'center', 
+#     latex_options = c("striped", "HOLD_position", "repeat_header")
+#   )|>
+#   column_spec(1, bold = T
+#   )|>
+#   kable_material()
+
+
 resultados|>
   kbl(
-    caption = "Valores dos modelos de regressão linear simples.",
+    caption = "Sumarização dos Modelos Ajustados de Regressão Linear Simples - RLS.",
     format.args=list(big.mark=".", decimal.mark=","),
     digits = 3, align = "c", row.names = T, booktabs = T,
     escape = FALSE,
+    col.names = c("Estimativa", "Erro Padrão", "p-valor", "Estimativa", "Erro Padrão", "p-valor", "$R^2$")
   )|>
   kable_styling(
     full_width = F, position = 'center', 
-    latex_options = c("striped", "HOLD_position", "repeat_header")
+    latex_options = c("striped", "HOLD_position", "repeat_header", "scale_down")
   )|>
   column_spec(1, bold = T
   )|>
+  add_header_above(c(" " = 1, "Sumarização para Beta 0" = 3, "Sumarização para Beta 1" = 3, " " = 1))|>
   kable_material()
+
+
 ```
 
 Tendo em vista que nesse primeiro momento a proposta é a implementação de técnicas de Regressão Linear Simples - RLS, a escolha de uma variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis se faz necessária. Após análise dos gráficos de dispersão, coeficiente de correlação e avaliação dos Coeficientes de Determinação a variável escolhida foi **Pop. Classe Baixa**, logo as análises a seguir serão direcionadas a avaliar o modelo com esta variável.
