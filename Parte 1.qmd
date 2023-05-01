@@ -1391,23 +1391,40 @@ d1+d2 + plot_annotation(
 
 Analisando a Figura 5, Sub.Fig. A, que traz o gráfico que avalia a **linearidade** do modelo se constata uma não aleatoriedade, possibilitando identificar um certo padrão, aparentando um afunilamento dos dados, indicando assim uma variância não constante (pela mudança da amplitude dos dados), em que mostra uma menor variabilidade dos resíduos no início e segue aumentando a medida que crescem os valores ajustados.
 
-O gráfico que avalia a Normalidade dos Resíduos, Sub.Fig. B, também não mostra um comportamento adequado para considerar o modelo como bom, pois é possível identificar que as caldas fogem e muito da reta de referência e do intervalo de confiança, inclusive, logo, **se conclui que este não é um bom modelo para explicar o valor médio dos imóveis**.
+O gráfico que avalia a Normalidade dos Resíduos, Sub.Fig. B, também não mostra um comportamento adequado para considerar o modelo como bom, pois é possível identificar que as caldas fogem e muito da reta de referência e do intervalo de confiança, inclusive, demonstrando haver pontos significativamente influentes que afetam o comportamento dos resíduos, logo, **se conclui que este não é um bom modelo para explicar o valor médio dos imóveis**.
 
+Ainda assim, para fins de implementação das técnicas apresndidas até o momento, serão realizados os **Testes de Diagnóstico** para avaliação dos resultados, com a expectativa dos mesmos correoborarem com as interpretações obtidas através da análise gráfica.
 
 <!-- Os dados mostram que existem dois valores atipicos que impedem uma análise mais apurada da homocedasticidade quando observados os valores médios ajustados dos imóveis. Percebe-se ainda que apenas um grupo de dados da região central da distribuição de Student apresenta certa normalidade, enquanto as "caldas" da distribuição afastam-se significativamente da reta de normalidade. -->
 
 ### Testes de diagnóstico
 
-Pode-se ainda utilizar um conjunto de testes de diagnóstico para confirmar este novo teste de significância.
-Como:
+Serão realizados os Testes de Significância, como forma secundária de avaliação, sendo descritos os testes aplicados para fins didáticos, tendo em vista a conclusão obtida com as análises gráficas, sendo estes:
 
-- Teste de Kolmogorov-Smirnov
-- Teste de Shapiro-Wilks
-- Teste de Goldfeld-Quandt
-- Teste de Breush-Pagan
-- Teste de Park
-- Teste F para linearidade
-- Teste para avaliação da independência dos resíduos
+- Normalidade:
+  - Teste de Kolmogorov-Smirnov
+  - Teste de Shapiro-Wilks
+- Homocedasticidade:
+  - Teste de Goldfeld-Quandt
+  - Teste de Breush-Pagan
+  - Teste de Park
+- Linearidae:
+  - Teste F para linearidade
+- Independência:
+  - Teste para avaliação da independência dos resíduos
+
+Sendo estes uam forma secundária de avaliação:
+
+<!-- Pode-se ainda utilizar um conjunto de testes de diagnóstico para confirmar este novo teste de significância. -->
+<!-- Como: -->
+
+<!-- - Teste de Kolmogorov-Smirnov -->
+<!-- - Teste de Shapiro-Wilks -->
+<!-- - Teste de Goldfeld-Quandt -->
+<!-- - Teste de Breush-Pagan -->
+<!-- - Teste de Park -->
+<!-- - Teste F para linearidade -->
+<!-- - Teste para avaliação da independência dos resíduos -->
 
 
 ##### Teste de Kolmogorov-Smirnov
