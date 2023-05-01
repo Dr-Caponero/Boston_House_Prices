@@ -1264,7 +1264,6 @@ resultados|>
 Tendo em vista que nesse primeiro momento a proposta é a implementação de técnicas de Regressão Linear Simples - RLS, a escolha de uma variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis se faz necessária. Após análise dos gráficos de dispersão, coeficiente de correlação e avaliação dos Coeficientes de Determinação a variável escolhida foi **Pop. Classe Baixa**, logo as análises a seguir serão direcionadas a avaliar o modelo com esta variável.
 
 
-
 ## Análise de Resíduos
 
 Sendo de fundamental importância para a verificação da bondade do modelo, a análise de resíduos possibilita avaliar se refletem o comportamento do modelo, para tanto se construiu a Figura 5 para iniciar as análises descritas.
@@ -1319,61 +1318,9 @@ d1+d2 + plot_annotation(
     plot.tag.position = c(0, 1),
     plot.tag = element_text(size = 5.5, hjust = 0, vjust = -0.4)
   )
+
 ```
 
-
-
-```{r}
-#| echo: false
-#| warning: false
-#| tbl-colum: page
-
-res <- mLstat$residuals
-# 
-# d1<- dados |>
-#   ggplot(aes(
-#     x = res, 
-#     y = mLstat$effects)) +
-#   geom_point(colour="darkblue")+
-#   labs(
-#     title = '',
-#     y = 'Resíduos Ordinários',
-#     x = 'Valores Médios Ajustados'
-#   )+
-#   scale_y_continuous(
-#     labels = scales::number_format(
-#       big.mark = ".",
-#       decimal.mark = ","
-#     ))+
-#   theme_minimal(base_size = 7.5)
-# 
-# d2 <- dados |>
-#   ggplot(aes(sample=res))+
-#     labs(
-#     title = '',
-#     y = 'Resíduos Studentizados',
-#     x = 'Quantis t-Student'
-#   )+
-#   scale_y_continuous(
-#     labels = scales::number_format(
-#       big.mark = ".",
-#       decimal.mark = ","
-#     ))+
-#   stat_qq(colour="darkblue") + stat_qq_line(col="tomato") +
-#   theme_minimal(base_size = 7.5)
-#   
-# 
-# 
-# d1+d2 + plot_annotation(
-#   title = "Figura 5: Análise de resíduos do modelo de regressão da classe social com \n valor dos imóveis.",
-#   tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", 
-#   tag_sep = ".", tag_suffix = ":") &
-#   theme(
-#     legend.position = "none",
-#     plot.tag.position = c(0, 1),
-#     plot.tag = element_text(size = 8, hjust = 0, vjust = 0)
-#   )
-```
 
 
 Analisando a Figura 5, Sub.Fig. A, que traz o gráfico que avalia a **linearidade** do modelo se constata uma não aleatoriedade, possibilitando identificar um certo padrão, aparentando um afunilamento dos dados, indicando assim uma variância não constante (pela mudança da amplitude dos dados), em que mostra uma menor variabilidade dos resíduos no início e segue aumentando a medida que crescem os valores ajustados.
@@ -1404,7 +1351,10 @@ Como:
 #| eval: true
 #| results: false
 #| echo: false
-t.ks = ks.test(res, "pnorm", mean(res), sd(res))
+
+
+t.ks = ks.test(dados_mFit_resid$.resid, "pnorm", mean(dados_mFit_resid$.resid), sd(dados_mFit_resid$.resid))
+
 ```
 
 Avalia o grau de concordância entre a distribuição de um conjunto de valores observados e determinada distribuição teórica. Consiste em comparar a distribuição de frequência acumulada da distribuição teórica com aquela observada. Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.ks[[2]][1],3)`, o que inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
@@ -1417,7 +1367,7 @@ Avalia o grau de concordância entre a distribuição de um conjunto de valores 
 #| results: false
 #| echo: false
 
-t.sw = shapiro.test(res)
+t.sw = shapiro.test(dados_mFit_resid$.resid)
 
 ```
 
@@ -1461,7 +1411,7 @@ Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.bp[[4]][1],
 #| eval: true
 #| results: false
 #| echo: false
-res2 <- res^2
+res2 <- (dados_mFit_resid$.resid)^2
 t.p = summary(lm(res2 ~ dados$lstat))
 ```
 
@@ -1493,12 +1443,13 @@ Realizado o teste obteve-se um valore de p-valor igual a `r round(t.fl[[6]][2],3
 #| eval: true
 #| results: false
 #| echo: false
+
+
 t.dw = dwtest(mLstat)
 ```
 
 Tendo em vista, o resultado obtido no teste anterior esse teste pode esclarecer ainda mais o ajuste do modelo.   
 O teste para avaliação da independência dos resíduos é utilizado para detectar a presença de autocorrelação provenientes de análise de regressão.  Realizando o teste obteve-se um valor de p-valor aproximadadente igual a `r round(t.dw[[4]][1],3)`, indicando que se deve rejeitar a hipotese que não existe correlação serial entre os dados, com uma confiança de 95%.
-
 
 
 # Conclusão
