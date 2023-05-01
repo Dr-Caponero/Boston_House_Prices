@@ -1297,29 +1297,37 @@ As Tabelas 4  traz os principais resultados da tabela ANOVA e do Intervalo de Co
 #| echo: false
 #| warning: false
 
+mLstat <- lm(dados$medv~dados$lstat)
 
 resultados <- cbind(anova(mLstat), confint(mLstat))
 
-rownames(resultados) <- c("$\\beta_0$", "$\\beta_1$")
-# 
-# resultados|>
-#   kbl(
-#     caption = "Análise de Variância (ANOVA) e Intervalos de Confiança para os parâmetros estimados no MRLS.",
-#     format.args=list(big.mark=".", decimal.mark=","),
-#     digits = 3, align = "c", row.names = T, booktabs = T,
-#     escape = F,
-#     col.names = c("GL", "Soma de Quadrados", "Quadrado Médio", "Estatística F-Snedecor", "p-valor", "α = 2,5%", "(1 - α) = 97,5%")
-#   )|>
-#   kable_styling(
-#     full_width = F, position = 'center',
-#     latex_options = c("striped", "HOLD_position", "repeat_header", "scale_down")
-#   )|>
-#   column_spec(1, bold = T
-#   )|>
-#   add_header_above(c(" " = 1, "ANOVA" = 5, "Intervalos de Confiança" = 2), bold = T)|>
-#   kable_material()
+rownames(resultados) <- c("β0", "β1")
+
+colnames(resultados) = c("GL", "Soma de \nQuadrados", "Quadrado Médio", "Valor F-Snedecor", "p-valor", "2,5%", "97,5%")
+
+resultados
+
+# resultados %>% 
+# kableExtra::kbl(
+#   caption = "Análise de Variância (ANOVA) e Intervalos de Confiança \npara os parâmetros estimados no MRLS.",
+#   format.args=list(big.mark=".", decimal.mark=","),
+#   digits = 3, align = "c", row.names = T, booktabs = T,
+#   escape = F
+#   # col.names = c("GL", "Soma de Quadrados", "Quadrado Médio", "Estatística F-Snedecor", "p-valor", "α = 2,5%", "(1 - α) = 97,5%")
+# ) %>% 
+# kableExtra::kable_styling(
+#   full_width = F, position = 'center',
+#   latex_options = c("striped", "HOLD_position", "repeat_header", "scale_down")
+# )
+  # column_spec(1, bold = T)|>
+  # kable_material()
+  # add_header_above(c(" " = 1, "ANOVA" = 5, "Intervalos de Confiança" = 2), bold = T)|>
 ```
 
+
+Analisando a Tabela 3, que traz os dados sumarizados dos modelos ajustados, é possível constatar que tanto $\hat{\beta_0}$ quanto $\hat{\beta_1}$ são significantes para todos os modelos ajustados, com base no p-valor.
+
+A Tabela 4, que traz os resultados da tabela ANOVA, para o modelo que avalia o **Valor Médio dos Imóveis** em relação a **Pop. Classe Baixa**, corrobora com a significância do $\hat{\beta_1}$, pois sendo o p-valor menor que o nível de significância ($\alpha$) possibilita rejeitar $H_0$, indicando ser significante para o modelo. O Intervalo de Confiança para os parâmetros estimados, mostra que **com 95% de confiança é possível afirmar que o verdadeiro valor de $\hat{\beta_0}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[1,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[1,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')` e que o verdadeiro valor de $\hat{\beta_1}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[2,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[2,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`)**.
 
 
 ## Análise de Resíduos
