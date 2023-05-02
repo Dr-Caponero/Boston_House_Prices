@@ -1281,7 +1281,36 @@ resultados|>
 
 ```
 
-Tendo em vista que nesse primeiro momento a proposta é a implementação de técnicas de Regressão Linear Simples - RLS, a escolha de uma variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis se faz necessária. Após análise dos gráficos de dispersão, coeficiente de correlação e avaliação dos Coeficientes de Determinação a variável escolhida foi **Pop. Classe Baixa**, logo as análises a seguir serão direcionadas a avaliar o modelo com esta variável.
+
+### Interpretação dos Parâmetros dos Modelos Ajustados
+
+Baseado na análise dos gráficos de dispersão e considerando os modelos ajustados cosntantes na Tabela 3 e a sua ordem de precedência, seguem as interpretações:
+
+- Modelo que avalia o Índice de Criminalidade:
+  - Para cada **valorização** de 0,415 no Índice de Criminalidade o Valor Médio dos Imóveis decresce em $24 033,00 ou seja, os imóveis se desvalorizam em regiões cujo Índice de Criminalidade é elevado.
+- Modelo que avalia a Área Industrial:
+  - O Valor Médio dos Imóveis decresce em $29 755,00 para cada **valorização** proporcional de 0,648 hectares de Negócios não Varejistas.
+- Modelo que avalia o Índice Oxido Nítrico:
+  - Há uma **desvalorização** de cerca de $41 346,00 no Valor Médio dos Imóveis para cada aumento de 33 916 pphm (partes por 100 milhões) no Índice Oxido Nítrico, ou seja, há uma desvalorização no valor dos imóveis que estão situados em regiões cujo ar é mais poluída.
+- Modelo que avalia o N° Cômodos:
+  - Há um **valorização** de cerca de $34 671,00 no Valor Médio dos Imóveis para cada aumento de aproximadamente 9 cômodos, ou seja, os imóveis são mais valorizados a medida que possuem mais cômodos.
+- Modelo que avalia a Idade do Imóvel:
+  - Há uma **desvalorização** de cerca de $30 979,00 para cada aumento proporcional de 0,123 unidades próprias construídas antes de 1940, ou seja, os imóveis são desvalorizados à medida que são mais antigos.
+- Modelo que avalia a Dist. Empregos:
+  - Há um **valorização** de cerca de $18 390,00 no Valor Médio dos Imóveis à medida que a distância para os centros de emprego na região de Boston aumenta.
+- Modelo que avalia o Imposto de Propriedade:
+  - Há uma **desvalorização** de cerca de $32 971,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,026 no valor proporcional total do Imposto de Propriedade, ou seja, quanto maior o imposto pago na região, maior a desvalorização do imóvel.
+- Modelo que avalia a Prop. Prof.-Aluno:
+  - Há uma **desvalorização** de cerca de $62 345,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 2,157 na proporção professor aluno. Como a própria descrição da variável descreve como confusa essa relação, de fato se mostra, com base no modelo ajustado da variável, pois demostra que os imóveis se desvalorizam a medida que os benefícios do setor público aumentam!
+- Modelo que avalia a Pop. Classe Baixa:
+  - Há uma **desvalorização** de cerca de $34 554,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,950 na proporção da Pop. de Classe Baixa, ou seja, os imóveis se desvalorizam a medida que a classe social dos habitantes da região cai.
+- Modelo que avalia a Prop. Terreno Zoneado:
+  - Há um **valorização** de cerca de $20 918,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,142 na Prop. Terreno Zoneado, ou seja, os imóveis são valorizados em regiões com maior proporção de zoneamento.
+- Modelo que avalia a Prop. Negros/bairro:
+  - Há um **valorização** de cerca de $10 551,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,034 na proporção de Prop. Negros/bairro, ou seja, os imóveis são mais valorizados em regiões cuja proporção de negros é maior.
+
+
+Tendo em vista que nesse primeiro momento a proposta é a implementação de técnicas de Regressão Linear Simples - RLS, a escolha de uma variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis se faz necessária. Após análise dos gráficos de dispersão, Coeficiente de Correlação e avaliação dos Coeficientes de Determinação a variável escolhida foi **Pop. Classe Baixa**, logo as análises a seguir serão direcionadas a avaliar o modelo com esta variável.
 
 
 ## Significância do Modelo
