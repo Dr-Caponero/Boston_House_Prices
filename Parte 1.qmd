@@ -1284,7 +1284,7 @@ resultados|>
 
 ### Interpretação dos Parâmetros dos Modelos Ajustados
 
-Baseado na análise dos gráficos de dispersão e considerando os modelos ajustados cosntantes na Tabela 3 e a sua ordem de precedência, seguem as interpretações:
+Baseado na análise dos gráficos de dispersão e considerando os modelos ajustados expressos na Tabela 3 é possível constatar que tanto $\hat{\beta_0}$ quanto $\hat{\beta_1}$ são significantes para todos os modelos ajustados, com base no p-valor, levando em consideração a ordem de precedência das variáveis na referida tabela, seguem as interpretações com base nos parâmetros estimados:
 
 - Modelo que avalia o Índice de Criminalidade:
   - Para cada **valorização** de 0,415 no Índice de Criminalidade o Valor Médio dos Imóveis decresce em $24 033,00 ou seja, os imóveis se desvalorizam em regiões cujo Índice de Criminalidade é elevado.
@@ -1320,7 +1320,7 @@ Tendo em vista a necessidade de se avaliar a significância dos parâmetros, o t
 $$H_0: \hat{\beta_0} = 0$$
 $$H_1: \hat{\beta_0} \neq 0.$$
 
-As Tabelas 4  traz os principais resultados da tabela ANOVA e do Intervalo de Confiança para os parâmetros, possibilitando assim inferir com base no teste acima mencionado.
+As Tabelas 4 e 5 trazem os principais resultados da tabela ANOVA e do Intervalo de Confiança para os parâmetros, possibilitando assim inferir sobre o modelo ajustado.
 
 ```{r tab4:anova_ic}
 #| echo: false
@@ -1328,22 +1328,28 @@ As Tabelas 4  traz os principais resultados da tabela ANOVA e do Intervalo de Co
 
 mLstat <- lm(dados$medv~dados$lstat)
 
-resultados <- cbind(anova(mLstat), confint(mLstat))
+fit_anova <- anova(mLstat)
+ic_parametros <- confint(mLstat)
+
+resultados <- cbind(fit_anova, ic_parametros)
 
 rownames(resultados) <- c("β0", "β1")
 
+rownames(ic_parametros) <- c("β0", "β1")
+
 colnames(resultados) = c("GL", "Soma de \nQuadrados", "Quadrado Médio", "Valor F-Snedecor", "p-valor", "2,5%", "97,5%")
 
-resultados
+# resultados
 
-# resultados %>% 
-# kableExtra::kbl(
-#   caption = "Análise de Variância (ANOVA) e Intervalos de Confiança \npara os parâmetros estimados no MRLS.",
-#   format.args=list(big.mark=".", decimal.mark=","),
-#   digits = 3, align = "c", row.names = T, booktabs = T,
-#   escape = F
-#   # col.names = c("GL", "Soma de Quadrados", "Quadrado Médio", "Estatística F-Snedecor", "p-valor", "α = 2,5%", "(1 - α) = 97,5%")
-# ) %>% 
+# resultados %>%
+#   tibble::as_tibble() %>% 
+#   kableExtra::kbl(
+#     caption = "Análise de Variância (ANOVA) e Intervalos de Confiança \npara os parâmetros estimados no MRLS.",
+#     format.args=list(big.mark=".", decimal.mark=","),
+#     digits = 3, align = "c", row.names = T, booktabs = T,
+#     escape = F
+#     # col.names = c("GL", "Soma de Quadrados", "Quadrado Médio", "Estatística F-Snedecor", "p-valor", "α = 2,5%", "(1 - α) = 97,5%")
+#   ) %>% 
 # kableExtra::kable_styling(
 #   full_width = F, position = 'center',
 #   latex_options = c("striped", "HOLD_position", "repeat_header", "scale_down")
@@ -1351,12 +1357,71 @@ resultados
   # column_spec(1, bold = T)|>
   # kable_material()
   # add_header_above(c(" " = 1, "ANOVA" = 5, "Intervalos de Confiança" = 2), bold = T)|>
+
+
+
+fit_anova %>%
+  kbl(
+    caption = "Resultados da ANOVA.",
+    digits = 4,
+    format.args=list(big.mark=".", decimal.mark=","),
+    align = "c", 
+    row.names = F,
+    col.names =
+      c("GL", "Soma de Quadrados", "Quadrado Médio", "Valor F-Snedecor", "p-valor")
+  ) %>%
+  # footnote(
+  #   number = c(
+  #     "Linha 1: Dados referentes a β0", 
+  #     "Linha 2: Dados referentes a β1",
+  #     "GL: Graus de Liberdade", 
+  #     "SQ: Soma de Quadrados", 
+  #     "QM: Quadrado Médio", 
+  #     "Estatística: F-Snedecor"
+  #   ),
+  #   number_title = "Legenda:",
+  #   footnote_as_chunk = F
+  # )|>
+  footnote(
+    number = c("Linha 1: Dados referentes a Beta 0", "Linha 2: Dados referentes a Beta 1"),
+    number_title = "Legenda:",
+    footnote_as_chunk = F
+  )|>
+  kable_styling(
+    full_width = F, position = 'center', 
+    latex_options = c("striped", "HOLD_position", "repeat_header")
+  )|>
+  column_spec(1, bold = F
+  )|>
+  kable_material()
+
+ic_parametros %>% 
+  kbl(
+    caption = "Intervalo de Confiança.",
+    digits = 4,
+    format.args=list(big.mark=".", decimal.mark=","),
+    align = "c", 
+    row.names = F,
+    col.names =
+      c("2,5%", "97,5%")
+  ) %>%
+  footnote(
+    number = c("Linha 1: Dados referentes a Beta 0", "Linha 2: Dados referentes a Beta 1"),
+    number_title = "Legenda:",
+    footnote_as_chunk = F
+  )|>
+  kable_styling(
+    full_width = F, position = 'center', 
+    latex_options = c("striped", "HOLD_position", "repeat_header")
+  )|>
+  column_spec(1, bold = F
+  )|>
+  kable_material()
+
 ```
 
 
-Analisando a Tabela 3, que traz os dados sumarizados dos modelos ajustados, é possível constatar que tanto $\hat{\beta_0}$ quanto $\hat{\beta_1}$ são significantes para todos os modelos ajustados, com base no p-valor.
-
-A Tabela 4, que traz os resultados da tabela ANOVA, para o modelo que avalia o **Valor Médio dos Imóveis** em relação a **Pop. Classe Baixa**, corrobora com a significância do $\hat{\beta_1}$, pois sendo o p-valor menor que o nível de significância ($\alpha$) possibilita rejeitar $H_0$, indicando ser significante para o modelo. O Intervalo de Confiança para os parâmetros estimados, mostra que **com 95% de confiança é possível afirmar que o verdadeiro valor de $\hat{\beta_0}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[1,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[1,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')` e que o verdadeiro valor de $\hat{\beta_1}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[2,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[2,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`)**.
+A Tabela 4, que traz os resultados da tabela ANOVA, para o modelo que avalia o **Valor Médio dos Imóveis** em relação a **Pop. Classe Baixa**, corrobora com a significância do $\hat{\beta_1}$, pois sendo o p-valor menor que o nível de significância ($\alpha = 5\%$) possibilita rejeitar $H_0$, indicando ser significante para o modelo. O Intervalo de Confiança para os parâmetros estimados, Tabela 5, mostra que **com 95% de confiança é possível afirmar que o verdadeiro valor de $\hat{\beta_0}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[1,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[1,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')` e que o verdadeiro valor de $\hat{\beta_1}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[2,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[2,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`)**.
 
 
 ## Análise de Resíduos
@@ -1367,14 +1432,14 @@ Sendo de fundamental importância para a verificação da bondade do modelo, a a
 #| echo: false
 #| warning: false
 #| fig-width: 7
-#| fig-height: 3
+#| fig-height: 6
 
-mFit <- lm(medv~lstat, data = dados)
+mLstat <- lm(medv~lstat, data = dados)
 
-dados_mFit_resid <- broom::augment(mFit)
+dados_mLstat_resid <- broom::augment(mLstat)
 
 # Gráfico de Resíduos contra Valor Médio
-d1 <- dados_mFit_resid|>
+d1 <- dados_mLstat_resid|>
   ggplot(aes(x = .fitted, y = .resid)) + 
   geom_point(color = "#234B6E") +
   geom_hline(yintercept = 0, linetype = 2, size = 0.2) +
@@ -1391,7 +1456,7 @@ d1 <- dados_mFit_resid|>
   theme(legend.position = "none")
 
 ## Gráfico de normalidade dos resíduos
-d2 <- dados_mFit_resid %>% 
+d2 <- dados_mLstat_resid %>% 
   ggplot(aes(sample = .std.resid)) + 
   qqplotr::stat_qq_band(alpha = 0.3) +
   qqplotr::stat_qq_point(color = "#234B6E") +
@@ -1404,7 +1469,23 @@ d2 <- dados_mFit_resid %>%
   scale_x_continuous(breaks = seq(-3,3,1))+
   theme_minimal(base_size = 7.5)
 
-d1+d2 + plot_annotation(
+## Gráfico Homogeneidade de Variâncias (Locação-Escala)
+d3 <- dados_mLstat_resid %>% 
+  ggplot(aes(x = .fitted, y = sqrt(abs(.std.resid)))) + 
+  geom_point(color = "#234B6E") +
+  geom_smooth(
+    se = T, color = "tomato", method = 'loess', formula = 'y ~ x')+
+  labs(
+    x = "Valores Ajustados",
+    y = "√|Resíduos Padronizados|",
+    title = "Homogeneidade de Variâncias \n(Locação-Escala)"
+  )+
+  theme_minimal(base_size = 7.5)+
+  theme(legend.position = "none")
+
+d1 + d2 + d3 + 
+  plot_layout(ncol = 2) +
+  plot_annotation(
   title = "Figura 5: Análise de resíduos do modelo ajustado",
   tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ",
   tag_sep = ".", tag_suffix = ":") &
@@ -1417,16 +1498,18 @@ d1+d2 + plot_annotation(
 ```
 
 
-
 Analisando a Figura 5, Sub.Fig. A, que traz o gráfico que avalia a **linearidade** do modelo se constata uma não aleatoriedade, possibilitando identificar um certo padrão, aparentando um afunilamento dos dados, indicando assim uma variância não constante (pela mudança da amplitude dos dados), em que mostra uma menor variabilidade dos resíduos no início e segue aumentando a medida que crescem os valores ajustados.
 
 O gráfico que avalia a Normalidade dos Resíduos, Sub.Fig. B, também não mostra um comportamento adequado para considerar o modelo como bom, pois é possível identificar que as caldas fogem e muito da reta de referência e do intervalo de confiança, inclusive, demonstrando haver pontos significativamente influentes que afetam o comportamento dos resíduos, logo, **se conclui que este não é um bom modelo para explicar o valor médio dos imóveis**.
+
+O gráfico que avalia a Homogeneidade de Variâncias, Sub.Fig. C, mostra que a Variância não é constante.
 
 Ainda assim, para fins de implementação das técnicas apresndidas até o momento, serão realizados os **Testes de Diagnóstico** para avaliação dos resultados, com a expectativa dos mesmos correoborarem com as interpretações obtidas através da análise gráfica.
 
 <!-- Os dados mostram que existem dois valores atipicos que impedem uma análise mais apurada da homocedasticidade quando observados os valores médios ajustados dos imóveis. Percebe-se ainda que apenas um grupo de dados da região central da distribuição de Student apresenta certa normalidade, enquanto as "caldas" da distribuição afastam-se significativamente da reta de normalidade. -->
 
-### Testes de diagnóstico
+
+## Testes de Diagnóstico
 
 Serão realizados os Testes de Significância, como forma secundária de avaliação, sendo descritos os testes aplicados para fins didáticos, tendo em vista a conclusão obtida com as análises gráficas, sendo estes:
 
@@ -1442,7 +1525,7 @@ Serão realizados os Testes de Significância, como forma secundária de avalia�
 - Independência:
   - Teste para avaliação da independência dos resíduos
 
-Sendo estes uam forma secundária de avaliação:
+Sendo estes uma forma secundária de avaliação:
 
 <!-- Pode-se ainda utilizar um conjunto de testes de diagnóstico para confirmar este novo teste de significância. -->
 <!-- Como: -->
@@ -1456,7 +1539,7 @@ Sendo estes uam forma secundária de avaliação:
 <!-- - Teste para avaliação da independência dos resíduos -->
 
 
-##### Teste de Kolmogorov-Smirnov
+### Teste de Kolmogorov-Smirnov
 
 ```{r}
 #| warning: false
@@ -1465,13 +1548,14 @@ Sendo estes uam forma secundária de avaliação:
 #| echo: false
 
 
-t.ks = ks.test(dados_mFit_resid$.resid, "pnorm", mean(dados_mFit_resid$.resid), sd(dados_mFit_resid$.resid))
+t.ks = ks.test(dados_mLstat_resid$.resid, "pnorm", mean(dados_mLstat_resid$.resid), sd(dados_mLstat_resid$.resid))
 
 ```
 
-Avalia o grau de concordância entre a distribuição de um conjunto de valores observados e determinada distribuição teórica. Consiste em comparar a distribuição de frequência acumulada da distribuição teórica com aquela observada. Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.ks[[2]][1],3)`, o que inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
+Avalia o grau de concordância entre a distribuição de um conjunto de valores observados e determinada distribuição teórica. Consiste em comparar a distribuição de frequência acumulada da distribuição teórica com aquela observada. Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.ks[[2]][1],5)`, o que inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
 
-##### Teste de Shapiro-Wilks
+
+### Teste de Shapiro-Wilks
 
 ```{r}
 #| warning: false
@@ -1479,14 +1563,15 @@ Avalia o grau de concordância entre a distribuição de um conjunto de valores 
 #| results: false
 #| echo: false
 
-t.sw = shapiro.test(dados_mFit_resid$.resid)
+t.sw = shapiro.test(dados_mLstat_resid$.resid)
 
 ```
 
 O teste de Shapiro-Wilks é um procedimento alternativo ao teste de Kolmogorov-Smirnov para avaliar normalidade.
-Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.sw[[2]][1],3)`, o que, semelhantemente, inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.sw[[2]][1],5)`, o que, semelhantemente, inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
 
-##### Teste de Goldfeld-Quandt
+
+### Teste de Goldfeld-Quandt
 
 ```{r}
 #| warning: false
@@ -1499,9 +1584,9 @@ t.gq = gqtest(mLstat)
 ```
 
 Esse teste envolve o ajuste de dois modelos de regressão, separando-se as observações das duas extremidades da distribuição da variável dependente.
-Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.gq[[5]][1],3)`, o que demanda rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%. Entretanto, como o p-valor obtido é próximo do necessário para a rejeição da hipotese nula, cabe um novo teste para a confirmação do resultado obtido.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.gq[[5]][1], 5)`, o que demanda rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%. Entretanto, como o p-valor obtido é próximo do necessário para a rejeição da hipotese nula, cabe um novo teste para a confirmação do resultado obtido.
 
-##### Teste de Breush-Pagan
+### Teste de Breush-Pagan
 
 ```{r}
 #| warning: false
@@ -1509,46 +1594,54 @@ Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.gq[[5]][1],
 #| results: false
 #| echo: false
 
-t.bp = bptest(mLstat, studentize = FALSE)
+t.bp = bptest(mLstat, studentize = F)
 ```
 
 Esse teste é baseado no ajuste de um modelo de regressão em que a variável dependente é definida pelos resíduos do modelo de interesse.
 Se grande parte da variabilidade dos resíduos não é explicada pelo modelo, então rejeita-se a hipótese de homocedasticidade.
-Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.bp[[4]][1],3)`, desta foram deve-se rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.bp[[4]][1], 5)`, desta foram deve-se rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%.
 
-##### Teste de Park
+
+### Teste de Park
 
 ```{r}
 #| warning: false
 #| eval: true
 #| results: false
 #| echo: false
-res2 <- (dados_mFit_resid$.resid)^2
+res2 <- (dados_mLstat_resid$.resid)^2
 t.p = summary(lm(res2 ~ dados$lstat))
+
 ```
 
 Esse teste é baseado no ajuste de um modelo de regressão em que a variável dependente é definida pelos quadrados dos resíduos do modelo de interesse.
 Nesse caso, se $\beta_1$ diferir significativamente de zero, rejeita-se a hipótese de homocedasticidade.
-O valor de $\beta_1$ obtido no teste foi de `r round(t.p[[4]][2],3)` com p-valor de aproximadamente `r round(t.p[[4]][8],3)`.
+O valor de $\beta_1$ obtido no teste foi de `r round(t.p[[4]][2], 3)` com p-valor de aproximadamente `r round(t.p[[4]][8], 3)`.
 Por esse teste não se deve rejeitar a hipótese de homocedasticidade, com confiabilidade de 95%.
 
-##### Teste F para linearidade
+
+### Teste F para linearidade
 
 ```{r}
 #| warning: false
 #| eval: true
 #| results: false
 #| echo: false
+
+
 m_kmedias <- lm(dados$medv ~ factor(dados$lstat))
+
 t.fl = anova(mLstat, m_kmedias)
+
 ```
+
 
 O teste da falta de ajuste permite testar formalmente a adequação do ajuste do modelo de regressão.
 Neste ponto assume-se que os pressupostos de normalidade, variância constante e independência são satisfeitos, como demosntrado pelos testes realizados. A ideia central para testar a linearidade é decompor SQRes em duas partes: erro puro e falta de ajuste que vão contribuir para a definição da estatística de teste F.
-Realizado o teste obteve-se um valore de p-valor igual a `r round(t.fl[[6]][2],3)`, o que demanda a rejeição da hipótese que há uma relação linear entre as variáveis. 
+Realizado o teste obteve-se um valore de p-valor igual a 0,289, o que demanda a rejeição da hipótese que há uma relação linear entre as variáveis.
 
 
-##### Teste para avaliação da independência dos resíduos
+### Teste para avaliação da independência dos resíduos
 
 ```{r}
 #| warning: false
@@ -1560,15 +1653,16 @@ Realizado o teste obteve-se um valore de p-valor igual a `r round(t.fl[[6]][2],3
 t.dw = dwtest(mLstat)
 ```
 
-Tendo em vista, o resultado obtido no teste anterior esse teste pode esclarecer ainda mais o ajuste do modelo.   
-O teste para avaliação da independência dos resíduos é utilizado para detectar a presença de autocorrelação provenientes de análise de regressão.  Realizando o teste obteve-se um valor de p-valor aproximadadente igual a `r round(t.dw[[4]][1],3)`, indicando que se deve rejeitar a hipotese que não existe correlação serial entre os dados, com uma confiança de 95%.
+Tendo em vista, o resultado obtido no teste anterior esse teste pode esclarecer ainda mais o ajuste do modelo.
+O teste para avaliação da independência dos resíduos é utilizado para detectar a presença de autocorrelação provenientes de análise de regressão.  Realizando o teste obteve-se um valor de p-valor aproximadadente igual a `r round(t.dw[[4]][1], 5)`, indicando que se deve rejeitar a hipotese que não existe correlação serial entre os dados, com uma confiança de 95%.
 
 
 # Conclusão
 
-Da análise descritiva das variáveis deste banco de dados não se observa, situações impeditivas da proposta de modelamento por resgressão linear dos dados como forma de predizer o valor dos imóveis de Boston. Mesmo a análise de valores atípicos contribui com essa possibilidade uma vez que os valores candidatos a valores atípicos na verdade compõem o rol de dados relevantes uma vez que há enorme variedade em tipos, propósitos e status dos imóveis avaliados. Esses dados por suavez, representam um maior desafio ao modelamento a que esse trabalho se propõe.  
+Da análise descritiva das variáveis deste banco de dados não se observa, situações impeditivas da proposta de modelamento por Regressão Linear Simples dos dados como forma de predizer o Valor Médio dos Imóveis de Boston. Mesmo a análise de valores atípicos contribui com essa possibilidade uma vez que os valores candidatos a valores atípicos na verdade compõem o rol de dados relevantes e que há enorme variedade em tipos, propósitos e status dos imóveis avaliados. Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.  
 No teste da hipótese de correlação, todas as variáveis apresentaram significativa relação linear com o valor médio do imóvel, mesmo em casos que o coeficiente de determinação ($R^2$) se apresentou muito baixo.   
-A implementação de técnicas de Regressão Linear Simples - RLS, para a variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis - Pop. Classe Baixa, não se mostrou muito eficiente como observado pela análise gráfica dos resíduos. Para melhor compreensão desta análise foram feitos testes de normalidade, homocedasticidade e de independência dos resíduos, de onde se concluiu que se deve rejeitar as hipoteses de normalidade, homocedasticidade e de independencia serial dos dados, confirmando assim o que a análise gráfica demonstrou.
+A implementação de técnicas de Regressão Linear Simples - RLS, para a variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis - Pop. Classe Baixa, não se mostrou muito eficiente como observado pela análise gráfica dos resíduos. Para melhor compreensão desta análise foram feitos testes de normalidade, homoscedasticidade e de independência dos resíduos, de onde se concluiu que se deve rejeitar as hipóteses de normalidade, homoscedasticidade e de independência serial dos dados, confirmando assim o que a análise gráfica demonstrou.
+
 
 
 # Referências
