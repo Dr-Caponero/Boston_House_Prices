@@ -1040,7 +1040,7 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
 ```
 
 
-Para avaliar a significância das correlações entre as variáveis com  relação ao **Valor Médio do Imóvel** segue a Tabela 2 com os resultados do Teste de Hipóteses com nível de significância de 5% que tem como hipóteses:
+Para avaliar a significância das correlações entre as variáveis com relação ao **Valor Médio do Imóvel** segue a Tabela 2 com os resultados do Teste de Hipóteses com nível de significância de 5% que tem como hipóteses:
 
 $$H_0: \widehat{\rho} = 0$$
 
@@ -1403,7 +1403,7 @@ ic_parametros %>%
     align = "c", 
     row.names = F,
     col.names =
-      c("2,5%", "97,5%")
+      c("LI", "LS")
   ) %>%
   footnote(
     number = c("Linha 1: Dados referentes a Beta 0", "Linha 2: Dados referentes a Beta 1"),
