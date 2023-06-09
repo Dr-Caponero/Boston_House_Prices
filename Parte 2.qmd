@@ -56,14 +56,15 @@ dados <- dados|>
   mutate(
     chas = forcats::as_factor(chas),
     rad = forcats::as_factor(rad))
-``` 
-
+```
 
 # Introdução
 
-A busca pela moradia própria é o desejo da grande maioria das pessoas, contudo a conquista desse bem nos grandes centros não é tarefa fácil. Levando isso em consideração a procura por imóveis na região metropolitana torna-se uma opção viável economicamente, mesmo havendo penalizações no que diz respeito a distância e congestionamentos.
+A busca pela moradia própria é o desejo da grande maioria das pessoas, contudo a conquista desse bem nos grandes centros não é tarefa fácil.
+Levando isso em consideração a procura por imóveis na região metropolitana torna-se uma opção viável economicamente, mesmo havendo penalizações no que diz respeito a distância e congestionamentos.
 
-O objetivo deste relatório é trazer a luz as análises e conclusões acerca da utilização das técnicas de regressão linear a fim de determinar o preço das casas em Boston, baseado nos dados fornecidos pelo conjunto de dados obtido. Neste primeiro momento, em que se utilizará a regressão linear simples, se buscará determinar uma função que descreva a relação entre o Valor Médio dos imóveis e o Percentual da população de "classe baixa".
+O objetivo deste relatório é trazer a luz as análises e conclusões acerca da utilização das técnicas de regressão linear a fim de determinar o preço das casas em Boston, baseado nos dados fornecidos pelo conjunto de dados obtido.
+Neste primeiro momento, em que se utilizará a regressão linear simples, se buscará determinar uma função que descreva a relação entre o Valor Médio dos imóveis e o Percentual da população de "classe baixa".
 
 Composto por 506 observações e 14 variáveis, o conjunto de dados, publicado no *Jornal of Environmental Economics & Management*, vol.5, 81-102, 1978.t, traz inúmeras características que servirão de parâmetros para resolução do seguinte questionamento: O valor médio dos imóveis é influenciado pelas diversas características externas observadas?
 
@@ -71,50 +72,91 @@ Composto por 506 observações e 14 variáveis, o conjunto de dados, publicado n
 
 ## Sobre o conjunto de dados
 
-Os dados de preços de 506 casas em Boston, publicados em Harrison, D. and Rubinfeld, D.L. [*'Hedonic prices and the demand for clean air'*](https://www.researchgate.net/profile/Daniel-Rubinfeld/publication/4974606_Hedonic_housing_prices_and_the_demand_for_clean_air/links/5c38ce85458515a4c71e3a64/Hedonic-housing-prices-and-the-demand-for-clean-air.pdf), J. Environ. Economics & Management, vol.5, 81-102, 1978.
+Os dados de preços de 506 casas em Boston, publicados em Harrison, D.
+and Rubinfeld, D.L.
+[*'Hedonic prices and the demand for clean air'*](https://www.researchgate.net/profile/Daniel-Rubinfeld/publication/4974606_Hedonic_housing_prices_and_the_demand_for_clean_air/links/5c38ce85458515a4c71e3a64/Hedonic-housing-prices-and-the-demand-for-clean-air.pdf), J.
+Environ.
+Economics & Management, vol.5, 81-102, 1978.
 
 Usado em Belsley, Kuh & Welsch, [*'Regression diagnostics: identifying influential data and sources of collinearity.*](https://www.wiley.com/en-us/Regression+Diagnostics%3A+Identifying+Influential+Data+and+Sources+of+Collinearity-p-9780471691174) New York: Wiley 1980.
 Os dados podem ser acessados na plataforma para aprendizado de ciência de dados [Kaggle](https://www.kaggle.com/datasets/fedesoriano/the-boston-houseprice-data) através do link:
 
-<https://www.kaggle.com/datasets/fedesoriano/the-boston-houseprice-data>.  
+<https://www.kaggle.com/datasets/fedesoriano/the-boston-houseprice-data>.
 
 ### Variáveis a serem analisadas
 
-A amostra contêm 14 atributos de casas em diferentes locais nos subúrbios de Boston no final dos anos 1970, sendo duas delas classificadas como categóricas e 12 como numéricas. O objetivo é o valor médio das casas em um local (em k$).
+A amostra contêm 14 atributos de casas em diferentes locais nos subúrbios de Boston no final dos anos 1970, sendo duas delas classificadas como categóricas e 12 como numéricas.
+O objetivo é o valor médio das casas em um local (em k\$).
 As variáveis presentes no banco de dados são descritas a seguir bem como a forma que estas variáveis serão representadas ao longo deste relatório a fim de facilitar o entendimento:
 
+1.  CRIM: Índice de criminalidade per capita por bairro.
+    Taxa de criminalidade por cidade.
+    Uma vez que o CRIM mede a ameaça ao bem-estar que as famílias percebem em vários bairros da área metropolitana de Boston (assumindo que as taxas de criminalidade são geralmente proporcionais às percepções de perigo das pessoas), ele deve ter um efeito negativo nos valores das moradias.
+    Será representada como **Índice Criminalidade**.
 
-1. CRIM: Índice de criminalidade per capita por bairro.
-Taxa de criminalidade por cidade. Uma vez que o CRIM mede a ameaça ao bem-estar que as famílias percebem em vários bairros da área metropolitana de Boston (assumindo que as taxas de criminalidade são geralmente proporcionais às percepções de perigo das pessoas), ele deve ter um efeito negativo nos valores das moradias. Será representada como **Índice Criminalidade**.
+2.  ZN: Proporção da área residencial de uma cidade dividida em lotes com mais de 25.000 pés quadrados.
+    Uma vez que tal zoneamento restringe a construção de pequenas casas em lotes, esperamos que o ZS esteja positivamente relacionado aos valores das moradias.
+    Um coeficiente positivo também pode surgir porque o zoneamento representa a exclusividade, a classe social e as comodidades externas de uma comunidade.
+    Será representada como **Prop. Terreno Zoneado**.
 
-2. ZN: Proporção da área residencial de uma cidade dividida em lotes com mais de 25.000 pés quadrados. Uma vez que tal zoneamento restringe a construção de pequenas casas em lotes, esperamos que o ZS esteja positivamente relacionado aos valores das moradias. Um coeficiente positivo também pode surgir porque o zoneamento representa a exclusividade, a classe social e as comodidades externas de uma comunidade. Será representada como **Prop. Terreno Zoneado**.
+3.  INDUS: Proporção de hectares de negócios não varejistas por bairro.
+    O INDUS serve como um *proxy* para as externalidades associadas ao ruído da indústria, tráfego intenso e efeitos visuais desagradáveis e, portanto, deve afetar negativamente os valores das habitações.
+    Será representado por **Área Industrial**.
 
-3. INDUS: Proporção de hectares de negócios não varejistas por bairro. O INDUS serve como um *proxy* para as externalidades associadas ao ruído da indústria, tráfego intenso e efeitos visuais desagradáveis e, portanto, deve afetar negativamente os valores das habitações. Será representado por **Área Industrial**.
+4.  CHAS: Variável fictícia categórica que representa imóveis próximos a margem do rio Charles (1 se o trecho margeia o rio; 0 caso contrário).
+    Será representada como **Margem**.
 
-4. CHAS: Variável fictícia categórica que representa imóveis próximos a margem do rio Charles (1 se o trecho margeia o rio; 0 caso contrário). Será representada como **Margem**.
+5.  NOX: Concentração de óxidos nítricos em pphm (partes por 100 milhões).
+    Será representada como **Índice Oxido Nítrico**.
 
-5. NOX: Concentração de óxidos nítricos em pphm (partes por 100 milhões). Será representada como **Índice Oxido Nítrico**.
+6.  RM: Número médio de quartos em unidades proprietárias.
+    RM representa espaço e, em certo sentido, quantidade de habitação.
+    Deve estar positivamente relacionado com o valor da habitação.
+    Verificou-se que a forma RM² fornece um ajuste melhor do que as formas linear ou logarítnica.
+    Será representada por **N° de Cômodos**.
 
-6. RM: Número médio de quartos em unidades proprietárias. RM representa espaço e, em certo sentido, quantidade de habitação. Deve estar positivamente relacionado com o valor da habitação. Verificou-se que a forma RM² fornece um ajuste melhor do que as formas linear ou logarítnica. Será representada por **N° de Cômodos**.
+7.  AGE: Proporção de unidades próprias construídas antes de 1940.
+    A idade da unidade geralmente está relacionada à qualidade da estrutura.
+    Será representada por **Idade**
 
-7. AGE: Proporção de unidades próprias construídas antes de 1940. A idade da unidade geralmente está relacionada à qualidade da estrutura. Será representada por **Idade**
+8.  DIS: Distâncias ponderadas para cinco centros de emprego na região de Boston.
+    De acordo com as teorias tradicionais de gradientes de renda da terra urbana, os valores das moradias devem ser maiores perto de locatários de emprego.
+    DIS é inserido na forma logarítmica; o sinal esperado é negativo.
+    Será representada como **Dist. Empregos**.
 
-8. DIS: Distâncias ponderadas para cinco centros de emprego  na região de Boston. De acordo com as teorias tradicionais de gradientes de renda da terra urbana, os valores das moradias devem ser maiores perto de locatários de emprego. DIS é inserido na forma logarítmica; o sinal esperado é negativo. Será representada como **Dist. Empregos**.
+9.  RAD: Variável categórica que representa o índice de acessibilidade às rodovias radiais.
+    O índice de acesso rodoviário foi calculado com base na cidade.
+    Boas variáveis de área de estrada são necessárias para que todas as variáveis de poluição não capturem as vantagens locacionais de estradas.
+    O RAD captura outros tipos de vantagens locacionais além da proximidade do local de trabalho.
+    é inserido na forma logarítmica; o sinal esperado é positivo.
+    Será representada como **Acessibilidade Rodovias**.
 
-9. RAD: Variável categórica que representa o índice de acessibilidade às rodovias radiais. O índice de acesso rodoviário foi calculado com base na cidade. Boas variáveis de área de estrada são necessárias para que todas as variáveis de poluição não capturem as vantagens locacionais de estradas. O RAD captura outros tipos de vantagens locacionais além da proximidade do local de trabalho. é inserido na forma logarítmica; o sinal esperado é positivo. Será representada como **Acessibilidade Rodovias**.
+10. TAX: Valor total do imposto sobre a propriedade (\$/\$10,000).
+    Mede o custo dos serviços públicos na comunidade terrestre.
+    As taxas de imposto nominais foram corrigidas pelos índices de avaliação locais para gerar o valor total da taxa de imposto para cada cidade.
+    Diferenças intramunicipais na taxa de avaliação eram difíceis de obter e, portanto, não eram usadas.
+    O coeficiente desta variável deve ser negativo.
+    Será representada como **Imposto**.
 
-10. TAX: Valor total do imposto sobre a propriedade ($/$10,000). Mede o custo dos serviços públicos na comunidade terrestre. As taxas de imposto nominais foram corrigidas pelos índices de avaliação locais para gerar o valor total da taxa de imposto para cada cidade. Diferenças intramunicipais na taxa de avaliação eram difíceis de obter e, portanto, não eram usadas. O coeficiente desta variável deve ser negativo.
-Será representada como **Imposto**.
+11. PTRATIO: Proporção aluno-professor por distrito escolar da cidade.
+    Mede os benefícios do setor público em cada cidade.
+    A relação do rácio aluno-professor com a qualidade da escola não é totalmente clara, embora um rácio baixo deva significar que cada aluno recebe mais atenção individual.
+    Esperamos o sinal em PTRATIO seja negativo.
+    Será representada como **Prop. Prof.-Aluno**.
 
-11. PTRATIO: Proporção aluno-professor por distrito escolar da cidade. Mede os benefícios do setor público em cada cidade. A relação do rácio aluno-professor com a qualidade da escola não é totalmente clara, embora um rácio baixo deva significar que cada aluno recebe mais atenção individual. Esperamos o sinal em PTRATIO seja negativo. Será representada como **Prop. Prof.-Aluno**.
+12. B: O resultado da equação $B=1000(Bk - 0,63)^2$ onde $Bk$ é a proporção de negros por bairro.
+    Em níveis baixos a moderados de B, um aumento em B deve ter uma influência negativa no valor da habitação se os negros forem considerados vizinhos indesejáveis pelos brancos.
+    No entanto, a discriminação de mercado significa que os valores das moradias são mais altos em níveis muito altos de B.
+    Espera-se, portanto, uma relação parabólica entre a proporção de negros em um bairro e os valores das moradias.
+    Será representada por **Prop. Negros/bairro**.
 
-12. B: O resultado da equação $B=1000(Bk - 0,63)^2$ onde $Bk$ é a proporção de negros por bairro. Em níveis baixos a moderados de B, um aumento em B deve ter uma influência negativa no valor da habitação se os negros forem considerados vizinhos indesejáveis pelos brancos. No entanto, a discriminação de mercado significa que os valores das moradias são mais altos em níveis muito altos de B. Espera-se, portanto, uma relação parabólica entre a proporção de negros em um bairro e os valores das moradias. Será representada por **Prop. Negros/bairro**.
-
-13. LSTAT: Proporção da população de "classe baixa", ou seja, com status inferior = 1/2 (proporção de adultos sem nível de ensino médio e proporção de trabalhadores do sexo masculino classificados como trabalhadores). A especificação logarítmica implica que as distinções de status socioeconômico significam mais nas camadas superiores da sociedade do que nas classes inferiores. Será representada por **Pop. Classe Baixa**.
-
+13. LSTAT: Proporção da população de "classe baixa", ou seja, com status inferior = 1/2 (proporção de adultos sem nível de ensino médio e proporção de trabalhadores do sexo masculino classificados como trabalhadores).
+    A especificação logarítmica implica que as distinções de status socioeconômico significam mais nas camadas superiores da sociedade do que nas classes inferiores.
+    Será representada por **Pop. Classe Baixa**.
 
 ### Variável de Saída (Resposta):
-- Valor do Imóvel: Valor médio de residências ocupadas pelo proprietário em US\$1.000 [k\$].  
+
+-   Valor do Imóvel: Valor médio de residências ocupadas pelo proprietário em US\$1.000 \[k\$\].
 
 ### Fonte
 
@@ -126,20 +168,8 @@ StatLib - Carnegie Mellon University
 
 ### Análise Descritiva
 
-De modo a conhecer melhor o banco de dados analisado é importante realizar uma análise descritiva das variáveis que o compõem. Na Tabela 1 pode se ver as medidas de resumo de posição e de tendência central destas variáveis.
-
-```{r}
-#| echo: false
-#| warning: false
-#| 
-
-
-# setwd("~/Dropbox/Estatística/StatisticWorks/Boston_House_Prices")
-# set.seed(7)
-
-```
-
-
+De modo a conhecer melhor o banco de dados analisado é importante realizar uma análise descritiva das variáveis que o compõem.
+Na Tabela 1 pode se ver as medidas de resumo de posição e de tendência central destas variáveis.
 
 ```{r tab1:medidas_resumo}
 #| echo: false
@@ -177,9 +207,7 @@ dados|>
 
 ```
 
-
 Para facilitar a compreenção das medidas apresentadas na Tabela 1, a Figura 1 mostra graficamente estas distribuições.
-
 
 ```{r fig1:Histograma}
 #| echo: false
@@ -500,15 +528,13 @@ g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 + g9 + g10 + g11 + g12 +
 }
 ```
 
-
 Desta análise inicial, destancam-se algumas características:
 
-- O Índice de criminalidade per capita por bairro é bastante baixo na maioria dos bairros (Sub.Fig B);
-- A Proporção de terreno residencial zoneada para lotes acima de 25.000 sq.ft. contém uma alta concentração de valores zeros (Sub.Fig K);
-- Verifica-se uma concentração de empresas com cerca de 18 hectares em diversos bairros (Sub.Fig D);
-- Há uma concentração de imóveis com alto valor total do imposto predial (Sub.Fig J);
-- A maior parte dos bairros tinha alta proporção de negros (Sub.Fig L). 
-
+-   O Índice de criminalidade per capita por bairro é bastante baixo na maioria dos bairros (Sub.Fig B);
+-   A Proporção de terreno residencial zoneada para lotes acima de 25.000 sq.ft. contém uma alta concentração de valores zeros (Sub.Fig K);
+-   Verifica-se uma concentração de empresas com cerca de 18 hectares em diversos bairros (Sub.Fig D);
+-   Há uma concentração de imóveis com alto valor total do imposto predial (Sub.Fig J);
+-   A maior parte dos bairros tinha alta proporção de negros (Sub.Fig L).
 
 Tendo em vista o fato de as variáveis categóricas não estarem representadas na Figura 1, foi construída a figura 2 com gráficos que possibilitam a avaliação do comportamento dessas variáveis de maneira mais adequada.
 
@@ -571,11 +597,9 @@ p1 + p2 +
 
 ```
 
-
 Avaliando a Figura 2 é possível constatar na Sub.Fig A que representa a frequência do Índice de Acessibilidade às Rodovias a existência de um comportamento tri modal e que há uma lacuna entre os índices, sendo este *gap* entre o índice 8 e o índice 24 indicando assim que há uma concentração de imóveis próximos a acessos a rodovias e que há uma parcela, cerca de 26%, que estão distantes desses acessos, podendo pressupor que esses imóveis são desvalorizados em relação aos mais próximos.
 
 A Sub.Fig B que retrata os Imóveis que margeiam o Rio Charles é possível identificar que mais de 93% não margeiam o rio, apenas uma pequena parcela margeia, podendo pressupor uma maior valorização dos imóveis que margeiam o rio.
-
 
 ### Análise de Dados Atípicos
 
@@ -753,13 +777,15 @@ b1 + b2 + b3 + b4 + b5 + b6 + b7 + b8 + b9 + b10 + b11 + b12 +
 
 ```
 
+Pode-se verificar pela Figura 3 que cerca de 2/3 das variáveis apresentam valores atípicos (*outlayers*), entretanto o tratamento destes *outlayers* em todos os casos parece, salvo melhor juízo, ser o mesmo.
+Observa-se que há coerência entre eles, isto é, são realizações possíveis e não devem ser desprezadas como se fossem erros ou dados irrelevantes.
+Isto se deve a tremenda variedade em tipos, propósitos e status dos imóveis avaliados.
+Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.
 
-Pode-se verificar pela Figura 3 que cerca de 2/3 das variáveis apresentam valores atípicos (*outlayers*), entretanto o tratamento destes *outlayers* em todos os casos parece, salvo melhor juízo, ser o mesmo. Observa-se que há coerência entre eles, isto é, são realizações possíveis e não devem ser desprezadas como se fossem erros ou dados irrelevantes. Isto se deve a tremenda variedade em tipos, propósitos e status dos imóveis avaliados. Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.
+### Relação entre as variáveis
 
-### Relação entre as variáveis 
-
-Antes da proposição do modelo de regressão mais bem elaborado é conveniente uma avaliação gráfica da dispersão dos valores das variáveis em relação à variável resposta **Valor Médio do Imóvel**. A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de tendência para os valores observados.
-
+Antes da proposição do modelo de regressão mais bem elaborado é conveniente uma avaliação gráfica da dispersão dos valores das variáveis em relação à variável resposta **Valor Médio do Imóvel**.
+A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de tendência para os valores observados.
 
 ```{r fig4:regressao}
 #| echo: false
@@ -1040,12 +1066,12 @@ Antes da proposição do modelo de regressão mais bem elaborado é conveniente 
 }
 ```
 
-
 Para avaliar a significância das correlações entre as variáveis com relação ao **Valor Médio do Imóvel** segue a Tabela 2 com os resultados do Teste de Hipóteses com nível de significância de 5% que tem como hipóteses:
 
 $$H_0: \widehat{\rho} = 0$$
 
 $$H_1: \widehat{\rho} \neq 0.$$
+
 ```{r tab2:TesteHipo_CorPearson}
 #| echo: false
 #| warning: false
@@ -1134,12 +1160,11 @@ resultados|>
 
 ```
 
-
 Conforme expresso na Tabela 2, levando em consideração o **p-valor** a Hipótese Nula foi rejeitada, e com 95% de confiança se pode afirmar que **é significativa a relação linear entre todas as variáveis em estudo.**
 
-
-Na avaliação da Figura 4, observa-se que nenhuma das variáveis tem uma aparente forte correlação com o valor médio dos imóveis. A Tabela 3, apresenta os valores calculados de $\hat \beta_0$ e $\hat\beta_1$ que estimam os valores do modelo $Y_i =\beta_0 + \beta_1X_i + \epsilon_i$ com seus respectivos erros padrão ($\sigma_0$ e $\sigma_1$), além de calcular o p-valor desta regressão linear como forma de identificar a rejeição ou não do modelo proposto. Nesta mesma linha, o valor estimado do Coeficiente de Determinação ($R^2$) também foi calculado.
-
+Na avaliação da Figura 4, observa-se que nenhuma das variáveis tem uma aparente forte correlação com o valor médio dos imóveis.
+A Tabela 3, apresenta os valores calculados de $\hat \beta_0$ e $\hat\beta_1$ que estimam os valores do modelo $Y_i =\beta_0 + \beta_1X_i + \epsilon_i$ com seus respectivos erros padrão ($\sigma_0$ e $\sigma_1$), além de calcular o p-valor desta regressão linear como forma de identificar a rejeição ou não do modelo proposto.
+Nesta mesma linha, o valor estimado do Coeficiente de Determinação ($R^2$) também foi calculado.
 
 ```{r ajuste_dos_modelos}
 #| echo: false
@@ -1240,8 +1265,6 @@ rownames(resultados) <- c("Índice Criminalidade", "Área Industrial", "Índice 
 
 ```
 
-
-
 ```{r tab3:modelos_ajustados}
 #| echo: false
 #| warning: false
@@ -1282,44 +1305,41 @@ resultados|>
 
 ```
 
-
 ### Interpretação dos Parâmetros dos Modelos Ajustados
 
 Baseado na análise dos gráficos de dispersão e considerando os modelos ajustados expressos na Tabela 3 é possível constatar que tanto $\hat{\beta_0}$ quanto $\hat{\beta_1}$ são significantes para todos os modelos ajustados, com base no p-valor, levando em consideração a ordem de precedência das variáveis na referida tabela, seguem as interpretações com base nos parâmetros estimados:
 
-- Modelo que avalia o Índice de Criminalidade:
-  - Para cada **valorização** de 0,415 no Índice de Criminalidade o Valor Médio dos Imóveis decresce em $24 033,00 ou seja, os imóveis se desvalorizam em regiões cujo Índice de Criminalidade é elevado.
-- Modelo que avalia a Área Industrial:
-  - O Valor Médio dos Imóveis decresce em $29 755,00 para cada **valorização** proporcional de 0,648 hectares de Negócios não Varejistas.
-- Modelo que avalia o Índice Oxido Nítrico:
-  - Há uma **desvalorização** de cerca de $41 346,00 no Valor Médio dos Imóveis para cada aumento de 33 916 pphm (partes por 100 milhões) no Índice Oxido Nítrico, ou seja, há uma desvalorização no valor dos imóveis que estão situados em regiões cujo ar é mais poluída.
-- Modelo que avalia o N° Cômodos:
-  - Há um **valorização** de cerca de $34 671,00 no Valor Médio dos Imóveis para cada aumento de aproximadamente 9 cômodos, ou seja, os imóveis são mais valorizados a medida que possuem mais cômodos.
-- Modelo que avalia a Idade do Imóvel:
-  - Há uma **desvalorização** de cerca de $30 979,00 para cada aumento proporcional de 0,123 unidades próprias construídas antes de 1940, ou seja, os imóveis são desvalorizados à medida que são mais antigos.
-- Modelo que avalia a Dist. Empregos:
-  - Há um **valorização** de cerca de $18 390,00 no Valor Médio dos Imóveis à medida que a distância para os centros de emprego na região de Boston aumenta.
-- Modelo que avalia o Imposto de Propriedade:
-  - Há uma **desvalorização** de cerca de $32 971,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,026 no valor proporcional total do Imposto de Propriedade, ou seja, quanto maior o imposto pago na região, maior a desvalorização do imóvel.
-- Modelo que avalia a Prop. Prof.-Aluno:
-  - Há uma **desvalorização** de cerca de $62 345,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 2,157 na proporção professor aluno. Como a própria descrição da variável descreve como confusa essa relação, de fato se mostra, com base no modelo ajustado da variável, pois demostra que os imóveis se desvalorizam a medida que os benefícios do setor público aumentam!
-- Modelo que avalia a Pop. Classe Baixa:
-  - Há uma **desvalorização** de cerca de $34 554,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,950 na proporção da Pop. de Classe Baixa, ou seja, os imóveis se desvalorizam a medida que a classe social dos habitantes da região cai.
-- Modelo que avalia a Prop. Terreno Zoneado:
-  - Há um **valorização** de cerca de $20 918,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,142 na Prop. Terreno Zoneado, ou seja, os imóveis são valorizados em regiões com maior proporção de zoneamento.
-- Modelo que avalia a Prop. Negros/bairro:
-  - Há um **valorização** de cerca de $10 551,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,034 na proporção de Prop. Negros/bairro, ou seja, os imóveis são mais valorizados em regiões cuja proporção de negros é maior.
+-   Modelo que avalia o Índice de Criminalidade:
+    -   Para cada **valorização** de 0,415 no Índice de Criminalidade o Valor Médio dos Imóveis decresce em \$24 033,00 ou seja, os imóveis se desvalorizam em regiões cujo Índice de Criminalidade é elevado.
+-   Modelo que avalia a Área Industrial:
+    -   O Valor Médio dos Imóveis decresce em \$29 755,00 para cada **valorização** proporcional de 0,648 hectares de Negócios não Varejistas.
+-   Modelo que avalia o Índice Oxido Nítrico:
+    -   Há uma **desvalorização** de cerca de \$41 346,00 no Valor Médio dos Imóveis para cada aumento de 33 916 pphm (partes por 100 milhões) no Índice Oxido Nítrico, ou seja, há uma desvalorização no valor dos imóveis que estão situados em regiões cujo ar é mais poluída.
+-   Modelo que avalia o N° Cômodos:
+    -   Há um **valorização** de cerca de \$34 671,00 no Valor Médio dos Imóveis para cada aumento de aproximadamente 9 cômodos, ou seja, os imóveis são mais valorizados a medida que possuem mais cômodos.
+-   Modelo que avalia a Idade do Imóvel:
+    -   Há uma **desvalorização** de cerca de \$30 979,00 para cada aumento proporcional de 0,123 unidades próprias construídas antes de 1940, ou seja, os imóveis são desvalorizados à medida que são mais antigos.
+-   Modelo que avalia a Dist. Empregos:
+    -   Há um **valorização** de cerca de \$18 390,00 no Valor Médio dos Imóveis à medida que a distância para os centros de emprego na região de Boston aumenta.
+-   Modelo que avalia o Imposto de Propriedade:
+    -   Há uma **desvalorização** de cerca de \$32 971,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,026 no valor proporcional total do Imposto de Propriedade, ou seja, quanto maior o imposto pago na região, maior a desvalorização do imóvel.
+-   Modelo que avalia a Prop. Prof.-Aluno:
+    -   Há uma **desvalorização** de cerca de \$62 345,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 2,157 na proporção professor aluno. Como a própria descrição da variável descreve como confusa essa relação, de fato se mostra, com base no modelo ajustado da variável, pois demostra que os imóveis se desvalorizam a medida que os benefícios do setor público aumentam!
+-   Modelo que avalia a Pop. Classe Baixa:
+    -   Há uma **desvalorização** de cerca de \$34 554,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,950 na proporção da Pop. de Classe Baixa, ou seja, os imóveis se desvalorizam a medida que a classe social dos habitantes da região cai.
+-   Modelo que avalia a Prop. Terreno Zoneado:
+    -   Há um **valorização** de cerca de \$20 918,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,142 na Prop. Terreno Zoneado, ou seja, os imóveis são valorizados em regiões com maior proporção de zoneamento.
+-   Modelo que avalia a Prop. Negros/bairro:
+    -   Há um **valorização** de cerca de \$10 551,00 no Valor Médio dos Imóveis à medida que há um aumento de aproximadamente 0,034 na proporção de Prop. Negros/bairro, ou seja, os imóveis são mais valorizados em regiões cuja proporção de negros é maior.
 
-
-Tendo em vista que nesse primeiro momento a proposta é a implementação de técnicas de Regressão Linear Simples - RLS, a escolha de uma variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis se faz necessária. Após análise dos gráficos de dispersão, Coeficiente de Correlação e avaliação dos Coeficientes de Determinação a variável escolhida foi **Pop. Classe Baixa**, logo as análises a seguir serão direcionadas a avaliar o modelo com esta variável.
-
+Tendo em vista que nesse primeiro momento a proposta é a implementação de técnicas de Regressão Linear Simples - RLS, a escolha de uma variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis se faz necessária.
+Após análise dos gráficos de dispersão, Coeficiente de Correlação e avaliação dos Coeficientes de Determinação a variável escolhida foi **Pop. Classe Baixa**, logo as análises a seguir serão direcionadas a avaliar o modelo com esta variável.
 
 ### Significância do Modelo
 
 Tendo em vista a necessidade de se avaliar a significância dos parâmetros, o teste de hipótese para tal situação será realizado, contendo as seguintes hipóteses:
 
-$$H_0: \hat{\beta_0} = 0$$
-$$H_1: \hat{\beta_0} \neq 0.$$
+$$H_0: \hat{\beta_0} = 0$$ $$H_1: \hat{\beta_0} \neq 0.$$
 
 As Tabelas 4 e 5 trazem os principais resultados da tabela ANOVA e do Intervalo de Confiança para os parâmetros, possibilitando assim inferir sobre o modelo ajustado.
 
@@ -1421,9 +1441,8 @@ ic_parametros %>%
 
 ```
 
-
-A Tabela 4, que traz os resultados da tabela ANOVA, para o modelo que avalia o **Valor Médio dos Imóveis** em relação a **Pop. Classe Baixa**, corrobora com a significância do $\hat{\beta_1}$, pois sendo o p-valor menor que o nível de significância ($\alpha = 5\%$) possibilita rejeitar $H_0$, indicando ser significante para o modelo. O Intervalo de Confiança para os parâmetros estimados, Tabela 5, mostra que **com 95% de confiança é possível afirmar que o verdadeiro valor de $\hat{\beta_0}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[1,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[1,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')` e que o verdadeiro valor de $\hat{\beta_1}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[2,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[2,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`)**.
-
+A Tabela 4, que traz os resultados da tabela ANOVA, para o modelo que avalia o **Valor Médio dos Imóveis** em relação a **Pop. Classe Baixa**, corrobora com a significância do $\hat{\beta_1}$, pois sendo o p-valor menor que o nível de significância ($\alpha = 5\%$) possibilita rejeitar $H_0$, indicando ser significante para o modelo.
+O Intervalo de Confiança para os parâmetros estimados, Tabela 5, mostra que **com 95% de confiança é possível afirmar que o verdadeiro valor de** $\hat{\beta_0}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[1,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[1,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')` e que o verdadeiro valor de $\hat{\beta_1}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[2,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[2,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`).
 
 ### Análise de Resíduos
 
@@ -1498,47 +1517,54 @@ d1 + d2 + d3 +
 
 ```
 
+Analisando a Figura 5, Sub.Fig.
+A, que traz o gráfico que avalia a **linearidade** do modelo se constata uma não aleatoriedade, possibilitando identificar um certo padrão, aparentando um afunilamento dos dados, indicando assim uma variância não constante (pela mudança da amplitude dos dados), em que mostra uma menor variabilidade dos resíduos no início e segue aumentando a medida que crescem os valores ajustados.
 
-Analisando a Figura 5, Sub.Fig. A, que traz o gráfico que avalia a **linearidade** do modelo se constata uma não aleatoriedade, possibilitando identificar um certo padrão, aparentando um afunilamento dos dados, indicando assim uma variância não constante (pela mudança da amplitude dos dados), em que mostra uma menor variabilidade dos resíduos no início e segue aumentando a medida que crescem os valores ajustados.
+O gráfico que avalia a Normalidade dos Resíduos, Sub.Fig.
+B, também não mostra um comportamento adequado para considerar o modelo como bom, pois é possível identificar que as caldas fogem e muito da reta de referência e do intervalo de confiança, inclusive, demonstrando haver pontos significativamente influentes que afetam o comportamento dos resíduos, logo, **se conclui que este não é um bom modelo para explicar o valor médio dos imóveis**.
 
-O gráfico que avalia a Normalidade dos Resíduos, Sub.Fig. B, também não mostra um comportamento adequado para considerar o modelo como bom, pois é possível identificar que as caldas fogem e muito da reta de referência e do intervalo de confiança, inclusive, demonstrando haver pontos significativamente influentes que afetam o comportamento dos resíduos, logo, **se conclui que este não é um bom modelo para explicar o valor médio dos imóveis**.
-
-O gráfico que avalia a Homogeneidade de Variâncias, Sub.Fig. C, mostra que a Variância não é constante.
+O gráfico que avalia a Homogeneidade de Variâncias, Sub.Fig.
+C, mostra que a Variância não é constante.
 
 Ainda assim, para fins de implementação das técnicas apresndidas até o momento, serão realizados os **Testes de Diagnóstico** para avaliação dos resultados, com a expectativa dos mesmos correoborarem com as interpretações obtidas através da análise gráfica.
 
 <!-- Os dados mostram que existem dois valores atipicos que impedem uma análise mais apurada da homocedasticidade quando observados os valores médios ajustados dos imóveis. Percebe-se ainda que apenas um grupo de dados da região central da distribuição de Student apresenta certa normalidade, enquanto as "caldas" da distribuição afastam-se significativamente da reta de normalidade. -->
 
-
 ### Testes de Diagnóstico
 
 Serão realizados os Testes de Significância, como forma secundária de avaliação, sendo descritos os testes aplicados para fins didáticos, tendo em vista a conclusão obtida com as análises gráficas, sendo estes:
 
-- Normalidade:
-  - Teste de Kolmogorov-Smirnov
-  - Teste de Shapiro-Wilks
-- Homocedasticidade:
-  - Teste de Goldfeld-Quandt
-  - Teste de Breush-Pagan
-  - Teste de Park
-- Linearidae:
-  - Teste F para linearidade
-- Independência:
-  - Teste para avaliação da independência dos resíduos
+-   Normalidade:
+    -   Teste de Kolmogorov-Smirnov
+    -   Teste de Shapiro-Wilks
+-   Homocedasticidade:
+    -   Teste de Goldfeld-Quandt
+    -   Teste de Breush-Pagan
+    -   Teste de Park
+-   Linearidae:
+    -   Teste F para linearidade
+-   Independência:
+    -   Teste para avaliação da independência dos resíduos
 
 Sendo estes uma forma secundária de avaliação:
 
 <!-- Pode-se ainda utilizar um conjunto de testes de diagnóstico para confirmar este novo teste de significância. -->
+
 <!-- Como: -->
 
 <!-- - Teste de Kolmogorov-Smirnov -->
-<!-- - Teste de Shapiro-Wilks -->
-<!-- - Teste de Goldfeld-Quandt -->
-<!-- - Teste de Breush-Pagan -->
-<!-- - Teste de Park -->
-<!-- - Teste F para linearidade -->
-<!-- - Teste para avaliação da independência dos resíduos -->
 
+<!-- - Teste de Shapiro-Wilks -->
+
+<!-- - Teste de Goldfeld-Quandt -->
+
+<!-- - Teste de Breush-Pagan -->
+
+<!-- - Teste de Park -->
+
+<!-- - Teste F para linearidade -->
+
+<!-- - Teste para avaliação da independência dos resíduos -->
 
 #### Teste de Kolmogorov-Smirnov
 
@@ -1553,8 +1579,9 @@ t.ks = ks.test(dados_mLstat_resid$.resid, "pnorm", mean(dados_mLstat_resid$.resi
 
 ```
 
-Avalia o grau de concordância entre a distribuição de um conjunto de valores observados e determinada distribuição teórica. Consiste em comparar a distribuição de frequência acumulada da distribuição teórica com aquela observada. Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.ks[[2]][1],5)`, o que inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
-
+Avalia o grau de concordância entre a distribuição de um conjunto de valores observados e determinada distribuição teórica.
+Consiste em comparar a distribuição de frequência acumulada da distribuição teórica com aquela observada.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.ks[[2]][1],5)`, o que inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
 
 #### Teste de Shapiro-Wilks
 
@@ -1571,7 +1598,6 @@ t.sw = shapiro.test(dados_mLstat_resid$.resid)
 O teste de Shapiro-Wilks é um procedimento alternativo ao teste de Kolmogorov-Smirnov para avaliar normalidade.
 Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.sw[[2]][1],5)`, o que, semelhantemente, inviabiliza rejeitar a hipótese de que haja normalidade entre os dados, com um grau de confiabilidade minimamente razoável.
 
-
 #### Teste de Goldfeld-Quandt
 
 ```{r}
@@ -1585,7 +1611,8 @@ t.gq = gqtest(mLstat)
 ```
 
 Esse teste envolve o ajuste de dois modelos de regressão, separando-se as observações das duas extremidades da distribuição da variável dependente.
-Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.gq[[5]][1], 5)`, o que demanda rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%. Entretanto, como o p-valor obtido é próximo do necessário para a rejeição da hipotese nula, cabe um novo teste para a confirmação do resultado obtido.
+Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.gq[[5]][1], 5)`, o que demanda rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%.
+Entretanto, como o p-valor obtido é próximo do necessário para a rejeição da hipotese nula, cabe um novo teste para a confirmação do resultado obtido.
 
 #### Teste de Breush-Pagan
 
@@ -1601,7 +1628,6 @@ t.bp = bptest(mLstat, studentize = F)
 Esse teste é baseado no ajuste de um modelo de regressão em que a variável dependente é definida pelos resíduos do modelo de interesse.
 Se grande parte da variabilidade dos resíduos não é explicada pelo modelo, então rejeita-se a hipótese de homocedasticidade.
 Realizado o teste obteve-se um p-valor de aproximadamente `r round(t.bp[[4]][1], 5)`, desta foram deve-se rejeitar a hipótese de que haja homocedasticidade entre os dados, com um grau de confiabilidade de 95%.
-
 
 #### Teste de Park
 
@@ -1620,7 +1646,6 @@ Nesse caso, se $\beta_1$ diferir significativamente de zero, rejeita-se a hipót
 O valor de $\beta_1$ obtido no teste foi de `r round(t.p[[4]][2], 3)` com p-valor de aproximadamente `r round(t.p[[4]][8], 3)`.
 Por esse teste não se deve rejeitar a hipótese de homocedasticidade, com confiabilidade de 95%.
 
-
 #### Teste F para linearidade
 
 ```{r}
@@ -1636,11 +1661,10 @@ t.fl = anova(mLstat, m_kmedias)
 
 ```
 
-
 O teste da falta de ajuste permite testar formalmente a adequação do ajuste do modelo de regressão.
-Neste ponto assume-se que os pressupostos de normalidade, variância constante e independência são satisfeitos, como demosntrado pelos testes realizados. A ideia central para testar a linearidade é decompor SQRes em duas partes: erro puro e falta de ajuste que vão contribuir para a definição da estatística de teste F.
+Neste ponto assume-se que os pressupostos de normalidade, variância constante e independência são satisfeitos, como demosntrado pelos testes realizados.
+A ideia central para testar a linearidade é decompor SQRes em duas partes: erro puro e falta de ajuste que vão contribuir para a definição da estatística de teste F.
 Realizado o teste obteve-se um valore de p-valor igual a 0,289, o que demanda a rejeição da hipótese que há uma relação linear entre as variáveis.
-
 
 #### Teste para avaliação da independência dos resíduos
 
@@ -1655,10 +1679,10 @@ t.dw = dwtest(mLstat)
 ```
 
 Tendo em vista, o resultado obtido no teste anterior esse teste pode esclarecer ainda mais o ajuste do modelo.
-O teste para avaliação da independência dos resíduos é utilizado para detectar a presença de autocorrelação provenientes de análise de regressão.  Realizando o teste obteve-se um valor de p-valor aproximadadente igual a `r round(t.dw[[4]][1], 5)`, indicando que se deve rejeitar a hipotese que não existe correlação serial entre os dados, com uma confiança de 95%.
+O teste para avaliação da independência dos resíduos é utilizado para detectar a presença de autocorrelação provenientes de análise de regressão.
+Realizando o teste obteve-se um valor de p-valor aproximadadente igual a `r round(t.dw[[4]][1], 5)`, indicando que se deve rejeitar a hipotese que não existe correlação serial entre os dados, com uma confiança de 95%.
 
 # PARTE 2 - Análise de Regressão Linear Múltipla
-
 
 ## Introdução
 
@@ -1670,7 +1694,9 @@ Ajustar um modelo de regressão linear múltiplo utilizando técnicas de retas c
 
 ## Criação de uma variável categórica
 
-Embora o banco de dados estudado apresente duas variáveis categóricas: a CHAS, que indica a se o imóvel se encontra ou não as margens do rio Charles e RAD, que representa o índice de acessibilidade às rodovias radiais, verificou-se que a correlação destas variáveis com o preço médio dos imóveis é muito pequena. Assim pecebeu-se que o tamanho dos imóveis baseado no seu número de cômodos poderia melhor explicar o preço médio destes imóveis. Desta forma, com base na tabela 1, verificou-se que a mediana do número médio de cômodos dos imóveis poderia ser usada para criar dois grupos: "Imóveis Pequenos" e "Imóveis Maiores".
+Embora o banco de dados estudado apresente duas variáveis categóricas: a CHAS, que indica a se o imóvel se encontra ou não as margens do rio Charles e RAD, que representa o índice de acessibilidade às rodovias radiais, verificou-se que a correlação destas variáveis com o preço médio dos imóveis é muito pequena.
+Assim pecebeu-se que o tamanho dos imóveis baseado no seu número de cômodos poderia melhor explicar o preço médio destes imóveis.
+Desta forma, com base na tabela 1, verificou-se que a mediana do número médio de cômodos dos imóveis poderia ser usada para criar dois grupos: "Imóveis Pequenos" e "Imóveis Maiores".
 
 ```{r}
 #| warning: false
@@ -1683,9 +1709,10 @@ aux1 <-  dados %>% dplyr::filter(rm<=6.21) %>%  mutate(Imóveis="Menores")
 aux2 <-  dados %>% dplyr::filter(rm>6.21) %>%  mutate(Imóveis="Maiores")
 dados2 <- rbind(aux1,aux2)
 ```
+
 ## Distribuição do valor médio dos imóveis
 
-Com base na distribuição população de baixa renda e do tamanho dos imóveis segundo a classificação proposta foi avaliado o valor médio dos imóveis conforme a figura a seguir.
+Com base na distribuição população de baixa renda e do tamanho dos imóveis segundo a classificação proposta foi avaliado o valor médio dos imóveis conforme as figuras a seguir.
 
 ```{r}
 #| warning: false
@@ -1711,9 +1738,6 @@ dados2 <- rbind(aux1,aux2)
 dados2 <- cbind(dados2,d_coi,d_par,d_con)
 
 ```
-
-
-
 
 ```{r}
 #| warning: false
@@ -1741,7 +1765,7 @@ dados2 <- cbind(dados2,d_coi,d_par,d_con)
     theme(legend.position = c(.8,.8))
 ```
 
-
+Utilizando-se o Modelo Nulo, verifica-se pela Figura 6 que há uma diferença expressiva entre os dois sub-conjuntos de dados (classificados segundo o tamanho do imóvel), indicando que há um efeito expressivo da variável categórica no modelo proposto.
 
 ```{r}
 #| warning: false
@@ -1770,7 +1794,7 @@ dados2 <- cbind(dados2,d_coi,d_par,d_con)
 
 ```
 
-
+No caso da utilização do modelo com retas coincidentes, não se pode pela análise visual definir o efeito dos subconjuntos de dados no modelo proposto, como se vê na Figura 7, uma vez que esse modelo não leva em conta a variável categórica e a reta obtida é baseada nos valores de todo o conjunto.
 
 ```{r}
 #| warning: false
@@ -1799,6 +1823,7 @@ dados2 <- cbind(dados2,d_coi,d_par,d_con)
 
 ```
 
+Na Figura 8, há uma clara distinção entre os subconjuntos baseados no tamanho do imóvel, porém este modelo de retas paralelas apresenta retas ainda muito próximas, denotando que o efeito aditivo da classificação é pouco relevante, mesmo que pela análise visual os subconjuntos apresentem características bastante disitintas.
 
 ```{r}
 #| warning: false
@@ -1829,35 +1854,140 @@ dados2 <- cbind(dados2,d_coi,d_par,d_con)
 }
 ```
 
+Na Figura 9, observa-se claramente o efeito da interação entre as variáveis.
+A sensível diferença entre as inclinações das retas propostas pelo modelo deixam claro os efeitos multiplicativos da interação entre as variáveis.
+Pode-se verifiar assim que o modelo de retas concorrentes foi o mais adequado para descrever o comportamento das variáveis selecionadas.
+Com base neste resultado, este modelo será avaliado a seguir.
 
-Verifica-se que a divisão em grupos distintos da população de baixa renda já proporcionou um melhor ajuste da reta de regressão simples para os imóveis maiores (ver Figura 4).
+## Análise dos testes F para modelos encaixados
 
+### Significância do Modelo
+
+Após o ajuste do modelo de restas concorrentes existe a necessidade de se avaliar a significância do mesmo, o teste de hipótese para tal situação será realizado, contendo as seguintes hipóteses:
+
+$$H_0: \hat{\beta_1}= 0$$
+
+$$H_1: \hat{\beta_1} \neq 0.$$ As Tabelas 6 e 7 trazem os principais resultados da tabela ANOVA e do Intervalo de Confiança para os parâmetros, possibilitando assim inferir sobre o modelo ajustado.
+
+```{r }
+#| echo: false
+#| warning: false
+
+MyAnova <- function(modelo, nd){
+  m1 <- modelo
+  np <- dim(anova(m1))[1]
+  SQReg <- round(sum(anova(m1)$"Sum Sq"[1:(np-1)]), nd)
+  glReg <- sum(anova(m1)$"Df"[1:(np-1)])
+  SQRes <- round(anova(m1)$"Sum Sq"[np], nd)
+  glRes <- anova(m1)$"Df"[np]
+  SQTotal <- round(SQReg + SQRes, nd)
+  glTotal <- glReg + glRes
+  QMReg <- round(SQReg/glReg, nd)
+  QMRes <- round(SQRes/glRes, nd)
+  MyF <- round(QMReg/QMRes, nd)
+  vpF <- ifelse(pf(MyF, glReg, glRes, lower.tail = F) < 0.0001, "<0.001", 
+                roud(pf(MyF, glReg, glRes, lower.tail = F), nd))
+  ncolunas <- c("Fonte de Variação", "SQ", "gl", "F", "valor p") 
+  Tanova <- data.frame(FV = c("Regressão",
+                              "Resíduos",
+                              "Total"),
+                       SQ = c(SQReg, SQRes, SQTotal),
+                       gl = c(glReg, glRes, glTotal),
+                       QM = c(QMReg, QMRes, " "),
+                       Est.F = c(MyF, " ", " "),
+                       valor.p = c(vpF, " ", " ")
+  )
+  Tanova
+}
+
+
+fit_anova <- MyAnova(m_con, 3) |> as.data.frame()
+
+fit_anova|>
+  kbl(
+    caption = "Análise de Variância (ANOVA)",
+    align = "c", row.names = T, 
+    booktabs = T, escape = F
+  )|>
+  kable_styling(
+    full_width = F, position = 'center', 
+    latex_options = c("striped", "HOLD_position", "repeat_header")
+  )|>
+  column_spec(1, bold = T
+  )|>
+    footnote(
+    footnote_as_chunk = F
+  )|>
+  kable_material()
+
+
+resultados <- cbind(confint(m_con))
+rownames(resultados) <- c("$\\hat \\beta_0$", "$\\hat \\beta_1$", "$\\hat \\beta_2$", "$\\hat \\beta_{1,2}$")
+
+resultados|>
+  kbl(
+    caption = "Intervalos de Confiança para os parâmetros estimados no MRLS.",
+    format.args=list(big.mark=".", decimal.mark=","),
+    digits = 3, align = "c", row.names = T, booktabs = T,
+    escape = F,
+    col.names = c("$LI^1$", "$LS^2$")
+  )|>
+  kable_styling(
+    full_width = F, position = 'center', 
+    latex_options = c("striped", "HOLD_position", "repeat_header")
+  )|>
+  column_spec(1, bold = T
+  )|>
+    footnote(
+    symbol = "Nível de Significância de 5%.",
+    symbol_title = "",
+    footnote_as_chunk = T
+  )|>
+    footnote(
+    number = c(
+      "LI: Limite Inferior (2,5%)", 
+      "LS: Limite Superior (97,5%)"),
+    number_title = "Legenda:",
+    footnote_as_chunk = F
+  )|>
+  kable_material()
+```
+
+
+
+Através dos Intervalos de Confiança calculados (Tabela 7) é possível afirmar com 95% de confiança que o verdadeiro valor de $\beta_0$ está entre `r glue::glue('({scales::number(confint(m_con)[1,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(m_con)[1,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`; que o verdadeiro valor de $\beta_1$ está entre `r glue::glue('({scales::number(confint(m_con)[2,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(m_con)[2,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`; que o verdadeiro valor de $\beta_2$ está entre `r glue::glue('({scales::number(confint(m_con)[3,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(m_con)[3,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')` que o verdadeiro valor de $\beta_{1,2}$ está entre `r glue::glue('({scales::number(confint(m_con)[4,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(m_con)[4,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`.
+
+## Diagnóstico do ajuste
 
 \newpage
-
 
 # Conclusão
 
 ## Parte 1
 
-Da análise descritiva das variáveis deste banco de dados não se observa, situações impeditivas da proposta de modelamento por Regressão Linear Simples dos dados como forma de predizer o Valor Médio dos Imóveis de Boston. Mesmo a análise de valores atípicos contribui com essa possibilidade uma vez que os valores candidatos a valores atípicos na verdade compõem o rol de dados relevantes e que há enorme variedade em tipos, propósitos e status dos imóveis avaliados. Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.  
-No teste da hipótese de correlação, todas as variáveis apresentaram significativa relação linear com o valor médio do imóvel, mesmo em casos que o coeficiente de determinação ($R^2$) se apresentou muito baixo.   
-A implementação de técnicas de Regressão Linear Simples - RLS, para a variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis - Pop. Classe Baixa, não se mostrou muito eficiente como observado pela análise gráfica dos resíduos. Para melhor compreensão desta análise foram feitos testes de normalidade, homoscedasticidade e de independência dos resíduos, de onde se concluiu que se deve rejeitar as hipóteses de normalidade, homoscedasticidade e de independência serial dos dados, confirmando assim o que a análise gráfica demonstrou.
+Da análise descritiva das variáveis deste banco de dados não se observa, situações impeditivas da proposta de modelamento por Regressão Linear Simples dos dados como forma de predizer o Valor Médio dos Imóveis de Boston.
+Mesmo a análise de valores atípicos contribui com essa possibilidade uma vez que os valores candidatos a valores atípicos na verdade compõem o rol de dados relevantes e que há enorme variedade em tipos, propósitos e status dos imóveis avaliados.
+Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.\
+No teste da hipótese de correlação, todas as variáveis apresentaram significativa relação linear com o valor médio do imóvel, mesmo em casos que o coeficiente de determinação ($R^2$) se apresentou muito baixo.\
+A implementação de técnicas de Regressão Linear Simples - RLS, para a variável explicativa que aparenta melhor possibilidade de explicação do Preço Médio dos Imóveis - Pop.
+Classe Baixa, não se mostrou muito eficiente como observado pela análise gráfica dos resíduos.
+Para melhor compreensão desta análise foram feitos testes de normalidade, homoscedasticidade e de independência dos resíduos, de onde se concluiu que se deve rejeitar as hipóteses de normalidade, homoscedasticidade e de independência serial dos dados, confirmando assim o que a análise gráfica demonstrou.
 
 ## Parte 2
 
 # Referências
 
-- Harrison, David & Rubinfeld, Daniel. (1978). Hedonic housing prices and the demand for clean air. Journal of Environmental Economics and Management. 5. 81-102. 10.1016/0095-0696(78)90006-2. 
+-   Harrison, David & Rubinfeld, Daniel.
+    (1978).
+    Hedonic housing prices and the demand for clean air.
+    Journal of Environmental Economics and Management.
+    5.
+    81-102.
+    10.1016/0095-0696(78)90006-2.
 
-- Belsley, David A. & Kuh, Edwin. & Welsch, Roy E. (1980). Regression diagnostics: identifying influential data and sources of collinearity. New York: Wiley.
-
-
-
-
-
-
-
-
-
-
+-   Belsley, David A.
+    & Kuh, Edwin.
+    & Welsch, Roy E.
+    (1980).
+    Regression diagnostics: identifying influential data and sources of collinearity.
+    New York: Wiley.
