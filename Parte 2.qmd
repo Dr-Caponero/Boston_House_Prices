@@ -224,12 +224,12 @@ g1 <- dados|>
   geom_histogram(
     aes(y = ..density..),
     bins = 40,
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -247,15 +247,15 @@ g2 <- dados|>
   aes(x = crim) +
   geom_histogram(
     aes(y = ..density..),
-    fill = "lightblue",
-    colour = "darkblue",
+    fill = "#A6CEE3",
+    colour = "#1F78B4",
     # binwidth = 2
     bins = 45
     ) +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -274,12 +274,12 @@ g3 <- dados|>
   geom_histogram(
     aes(y = ..density..),
     bins = 45,
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_x_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -303,12 +303,12 @@ g4 <- dados|>
   geom_histogram(
     aes(y = ..density..),
     bins = 40,
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour ="#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -327,12 +327,12 @@ g5 <- dados|>
   geom_histogram(
     aes(y = ..density..),
     bins = 40,
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -351,12 +351,12 @@ g6 <- dados|>
   geom_histogram(
     aes(y = ..density..),
     bins = 35,
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -374,12 +374,12 @@ g7 <- dados|>
   aes(x = nox) +
   geom_histogram(
     aes(y = ..density..),
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -398,12 +398,12 @@ g8 <- dados|>
   geom_histogram(
     aes(y = ..density..),
     bins = 30,
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_x_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -426,12 +426,12 @@ g9 <- dados|>
   aes(x = rm) +
   geom_histogram(
     aes(y = ..density..),
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -450,12 +450,12 @@ g10 <- dados|>
   geom_histogram(
     aes(y = ..density..),
     bins = 35,
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -474,12 +474,12 @@ g11 <- dados|>
   geom_histogram(
     aes(y = ..density..),
     bins = 35,
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -498,12 +498,12 @@ g12 <- dados|>
   geom_histogram(
     aes(y = ..density..),
     bins = 35,
-    fill = "lightblue",
-    colour = "darkblue") +
+    fill = "#A6CEE3",
+    colour = "#1F78B4") +
   geom_density(
     alpha = 0.2,
-    fill = "blue",
-    colour = "blue") +
+    fill = "#1F78B4",
+    colour = "#1F78B4") +
   scale_y_continuous(
     labels = scales::number_format(
       big.mark = ".",
@@ -546,7 +546,7 @@ Tendo em vista o fato de as variáveis categóricas não estarem representadas n
 
 p1 <- dados|>
   ggplot(aes(x = rad, y = after_stat(count)/sum(after_stat(count))))+
-  geom_bar(fill = "darkblue")+ 
+  geom_bar(fill = "#1F78B4")+ 
   geom_text(
     aes(
       label = scales::percent((after_stat(count))/sum(after_stat(count)), big.mark = ".", decimal.mark = ","),
@@ -576,7 +576,7 @@ p2 <- dados %>%
                        label = "rotulo", lab.pos = "out",
                        lab.font = c(3, "plain", "black"),
                        fill = "chas",  color = "white",
-                       palette = c("darkblue", "skyblue"))+
+                       palette = c("#1F78B4", "#A6CEE3"))+
   labs(
     title = "Imóveis que margeiam o Rio Charles"
   )+
@@ -617,7 +617,7 @@ Com base na variável que indica se o imóvel margeia ou não o Charles River, p
 b1 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = age)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Unidades constuídas antes \nde 1940",
     x = "Posição",
@@ -630,7 +630,7 @@ b2 <- dados|>
     chas = lvls_revalue(chas, c("Na Margem", "Afastado"))
   )|>
   ggplot(aes(x = chas, y = crim)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Índice de Criminalidade",
     x = "Posição",
@@ -641,7 +641,7 @@ b2 <- dados|>
 b3 <- dados|>
   mutate( chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = dis)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Distância para cinco centros \nde emprego.",
     x = "Posição",
@@ -657,7 +657,7 @@ b3 <- dados|>
 b4 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = indus)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Negócios não varejistas \npor bairro",
     x = "Proporção de hectares ocupados",
@@ -668,7 +668,7 @@ b4 <- dados|>
 b5 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = lstat)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = 'População de "classe baixa"',
     x = "Posição",
@@ -679,7 +679,7 @@ b5 <- dados|>
 b6 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = medv)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Valor médio de residências \nocupadas",
     x = "Posição",
@@ -690,7 +690,7 @@ b6 <- dados|>
 b7 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = nox)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Concentração de Óxidos \nNitricos (NO)",
     x = "Posição",
@@ -706,7 +706,7 @@ b7 <- dados|>
 b8 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = ptratio)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Aluno/Professor por bairro",
     x = "Posição",
@@ -722,7 +722,7 @@ b8 <- dados|>
 b9 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = rm)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Número médio de cômodos por \nhabitação",
     x = "Posição",
@@ -733,7 +733,7 @@ b9 <- dados|>
 b10 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = tax)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Taxa de imposto predial",
     x = "Posição",
@@ -744,7 +744,7 @@ b10 <- dados|>
 b11 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = zn)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Proporção de Terreno Zoneado",
     x = "Proporção de Terreno",
@@ -755,7 +755,7 @@ b11 <- dados|>
 b12 <- dados|>
   mutate(chas = lvls_revalue(chas, c("Na Margem", "Afastado")))|>
   ggplot(aes(x = chas, y = b)) +
-  geom_boxplot(col="darkblue", fill="skyblue", alpha = 0.5)+
+  geom_boxplot(col="#1F78B4", fill="#A6CEE3", alpha = 0.5)+
   labs(
     title = "Proporção de Negros por bairro",
     x = "Proporção",
@@ -798,7 +798,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
   ## d1 age ----
   d1 <- dados|>
     ggplot(aes(y = medv, x = age)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
     labs(
       title = "Unidades constuídas antes de \n1940",
       y = 'Valor Médio (por $1.000)',
@@ -825,7 +825,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
     ggplot(aes(
       y = medv, 
       x = crim)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
     labs(
       title = 'Índice de Criminalidade',
       y = 'Valor Médio (por $1.000)',
@@ -847,7 +847,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
     ggplot(aes(
       y = medv, 
       x = dis)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
     labs(
       title = "Distância para cinco centros de \nemprego.",
       y = 'Valor Médio (por $1.000)',
@@ -874,7 +874,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
     ggplot(aes(
       y = medv, 
       x = indus)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
     labs(
       title = "Negócios não varejistas por \nbairro",
       y = 'Valor Médio (por $1.000)',
@@ -896,7 +896,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
     ggplot(aes(
       y = medv, 
       x = lstat)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
     labs(
       title = 'População de "classe baixa"',
       y = 'Valor Médio (por $1.000)',
@@ -918,7 +918,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
     ggplot(aes(
       y = medv, 
       x = nox)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
     labs(
       title = "Concentração de Óxidos \nNitricos (NO)",
       y = 'Valor Médio (por $1.000)',
@@ -945,7 +945,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
     ggplot(aes(
       y = medv, 
       x = ptratio)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
     labs(
       title = "Aluno/Professor por bairro",
       y = 'Valor Médio (por $1.000)',
@@ -972,7 +972,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
     ggplot(aes(
       y = medv, 
       x = rm)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
     labs(
       title = "Número médio de cômodos por \nhabitação",
       y = 'Valor Médio (por $1.000)',
@@ -993,7 +993,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
   d9 <- dados |>
     ggplot(aes(
       x = tax, y = medv)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
     labs(
       title = "Taxa de imposto predial",
       y = 'Valor Médio (por $1.000)',
@@ -1014,7 +1014,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
   d10 <- dados |>
     ggplot(aes(
       x = zn, y = medv)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
   labs(
     title = "Proporção de Terreno Zoneado",
     x = "Proporção",
@@ -1035,7 +1035,7 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
   d11 <- dados |>
     ggplot(aes(
       x = b, y = medv)) +
-    geom_point(color = "#234B6E")+
+    geom_point(color = "#1F78B4")+
   labs(
     title = "Proporção de Negros por bairro",
     x = "Proporção",
@@ -1461,7 +1461,7 @@ dados_mLstat_resid <- broom::augment(mLstat)
 # Gráfico de Resíduos contra Valor Médio
 d1 <- dados_mLstat_resid|>
   ggplot(aes(x = .fitted, y = .resid)) + 
-  geom_point(color = "#234B6E") +
+  geom_point(color = "#1F78B4") +
   geom_hline(yintercept = 0, linetype = 2, size = 0.2) +
   geom_smooth(
     se = T, color = "tomato", method = 'loess', 
@@ -1479,7 +1479,7 @@ d1 <- dados_mLstat_resid|>
 d2 <- dados_mLstat_resid %>% 
   ggplot(aes(sample = .std.resid)) + 
   qqplotr::stat_qq_band(alpha = 0.3) +
-  qqplotr::stat_qq_point(color = "#234B6E") +
+  qqplotr::stat_qq_point(color = "#1F78B4") +
   qqplotr::stat_qq_line(linetype = 1, size = 0.5, color = "tomato") +
   labs(
     x = "Quantil Teórico",
@@ -1492,7 +1492,7 @@ d2 <- dados_mLstat_resid %>%
 ## Gráfico Homogeneidade de Variâncias (Locação-Escala)
 d3 <- dados_mLstat_resid %>% 
   ggplot(aes(x = .fitted, y = sqrt(abs(.std.resid)))) + 
-  geom_point(color = "#234B6E") +
+  geom_point(color = "#1F78B4") +
   geom_smooth(
     se = T, color = "tomato", method = 'loess', formula = 'y ~ x')+
   labs(
@@ -1719,23 +1719,16 @@ Com base na distribuição população de baixa renda e do tamanho dos imóveis 
 #| eval: true
 #| results: false
 #| echo: false
-m_nul1 <- lm(medv ~ 1, data=aux1)
-m_nul2 <- lm(medv ~ 1, data=aux2)
+m_nul <- lm(medv ~ 1, data=dados2)
 m_coi <- lm(medv ~ lstat, data=dados2)
 m_par <- lm(medv ~ lstat + Imóveis, data=dados2)
 m_con <- lm(medv ~ lstat * Imóveis, data=dados2)
 
-d_nul1 <- predict(m_nul1,as.data.frame(aux1))
-aux1 <- cbind(aux1,d_nul1)
-aux2 <- cbind(aux2,d_nul1=NA)
-d_nul2 <- predict(m_nul2,as.data.frame(aux2))
-aux2 <- cbind(aux2,d_nul2)
-aux1 <- cbind(aux1,d_nul2=NA)
+d_nul <- predict(m_nul,dados2)
 d_coi <- predict(m_coi,dados2)
 d_par <-  predict(m_par,dados2)
 d_con <-  predict(m_con,dados2)
-dados2 <- rbind(aux1,aux2)
-dados2 <- cbind(dados2,d_coi,d_par,d_con)
+dados2 <- cbind(dados2,d_nul,d_coi,d_par,d_con)
 
 ```
 
@@ -1744,20 +1737,19 @@ dados2 <- cbind(dados2,d_coi,d_par,d_con)
 #| eval: true
 #| results: false
 #| echo: false
-# brewer.pal(3, "PuOr")
-# "#F1A340" "#998EC3"
+
   ## d1  ----
   d1 <- dados2 |>
     ggplot(aes(y = medv, x = lstat)) +
     geom_point(aes(col=Imóveis))+
-    geom_smooth(aes(y=d_nul1), col= "#1F78B4", method=lm, se=TRUE, size = 1)+
-    geom_smooth(aes(y=d_nul2), col= "#A6CEE3", method=lm, se=TRUE, size = 1)+
+    geom_smooth(aes(y=d_nul, col=Imóveis), method=lm, se=TRUE, size = 1)+
     scale_color_brewer(palette = "Paired") +
     labs( title = '',
       y = 'Valor Médio (por $1.000)',
       x = 'Proporção'
     )+
     theme_minimal(base_size = 7.5)
+
   d1 +   
     plot_layout(ncol = 1) + 
     plot_annotation(
@@ -1855,19 +1847,12 @@ Na Figura 8, há uma clara distinção entre os subconjuntos baseados no tamanho
 ```
 
 Na Figura 9, observa-se claramente o efeito da interação entre as variáveis.
-A sensível diferença entre as inclinações das retas propostas pelo modelo deixam claro os efeitos multiplicativos da interação entre as variáveis.
-Pode-se verifiar assim que o modelo de retas concorrentes foi o mais adequado para descrever o comportamento das variáveis selecionadas.
-Com base neste resultado, este modelo será avaliado a seguir.
+A sensível diferença entre as inclinações das retas propostas pelo modelo deixam claro os efeitos multiplicativos da interação entre as variáveis. Pode-se verifiar assim que, pela análise gráfica, o modelo de retas concorrentes foi o mais adequado para descrever o comportamento das variáveis selecionadas. Esta observação será verificada sob a ótica da análise dos testes F para os modelos encaixados.
 
-## Análise dos testes F para o modelo encaixado
 
-### Significância do Modelo
+## Análise dos testes F para os modelos encaixados
 
-Após o ajuste do modelo de restas concorrentes existe a necessidade de se avaliar a significância do mesmo, o teste de hipótese para tal situação será realizado, contendo as seguintes hipóteses:
-
-$$H_0: \hat{\beta_{1,2}= 0$$
-
-$$H_1: \hat{\beta_{1,2} \neq 0.$$ As Tabelas 6 e 7 trazem os principais resultados da tabela ANOVA e do Intervalo de Confiança para os parâmetros, possibilitando assim inferir sobre o modelo ajustado.
+Após o ajuste dos modelos encaixados existe a necessidade de se avaliar a significância dos mesmos, o teste de hipótese ANOVA para tal situação será realizado. A Tabelas 6 traz os principais resultados da tabela ANOVA para estes modelos, possibilitando assim inferir sobre o modelo mais bem ajustado.
 
 ```{r }
 #| echo: false
@@ -1886,7 +1871,7 @@ MyAnova <- function(modelo, nd){
   QMRes <- round(SQRes/glRes, nd)
   MyF <- round(QMReg/QMRes, nd)
   vpF <- ifelse(pf(MyF, glReg, glRes, lower.tail = F) < 0.0001, "<0.001", 
-                roud(pf(MyF, glReg, glRes, lower.tail = F), nd))
+                round(pf(MyF, glReg, glRes, lower.tail = F), nd))
   ncolunas <- c("Fonte de Variação", "SQ", "gl", "F", "valor p") 
   Tanova <- data.frame(FV = c("Regressão",
                               "Resíduos",
@@ -1900,13 +1885,20 @@ MyAnova <- function(modelo, nd){
   Tanova
 }
 
+fit_nul <- MyAnova(m_nul, 3) |> as.data.frame()
+fit_coi <- MyAnova(m_coi, 3) |> as.data.frame()
+fit_par <- MyAnova(m_par, 3) |> as.data.frame()
+fit_con <- MyAnova(m_con, 3) |> as.data.frame()
 
-fit_anova <- MyAnova(m_con, 3) |> as.data.frame()
+tab <- as.data.frame(c("Nulo","Retas Coincidentes", "Retas Paralélas", "Retas Concorrentes"))
+tab <- cbind(tab,c(fit_nul[1,5],fit_coi[1,5],fit_par[1,5],fit_con[1,5]))
+tab <- cbind(tab,c(fit_nul[1,6],fit_coi[1,6],fit_par[1,6],fit_con[1,6])) 
+colnames(tab) <- c("Modelo", "Est. F", "p-valor")
 
-fit_anova|>
+tab|>
   kbl(
-    caption = "Análise de Variância (ANOVA)",
-    align = "c", row.names = T, 
+    caption = "Análise de Variância (ANOVA) dos modelos encaixados.",
+    align = "lcc", row.names = F, 
     booktabs = T, escape = F
   )|>
   kable_styling(
@@ -1920,44 +1912,698 @@ fit_anova|>
   )|>
   kable_material()
 
+aux <- summary(m_con)
 
-resultados <- cbind(confint(m_con))
-rownames(resultados) <- c("$\\hat \\beta_0$", "$\\hat \\beta_1$", "$\\hat \\beta_2$", "$\\hat \\beta_{1,2}$")
+```
+
+Com base nos resultados apresentados na Tabela 6, verifica-se que não é possível definir o melhor modelo apenas pelo teste F aplicado. Nota-se qua a exceção do modelo nulo, todos os demais são, com base neste teste, apropriados para descrever a variável preço médio dos imóveis de Boston com base nas variáveis população de baixa renda e tamanho dos imóveis. Dentre estes, valor da estatística F foi mínimo para o modelo de retas concorrentes que conforme a análise gráfica foi o mais adequado e será selecionado para avaliação diagnóstica do ajuste obtido. Neste modelo o valor do Coeficiente de Determinação de Pearson obtido foi de $R^2=$ `r round(as.numeric(aux$r.square),3)` e do valor do Coeficiente de Determinação de Pearson Ajustado obtido foi de $R^2_{aju}=$ `r round(as.numeric(aux$aju.r.square),3)`.
+
+
+## Diagnóstico do ajuste
+
+### Testes de Diagnósticos do Modelo
+
+Para avaliar se o modelo atende aos pressupostos, além da análise gráfica podem ser realizados testes de diagnósticos, que são testes de hipóteses para avaliação dos pressupostos que são:
+
+- Normalidade;
+
+  $H_0:$ Os resíduos possuem normalidade.
+
+  $H_1:$ Os resíduos **não** possuem normalidade.
+
+- Homoscedasticidade (Homogeneidade de Variância);
+
+  $H_0:$ Os resíduos possuem variância constante.
+
+  $H_1:$ Os resíduos **não** possuem variância constante.
+
+- Linearidade;
+- Independência.
+
+  $H_0$: Existe correlação serial entre os resíduos.
+  
+  $H_1$: **Não** existe correlação serial entre os resíduos.
+
+Para tanto serão utilizados os seguintes testes:
+
+- Shapiro-Wilk, para avaliar a Normalidade;
+- Breush-Pagan, para avaliar a Homoscedasticidade;
+- Durbin-Watson, para avaliar a Independência.
+
+
+```{r tab4:teste-diagnostico}
+#| echo: false
+#| warning: false
+
+
+res2 <- residuals(m_con)
+
+##### Teste de normalidade dos resíduos ----
+  #H0: normalidade
+  #H1: não normalidade
+
+# SW*
+t_sw <- shapiro.test(res2)
+
+##### Teste de homoscedasticidade dos resíduos ----
+  #H0: resíduos homoscedásticos - Variância constante
+  #H1: resíduos heteroscedásticos - Variância NÃO constante
+
+# BP*
+t_bp <- lmtest::bptest(m_con, studentize = F)
+
+# Teste deF para linearidade
+
+# Teste de correlação serial lag 1 (Independência dos erros)
+  #H0: correlacionados - existe correlação serial
+  #H1: não correlacionados - não existe correlação serial ///ficou confuso no vídeo as hipoteses///
+
+# DW
+t_dw <- lmtest::dwtest(m_con)
+
+resultados <- round(rbind(
+  t_sw$statistic,
+  t_bp$statistic,
+  t_dw$statistic),4)
+
+aux <- rbind("<0,0001","<0,0001","<0,0001")
+
+resultados <- cbind(resultados, aux)
+
+rownames(resultados) <- c("Shapiro-Wilk", "Breush-Pagan", "Durbin-Watson")
+
+colnames(resultados) <- c("Estatística de teste", "p-valor")
 
 resultados|>
   kbl(
-    caption = "Intervalos de Confiança para os parâmetros estimados no MRLS.",
+    caption = "Testes de Diagnósticos dos Resíduos",
+    digits = 5,
     format.args=list(big.mark=".", decimal.mark=","),
-    digits = 3, align = "c", row.names = T, booktabs = T,
-    escape = F,
-    col.names = c("$LI^1$", "$LS^2$")
+    align = "c", row.names = T, booktabs = T
   )|>
   kable_styling(
     full_width = F, position = 'center', 
     latex_options = c("striped", "HOLD_position", "repeat_header")
   )|>
-  column_spec(1, bold = T
-  )|>
-    footnote(
-    symbol = "Nível de Significância de 5%.",
-    symbol_title = "",
-    footnote_as_chunk = T
-  )|>
-    footnote(
-    number = c(
-      "LI: Limite Inferior (2,5%)", 
-      "LS: Limite Superior (97,5%)"),
-    number_title = "Legenda:",
-    footnote_as_chunk = F
-  )|>
+  column_spec(1, bold = T)|>
   kable_material()
+```
+
+A Tabela 7 traz os testes de diagnósticos realizados para avaliar o modelo de regressão ajustado. Verifica-se que a hipótese de nula da homocedasticidade deve ser rejeitada com um nível de significância de 5%, uma vez que o teste de Breush-Pagam obteve um p-valor menor que 0.05. A normalidade da distribuição também foi rejeitada como indica o p-valor do teste de Shapiro-Wilk. Nota-se ainda que há dependência entre as características confirmado pelo p-valor do teste de Durbin-Watson. Este codependência era esperada uma vez que os tamanhos dos imóveis tem relação com o nível de renda da população. O que pode ser conferdo na matriz de correlação a seguir.
+
+
+### Correlação entre as variáveis do modelo
+
+
+A correlação entre as variáveis do modelo pode ser medida pelo coeficiente de correlação entre elas.
+
+```{r}
+#| echo: false
+#| warning: false
+#| tbl-colum: page
+#| fig-pos: H
+dados3 <- dados2[,c(13,14,15)]
+dados3 <- dados3 %>% mutate(Imóveis = ifelse(Imóveis=="Menores",0,1))
+b1 <- cor(dados3)
+
+rownames(b1) <- c("População de Baixa Renda","Valor Médio",
+                  "Tamanho do Imóvel")
+colnames(b1) <- c("População de Baixa Renda","Valor Médio",
+                  "Tamanho do Imóvel")
+
+b1|>
+  kbl(
+    caption = "Matriz de correlação das variáveis do modelo",
+    digits = 3,
+    format.args=list(big.mark=".", decimal.mark=","),
+    align = "c", row.names = T, booktabs = T
+  )|>
+  kable_material(c("striped", "hover", "condensed"))|>
+  kable_styling(
+    bootstrap_options = c("striped", "hover",  "condensed"),
+    full_width = F,
+    position = 'center', 
+    latex_options = c("striped", "HOLD_position", "scale_down","repeat_header")
+  ) |>
+  column_spec(1, bold = T)|>
+  kable_material()
+```
+
+Nota-se que as variaveis tamanhos dos imóveis tem relação com o nível de renda da população em um nível similar ao com a variável resposta. Esta situação compromete a qualidade do modelo utilizado.
+
+
+
+### Análise de Resíduos
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 3
+
+
+m_con_resid <- broom::augment(m_con)
+
+####  Gráfico de Resíduos contra Valor Médio
+d1 <- m_con_resid|>
+ ggplot(aes(x = .fitted, y = rstudent(m_con))) + 
+  geom_point(color = "#1F78B4") +
+  geom_hline(aes(yintercept = 0), col="tomato")+
+  labs(
+    x = "Valores Ajustados",
+    y = "Resíduos Estudentizados",
+    title = "Resíduos Estudentizados vs. \nValores Ajustados")+
+  scale_x_continuous(
+    labels = scales::number_format(
+      big.mark = ".", decimal.mark = ","))+
+  scale_y_continuous(
+    breaks = seq(from = -3, to = 4, by = 1),
+    labels = scales::number_format(
+      big.mark = ".", decimal.mark = ","))+
+  theme_minimal()+
+  theme(
+    legend.position = "none",
+    plot.title = element_text(size = 11, face = "plain"),
+    axis.title = element_text(size = 8, face = "plain"),
+    axis.line = element_line(size = 0.5, color = "#222222"))
+
+####  Gráfico de normalidade dos resíduos
+ d2 <- m_con_resid %>%
+   ggplot(aes(sample = .std.resid)) +
+   qqplotr::stat_qq_band(alpha = 0.3) +
+   qqplotr::stat_qq_point(color = "#1F78B4") +
+   qqplotr::stat_qq_line(linetype = 2, size = 0.2) +
+   labs(
+     x = "Quantil Teórico",
+     y = "Quantil Amostral",
+     title = "Gráfico quantil-quantil normal"
+   )+
+    scale_x_continuous(breaks = seq(-3,3,1))+
+   scale_x_continuous(
+     labels = scales::number_format(
+       big.mark = ".", decimal.mark = ","))+
+   scale_y_continuous(
+     labels = scales::number_format(
+       big.mark = ".", decimal.mark = ","))+
+   theme_minimal()+
+   theme(
+     legend.position = "none",
+     plot.title = element_text(size = 11, face = "plain"),
+     axis.title = element_text(size = 8, face = "plain"),
+     axis.line = element_line(size = 0.5, color = "#222222"))
+
+#### Gráfico Homogeneidade de Variâncias (Locação-Escala) ----
+ d3 <- m_con_resid %>%
+   ggplot(aes(x = .fitted, y = sqrt(abs(.std.resid)))) +
+   geom_point(color = "#1F78B4") +
+   geom_smooth(
+     se = T, color = "tomato", method = 'loess', formula = 'y ~ x')+
+   labs(
+     x = "Valores Ajustados",
+     y = expression(sqrt("|Resíduos Padronizados|")),
+     title = "Homogeneidade de \n Variâncias \n(Locação-Escala)")+
+   scale_x_continuous(
+     labels = scales::number_format(
+       big.mark = ".", decimal.mark = ","))+
+   scale_y_continuous(
+     labels = scales::number_format(
+       big.mark = ".", decimal.mark = ","))+
+   theme_minimal()+
+   theme(
+     legend.position = "none",
+     plot.title = element_text(size = 11, face = "plain"),
+     axis.title = element_text(size = 8, face = "plain"),
+     axis.line = element_line(size = 0.5, color = "#222222"))
+
+ d1 + d2 + d3 +
+   plot_layout(ncol = 3) +
+   plot_annotation(
+   title = "Figura 10: Análise de resíduos do modelo ajustado",
+   tag_levels = c("A", "2"))&
+   theme(
+     legend.position = "none",
+     plot.tag.position = c(1, 0),
+     plot.tag = element_text(size = 12, hjust = 1, vjust = -3)
+   )
+
+
 ```
 
 
 
-Através dos Intervalos de Confiança calculados (Tabela 7) é possível afirmar com 95% de confiança que o verdadeiro valor de $\beta_0$ está entre `r glue::glue('({scales::number(confint(m_con)[1,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(m_con)[1,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`; que o verdadeiro valor de $\beta_1$ está entre `r glue::glue('({scales::number(confint(m_con)[2,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(m_con)[2,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`; que o verdadeiro valor de $\beta_2$ está entre `r glue::glue('({scales::number(confint(m_con)[3,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(m_con)[3,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')` que o verdadeiro valor de $\beta_{1,2}$ está entre `r glue::glue('({scales::number(confint(m_con)[4,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(m_con)[4,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`.
+A Figura 10A apresenta um comportamento assimétrico dos resíduos, podendo ser constatado uma pequena variabilidade inicial e um aumento desta à medida que os valores ajustados aumentam, caracterizando uma maior heterocedasticidade. A Figura 10C, que trata da Homogeneidade de Variâncias (Locação-Escala) ressalta que há um problema na variabilidade dos dados, ampliando a interpretação feita na análise da Figura 10A, de que há uma mudança na variabilidade dos dados, caracterizando assim uma heterocedasticidade dos dados. A Figura 10B traz o gráfico para avaliação da normalidade dos dados e mostra que os dados estão bastante afastados da reta de referência, especialmente nas caudas da distribuição onde fogem inclusive da região pertencente ao Intervalo de Confiança - IC, podendo-se assumir que não há normalidade.
 
-## Diagnóstico do ajuste
+
+
+
+### Gráficos de Diagnóstico
+
+A análise dos gráficos de diagnóstico permite avaliar as observações realizadas e conhecer a influência de cada uma delas para o modelo de regressão proposto. Assim, com base no modelo, é possível fazer as seguintes análises:
+
+\newpage
+
+**Figura 11: Valores Ajustados e Resíduos Studentizados**
+
+```{r }
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 3
+plot_resid_stud <- function (model, print_plot = TRUE) 
+{
+    check_model(model)
+    fct_color <- NULL
+    color <- NULL
+    obs <- NULL
+    dsr <- NULL
+    txt <- NULL
+    g <- ols_prep_srplot_data(model)
+    d <- g$dsr
+    d$txt <- ifelse(d$color == "outlier", d$obs, NA)
+    f <- d[color == "outlier", c("obs", "dsr")]
+    colnames(f) <- c("observação", "resid_stud")
+    p <- ggplot(d, aes(x = obs, y = dsr, label = txt)) + geom_bar(width = 0.5, 
+        stat = "identity", aes(fill = fct_color)) + scale_fill_manual(values = c("#1F78B4", 
+        "tomato")) + xlab("Observação") + ylab("Residuos Studentizados Apagados") + 
+        labs(fill = "Observações") + ggtitle("") + 
+        ylim(g$cminx, g$cmaxx) + geom_hline(yintercept = c(0, 
+        g$nseq, g$pseq)) + geom_hline(yintercept = c(-3, 3), 
+        color = "tomato") + geom_text(hjust = -0.2, nudge_x = 0.05, 
+        size = 2, na.rm = TRUE) + annotate("text", x = Inf, y = Inf, 
+        hjust = 1.2, vjust = 2, family = "serif", fontface = "italic", 
+        colour = "darkred", label = paste0("Threshold: abs(", 
+            3, ")")) +theme_minimal(base_size = 7.5)
+    if (print_plot) {
+        suppressWarnings(print(p))
+    }
+    else {
+        return(list(plot = p, outliers = f, threshold = 3))
+    }
+}
+
+
+aaa <- plot_resid_stud(m_con)
+
+discrepantes <- NULL
+discrepantes[1:506] <- 0
+
+for (i in 1:506) {
+  if (!is.na(aaa[["data"]][["txt"]][i])) {  
+    discrepantes[i] <- discrepantes[i]+1
+  }  
+} 
+
+```
+A Figura 11 demonstra que os resíduos em sua grande maioria dentro dos limites esperados, com exceção de poucas observações que ultrapassam o limite superior Não parece ser o caso de nenhuma intervenção por conta deste valor.  
+
+
+
+
+**Figura 12: Valores Ajustados e Resíduos Padronizados.**
+
+```{r }
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 3
+plot_resid_stand <- function (model, print_plot = TRUE) 
+{
+    check_model(model)
+    color <- NULL
+    obs <- NULL
+    sdres <- NULL
+    txt <- NULL
+    d <- ols_prep_srchart_data(model)
+    f <- d[color == "outlier", c("obs", "sdres")]
+    colnames(f) <-  c("observação", "resid_stud")
+    p <- ggplot(d, aes(x = obs, y = sdres, label = txt, ymin = 0, 
+        ymax = sdres)) + geom_linerange(colour = "#1F78B4") + geom_point(shape = 1, 
+        colour = "#1F78B4") + geom_hline(yintercept = 0, colour = "gray") + 
+        geom_hline(yintercept = c(2, -2), colour = "tomato") + xlab("Observação") + 
+        ylab("Residuos Padronizados") + ggtitle("") + 
+        geom_text(hjust = -0.2, nudge_x = 0.15, size = 3, family = "serif", 
+            fontface = "italic", colour = "darkred", na.rm = TRUE) + 
+        annotate("text", x = Inf, y = Inf, hjust = 1.5, vjust = 2, 
+            family = "serif", fontface = "italic", colour = "darkred", 
+            label = paste0("Threshold: abs(", 2, ")")) +
+        theme_minimal(base_size = 7.5)
+    if (print_plot) {
+        suppressWarnings(print(p))
+    }
+    else {
+        return(list(plot = p, outliers = f, threshold = 2))
+    }
+}
+
+aaa <- plot_resid_stand(m_con)
+
+for (i in 1:506) {
+  if (!is.na(aaa[["data"]][["txt"]][i])) {  
+    discrepantes[i] <- discrepantes[i]+1
+  }  
+}
+```
+
+Na análise da Figura 12, onde os resíduos foram padronizados, verifica-se queo número de observações além do limite de aceitação aumentou consideravelmente, inclusive o limite inferior tanbém foi ultrapassado. 
+
+\newpage
+
+**Figura 13: Distância de Cook.**
+
+```{r fig17:Cook}
+#| echo: false
+#| warning: false
+#| fig-height: 3
+#| fig-width: 7
+plot_cooksd_chart <- function (model, print_plot = TRUE) 
+{
+    check_model(model)
+    obs <- NULL
+    ckd <- NULL
+    txt <- NULL
+    cd <- NULL
+    k <- ols_prep_cdplot_data(model)
+    d <- ols_prep_outlier_obs(k)
+    f <- ols_prep_cdplot_outliers(k)
+    p <- ggplot(d, aes(x = obs, y = cd, label = txt, ymin = min(cd), 
+        ymax = cd)) + geom_linerange(colour = "#1F78B4") + geom_point(shape = 1, 
+        colour = "#1F78B4") + geom_hline(yintercept = k$ts, colour = "tomato") + 
+        xlab("Observação") + ylab("Distância de Cook") + ggtitle("") + 
+        geom_text(vjust = -1, size = 3, family = "serif", fontface = "italic", 
+            colour = "darkred", na.rm = TRUE) + annotate("text", 
+        x = Inf, y = Inf, hjust = 1.2, vjust = 2, family = "serif", 
+        fontface = "italic", colour = "darkred", label = paste("Threshold:", 
+            round(k$ts, 3)))+
+       theme_minimal(base_size = 7.5)
+    if (print_plot) {
+        suppressWarnings(print(p))
+    }
+    else {
+        return(list(plot = p, outliers = f, threshold = k$ts))
+    }
+}
+
+
+
+aaa <- plot_cooksd_chart(m_con)
+
+for (i in 1:506) {
+  if (!is.na(aaa[["data"]][["txt"]][i])) {  
+    discrepantes[i] <- discrepantes[i]+1
+  }  
+}
+```
+
+A analise da distância de Cook apresentada na Figura 13 demonstra mais uma vez que muitas observações destoam do conjunto, alguns com distância muito expressiva.  
+
+
+
+
+**Figura 14: Análise dos pontos de Alavanca e Resíduo Studentizado.**
+
+```{r }
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 3
+
+plot_resid_lev <- function (model, print_plot = TRUE) 
+{
+    check_model(model)
+    lev_thrsh <- NULL
+    fct_color <- NULL
+    leverage <- NULL
+    levrstud <- NULL
+    txt <- NULL
+    obs <- NULL
+    color <- NULL
+    resp <- names(model.frame(model))[1]
+    title <- ""
+    g <- ols_prep_rstudlev_data(model)
+    ann_paste <- round(g$lev_thrsh, 3)
+    ann_label <- paste("Threshold:", ann_paste)
+    d <- g$levrstud
+    d$txt <- ifelse(d$color == "normal", NA, d$obs)
+    f <- d[d$color == "outlier", c("obs", "leverage", "rstudent")]
+    colnames(f) <- c("observação", "leverage", "resid_stud")
+    p <- ggplot(d, aes(leverage, rstudent, label = txt)) + geom_point(shape = 1, 
+        aes(colour = fct_color)) + scale_color_manual(values = c("#1F78B4", 
+        "tomato", "green", "violet")) + xlim(g$minx, g$maxx) + ylim(g$miny, 
+        g$maxy) + labs(colour = "Observação") + xlab("Leverage") + 
+        ylab("RStudent") + ggtitle(title) + geom_hline(yintercept = c(2, 
+        -2), colour = "maroon") + geom_vline(xintercept = g$lev_thrsh, 
+        colour = "maroon") + geom_text(vjust = -1, size = 3, 
+        family = "serif", fontface = "italic", colour = "darkred") + 
+        annotate("text", x = Inf, y = Inf, hjust = 1.2, vjust = 2, 
+            family = "serif", fontface = "italic", colour = "darkred", 
+            label = ann_label)+
+        theme_minimal(base_size = 7.5)
+    if (print_plot) {
+        suppressWarnings(print(p))
+    }
+    else {
+        return(list(plot = p, leverage = f, threshold = g$lev_thrsh))
+    }
+}
+
+aaa <- plot_resid_lev(m_con)
+
+for (i in 1:506) {
+  if (!is.na(aaa[["data"]][["txt"]][i])) {  
+    discrepantes[i] <- discrepantes[i]+1
+  }  
+}
+```
+
+Pela Figura 14, observamos que diversas observações que podem ser consideradas como *Outliers* e como pontos de alavanca e algumas com as duas características sendo possívelmente as observações com maior influência negativa ao modelo. 
+
+\newpage
+
+**Figura 15: DFBetas para as variáveis do modelo.**
+
+```{r }
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 4
+
+plot_dfbetas <- function (model, print_plot = TRUE) 
+{
+    check_model(model)
+    obs <- NULL
+    txt <- NULL
+    dfb <- dfbetas(model)
+    n <- nrow(dfb)
+    np <- ncol(dfb)
+    threshold <- 2/sqrt(n)
+    myplots <- list()
+    outliers <- list()
+    for (i in seq_len(np)) {
+        dbetas <- dfb[, i]
+        df_data <- data.frame(obs = seq_len(n), dbetas = dbetas)
+        d <- ols_prep_dfbeta_data(df_data, threshold)
+        f <- ols_prep_dfbeta_outliers(d)
+        p <- eval(substitute(ggplot(d, aes(x = obs, y = dbetas, 
+            label = txt, ymin = 0, ymax = dbetas)) + geom_linerange(colour = "#1F78B4") + 
+            geom_hline(yintercept = c(0, threshold, -threshold), 
+                colour = "tomato") + geom_point(colour = "#1F78B4", 
+            shape = 1) + xlab("Observação") + ylab("DFBETAS") + 
+            ggtitle(paste("Diagnóstico de Influência", colnames(dfb)[i])) + 
+            geom_text(hjust = -0.2, nudge_x = 0.15, size = 2, 
+                family = "serif", fontface = "italic", colour = "darkred", 
+                na.rm = TRUE) + annotate("text", x = Inf, y = Inf, 
+            hjust = 1.5, vjust = 2, family = "serif", fontface = "italic", 
+            colour = "darkred", label = paste("Threshold:", round(threshold, 
+                2))), list(i = i)))+
+            theme_minimal(base_size = 7.5)
+        myplots[[i]] <- p
+        outliers[[i]] <- f
+    }
+    if (print_plot) {
+        marrangeGrob(myplots, nrow = 2, ncol = 2)
+    }
+    else {
+        return(list(plots = myplots, outliers = outliers))
+    }
+}
+
+
+plot_dfbetas(m_con)
+
+
+showcases<-data.frame(dfbetas(m_con))
+showcases$ID<-rownames(showcases)
+
+for (i in 1:505) {
+  if (abs(showcases$lstat[i])>.3) {  
+    discrepantes[i] <- discrepantes[i]+1
+  }
+  if (abs(showcases$ImóveisMenores[i])>.3) {  
+    discrepantes[i] <- discrepantes[i]+1
+  }
+  if (abs(showcases$lstat.ImóveisMenores[i])>.3) {  
+    discrepantes[i] <- discrepantes[i]+1
+  }
+}
+```
+
+A Figura 15 apresenta os DFBetas para cada uma das variáveis utilizadas no modelo. Nota-se que as observações já identificadas como anômalas pelos gráficos anteriores se repetem com maior frequência na Figura 15.
+
+\newpage
+
+**Figura 16: DfFit para as variáveis do modelo.**
+
+```{r }
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 3
+
+model_n_coeffs <- function(model) {
+  length(model$coefficients)
+}
+model_rows <- function(model) {
+  nrow(model.frame(model))
+}
+
+
+plot_dffits <- function (model, print_plot = TRUE) 
+{
+    check_model(model)
+    dbetas <- NULL
+    obs <- NULL
+    txt <- NULL
+    dffitsm <- unlist(dffits(model))
+    k <- model_n_coeffs(model)
+    n <- model_rows(model)
+    dffits_t <- sqrt(k/n) * 2
+    title <- names(model.frame(model))[1]
+    dfits_data <- data.frame(obs = seq_len(n), dbetas = dffitsm)
+    d <- ols_prep_dfbeta_data(dfits_data, dffits_t)
+    f <- ols_prep_dfbeta_outliers(d)
+    p <- ggplot(d, aes(x = obs, y = dbetas, label = txt, ymin = 0, 
+        ymax = dffitsm)) + geom_linerange(colour = "#1F78B4") + 
+        geom_hline(yintercept = c(0, dffits_t, -dffits_t), colour = "tomato") + 
+        geom_point(colour = "#1F78B4", shape = 1) + xlab("Observação") + 
+        ylab("DFFITS") + ggtitle(paste("Diagnóstico de Influência", 
+        title)) + geom_text(hjust = -0.2, nudge_x = 0.15, size = 3, 
+        family = "serif", fontface = "italic", colour = "darkred", 
+        na.rm = TRUE) + annotate("text", x = Inf, y = Inf, hjust = 1.5, 
+        vjust = 2, family = "serif", fontface = "italic", colour = "darkred", 
+        label = paste("Threshold:", round(dffits_t, 2)))+
+        theme_minimal(base_size = 7.5)
+    if (print_plot) {
+        suppressWarnings(print(p))
+    }
+    else {
+        colnames(f) <- c("observação", "dffits")
+        return(list(plot = p, outliers = f, threshold = round(dffits_t, 
+            2)))
+    }
+}
+
+
+
+aaa <- plot_dffits(m_con)
+
+for (i in 1:506) {
+  if (!is.na(aaa[["data"]][["txt"]][i])) {  
+    discrepantes[i] <- discrepantes[i]+1
+  }  
+}
+
+```
+
+A Figura 16 acompanha os gráficos anteriores apresentando mais uma vez muitas observações discrepante.       
+
+Este comportamento com muitas observações discrepantes deve-se ao pressupostos da regressão linear múltipla terem sido violados como mostraram a Figura 10 e a Tabela 8.
+
+\newpage
+
+
+
+
+### Eliminação de observações anômalas
+
+A fim de melhorar o ajuste do modelo, identificando ss observações que apresentaram comportamento anômalo nos diagnósticos dos valores ajustados e resíduos studentizados, valores ajustados e resíduos padronizados, distância de CooK, pontos de alavanca e *outliers*, análise de DfFit e todas as análises de BFBetas, chegamos as frequências de observações anômalas apresentadas na Figura 17.
+```{r }
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 3
+
+principais <- as.data.frame(cbind(1:506, discrepantes))
+colnames(principais) <- c("Observação", "Ocorrências")
+
+### Ajuste do Modelo + Gráfico ----
+principais|>
+  ggplot(aes(x = Observação, y = Ocorrências)) +
+  geom_point(
+    color = "#1F78B4"
+    )+
+  labs(
+    title = "Figura 17: Número de ocorrências para cada observação",
+    y = 'Ocorrências',
+    x = 'Observação'
+  )+
+  theme(legend.position = "none",
+          axis.line = element_line(size = 0.5, color = "#222222"))
+
+
+```
+
+Considerando apenas as observações com 3 ou mais ocorrências temos a Tabela a seguir.
+
+```{r }
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 3
+
+principais <- principais %>% filter(discrepantes>2)
+
+principais |>
+  kableExtra::kbl(
+    caption = "Observações com maior número de ocorrências.",
+    align = c("l", "c"), 
+    row.names = F, booktabs = T, escape = F
+  )|>
+  kable_styling(
+    full_width = F, position = 'center', 
+    latex_options = c("striped", "HOLD_position")
+  )|>
+   kable_material()
+
+```
+
+
+```{r }
+#| echo: false
+#| warning: false
+dados4 <- dados3[-principais$Observação,]
+m_con_aju <- lm(medv ~ lstat * Imóveis, data =dados4)
+aux <- summary(m_con_aju)
+r2 <- round(as.numeric(aux$r.squared),3)
+r2a <- round(as.numeric(aux$aju.r.squared),3)
+
+```
+Essas observaçãoes correspondem a 6,7% do total de observações do conjunto, desta forma entende-se que a eliminação delas não provocará uma perda significativa de informação para o modelo.  
+Desta forma, obteve-se o seguinte modelo resultante:  
+
+
+$Y_{i}=$ `r aux$coefficients[1,1]` $+$ `r aux$coefficients[2,1]` $X_{1i}=$ `r aux$coefficients[3,1]` $X_{2i}+$ `r aux$coefficients[4,1]` $X_{1,2i}$ 
+
+Onde:    
+$Y_{i}$ - Valor médio dos imóveis de Boston;  
+$X_{1i}$ - População de Baixa Renda;  
+$X_{2i}$ - Tamanho do Imóvel;  
+$X_{1,2i}$ - Interação entre as variáveis explicativas ($X_{1i}*X_{2i}$);  
+
+
+
+
+Neste novo modelo o coeficiente de determinação calculado foi de $R^2=$ `r r2`, o que denota que `r r2*100`% da variância dos dados é explicada pelo modelo. O valor deste novo coeficiente permite concluir que a eliminação das observações com maior impacto e das variáveis pouco relevantes ao modelo foi benéfica. Pode-se calcular o coeficiente de determinação ajustado igual a $R^2_{aju}=$ `r r2a`. Estes valores indicam que a eliminação das observações anômalas contribuiu signicativamente para a melhora do modelo proposto.
+
 
 \newpage
 
@@ -1975,19 +2621,16 @@ Para melhor compreensão desta análise foram feitos testes de normalidade, homo
 
 ## Parte 2
 
+A criação da variável Tamanho do Imóvel, dividindo os imóveis em dois grupos equivalentes, quanto ao número médio de cômodos, foi bastante útil para os propósitos desta segunda parte do relatório.    
+
+A análise gráfica para a determinação do modelo retas concorrentes foi mais útil que a realização do teste F, uma vez que os resultados obtidos foram os mesmos para todos os modelos análisados, a exceção do modelo nulo.  
+
+O ajuste do modelo aos pressupostos da Regressão Linear Múltipla não foi satisfatório e o proseguimento dos calculos visou apenas observar o comportamento do modelo. Entretanto, a eliminação de observações anômalas fez com que a qualidade do modelo proposto fosse significativamente melhorada.
+
+
+
 # Referências
 
--   Harrison, David & Rubinfeld, Daniel.
-    (1978).
-    Hedonic housing prices and the demand for clean air.
-    Journal of Environmental Economics and Management.
-    5.
-    81-102.
-    10.1016/0095-0696(78)90006-2.
+-   Harrison, David & Rubinfeld, Daniel. (1978). Hedonic housing prices and the demand for clean air. Journal of Environmental Economics and Management. 5. 81-102. 10.1016/0095-0696(78)90006-2.
 
--   Belsley, David A.
-    & Kuh, Edwin.
-    & Welsch, Roy E.
-    (1980).
-    Regression diagnostics: identifying influential data and sources of collinearity.
-    New York: Wiley.
+-   Belsley, David A. & Kuh, Edwin. & Welsch, Roy E. (1980). Regression diagnostics: identifying influential data and sources of collinearity. New York: Wiley.
