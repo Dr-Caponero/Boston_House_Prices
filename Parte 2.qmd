@@ -1859,15 +1859,15 @@ A sensível diferença entre as inclinações das retas propostas pelo modelo de
 Pode-se verifiar assim que o modelo de retas concorrentes foi o mais adequado para descrever o comportamento das variáveis selecionadas.
 Com base neste resultado, este modelo será avaliado a seguir.
 
-## Análise dos testes F para modelos encaixados
+## Análise dos testes F para o modelo encaixado
 
 ### Significância do Modelo
 
 Após o ajuste do modelo de restas concorrentes existe a necessidade de se avaliar a significância do mesmo, o teste de hipótese para tal situação será realizado, contendo as seguintes hipóteses:
 
-$$H_0: \hat{\beta_1}= 0$$
+$$H_0: \hat{\beta_{1,2}= 0$$
 
-$$H_1: \hat{\beta_1} \neq 0.$$ As Tabelas 6 e 7 trazem os principais resultados da tabela ANOVA e do Intervalo de Confiança para os parâmetros, possibilitando assim inferir sobre o modelo ajustado.
+$$H_1: \hat{\beta_{1,2} \neq 0.$$ As Tabelas 6 e 7 trazem os principais resultados da tabela ANOVA e do Intervalo de Confiança para os parâmetros, possibilitando assim inferir sobre o modelo ajustado.
 
 ```{r }
 #| echo: false
