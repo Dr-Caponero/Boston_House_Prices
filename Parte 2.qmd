@@ -2435,13 +2435,16 @@ showcases<-data.frame(dfbetas(m_con))
 showcases$ID<-rownames(showcases)
 
 for (i in 1:505) {
-  if (abs(showcases$lstat[i])>.3) {  
+  if (abs(showcases$lstat[i])>.09) {  
     discrepantes[i] <- discrepantes[i]+1
   }
-  if (abs(showcases$ImóveisMenores[i])>.3) {  
+  if (abs(showcases$ImóveisMenores[i])>.09) {  
     discrepantes[i] <- discrepantes[i]+1
   }
-  if (abs(showcases$lstat.ImóveisMenores[i])>.3) {  
+  if (abs(showcases$lstat.ImóveisMenores[i])>.09) {  
+    discrepantes[i] <- discrepantes[i]+1
+  }
+    if (abs(showcases$X.Intercept.[i])>.09) {  
     discrepantes[i] <- discrepantes[i]+1
   }
 }
@@ -2449,7 +2452,7 @@ for (i in 1:505) {
 
 A Figura 15 apresenta os DFBetas para cada uma das variáveis utilizadas no modelo. Nota-se que as observações já identificadas como anômalas pelos gráficos anteriores se repetem com maior frequência na Figura 15.
 
-\newpage
+
 
 **Figura 16: DfFit para as variáveis do modelo.**
 
@@ -2485,8 +2488,8 @@ plot_dffits <- function (model, print_plot = TRUE)
         ymax = dffitsm)) + geom_linerange(colour = "#1F78B4") + 
         geom_hline(yintercept = c(0, dffits_t, -dffits_t), colour = "tomato") + 
         geom_point(colour = "#1F78B4", shape = 1) + xlab("Observação") + 
-        ylab("DFFITS") + ggtitle(paste("Diagnóstico de Influência", 
-        title)) + geom_text(hjust = -0.2, nudge_x = 0.15, size = 3, 
+        ylab("DFFITS") + ggtitle("") + 
+        geom_text(hjust = -0.2, nudge_x = 0.15, size = 3, 
         family = "serif", fontface = "italic", colour = "darkred", 
         na.rm = TRUE) + annotate("text", x = Inf, y = Inf, hjust = 1.5, 
         vjust = 2, family = "serif", fontface = "italic", colour = "darkred", 
@@ -2518,7 +2521,7 @@ A Figura 16 acompanha os gráficos anteriores apresentando mais uma vez muitas o
 
 Este comportamento com muitas observações discrepantes deve-se ao pressupostos da regressão linear múltipla terem sido violados como mostraram a Figura 10 e a Tabela 8.
 
-\newpage
+
 
 
 
@@ -2552,7 +2555,7 @@ principais|>
 
 ```
 
-Considerando apenas as observações com 3 ou mais ocorrências temos a Tabela a seguir.
+Considerando apenas as observações com 5 ou mais ocorrências temos a Tabela a seguir.
 
 ```{r }
 #| echo: false
@@ -2560,7 +2563,7 @@ Considerando apenas as observações com 3 ou mais ocorrências temos a Tabela a
 #| fig-width: 7
 #| fig-height: 3
 
-principais <- principais %>% filter(discrepantes>2)
+principais <- principais %>% filter(discrepantes>4)
 
 principais |>
   kableExtra::kbl(
@@ -2587,11 +2590,11 @@ r2 <- round(as.numeric(aux$r.squared),3)
 r2a <- round(as.numeric(aux$aju.r.squared),3)
 
 ```
-Essas observaçãoes correspondem a 6,7% do total de observações do conjunto, desta forma entende-se que a eliminação delas não provocará uma perda significativa de informação para o modelo.  
+Essas observaçãoes correspondem a 6,9% do total de observações do conjunto, desta forma entende-se que a eliminação delas não provocará uma perda significativa de informação para o modelo.  
 Desta forma, obteve-se o seguinte modelo resultante:  
 
 
-$Y_{i}=$ `r aux$coefficients[1,1]` $+$ `r aux$coefficients[2,1]` $X_{1i}=$ `r aux$coefficients[3,1]` $X_{2i}+$ `r aux$coefficients[4,1]` $X_{1,2i}$ 
+$Y_{i}=$ `r round(aux$coefficients[1,1],3)` `r round(aux$coefficients[2,1],3)` $X_{1i}+$ `r round(aux$coefficients[3,1],3)` $X_{2i}$ `r round(aux$coefficients[4,1],3)` $X_{1,2i}$ 
 
 Onde:    
 $Y_{i}$ - Valor médio dos imóveis de Boston;  
