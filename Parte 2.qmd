@@ -46,6 +46,7 @@ pacman::p_load(tidyverse,  janitor, stargazer,  sjmisc, summarytools,
                patchwork,  plotly, lmtest, olsrr, gglm, ggplot2,
                tidymodels, GGally, skimr, performance, ipred)
 
+
 dados <- read.csv("boston.csv")
 
 ## Arrumação ----
@@ -72,13 +73,9 @@ Composto por 506 observações e 14 variáveis, o conjunto de dados, publicado n
 
 ## Sobre o conjunto de dados
 
-Os dados de preços de 506 casas em Boston, publicados em Harrison, D.
-and Rubinfeld, D.L.
-[*'Hedonic prices and the demand for clean air'*](https://www.researchgate.net/profile/Daniel-Rubinfeld/publication/4974606_Hedonic_housing_prices_and_the_demand_for_clean_air/links/5c38ce85458515a4c71e3a64/Hedonic-housing-prices-and-the-demand-for-clean-air.pdf), J.
-Environ.
-Economics & Management, vol.5, 81-102, 1978.
+Os dados utilizados apresentam os preços de 506 casas em Boston publicados por 
+[*'D. Harrison e D.L.Rubinfeld'*](https://www.researchgate.net/profile/Daniel-Rubinfeld/publication/4974606_Hedonic_housing_prices_and_the_demand_for_clean_air/links/5c38ce85458515a4c71e3a64/Hedonic-housing-prices-and-the-demand-for-clean-air.pdf) [1] e usados por  [*'Belsley, Kuh & Welsch'*](https://www.wiley.com/en-us/Regression+Diagnostics%3A+Identifying+Influential+Data+and+Sources+of+Collinearity-p-9780471691174) para avaliar a demanda por ar limpo no valor de casas do município.
 
-Usado em Belsley, Kuh & Welsch, [*'Regression diagnostics: identifying influential data and sources of collinearity.*](https://www.wiley.com/en-us/Regression+Diagnostics%3A+Identifying+Influential+Data+and+Sources+of+Collinearity-p-9780471691174) New York: Wiley 1980.
 Os dados podem ser acessados na plataforma para aprendizado de ciência de dados [Kaggle](https://www.kaggle.com/datasets/fedesoriano/the-boston-houseprice-data) através do link:
 
 <https://www.kaggle.com/datasets/fedesoriano/the-boston-houseprice-data>.
@@ -86,7 +83,7 @@ Os dados podem ser acessados na plataforma para aprendizado de ciência de dados
 ### Variáveis a serem analisadas
 
 A amostra contêm 14 atributos de casas em diferentes locais nos subúrbios de Boston no final dos anos 1970, sendo duas delas classificadas como categóricas e 12 como numéricas.
-O objetivo é o valor médio das casas em um local (em k\$).
+O objetivo é o valor médio das casas em um local (em milhares de dólares - k\$).
 As variáveis presentes no banco de dados são descritas a seguir bem como a forma que estas variáveis serão representadas ao longo deste relatório a fim de facilitar o entendimento:
 
 1.  CRIM: Índice de criminalidade per capita por bairro.
@@ -103,10 +100,11 @@ As variáveis presentes no banco de dados são descritas a seguir bem como a for
     O INDUS serve como um *proxy* para as externalidades associadas ao ruído da indústria, tráfego intenso e efeitos visuais desagradáveis e, portanto, deve afetar negativamente os valores das habitações.
     Será representado por **Área Industrial**.
 
-4.  CHAS: Variável fictícia categórica que representa imóveis próximos a margem do rio Charles (1 se o trecho margeia o rio; 0 caso contrário).
+4.  CHAS: Variável fictícia categórica que representa imóveis próximos a margem do rio Charles (1 se o trecho margeia o rio; 0 caso contrário). Esperamos que o CHAS esteja positivamente relacionado aos valores das
+moradias, uma vez que podem denotar imóveis de mais alto padrão. 
     Será representada como **Margem**.
 
-5.  NOX: Concentração de óxidos nítricos em pphm (partes por 100 milhões).
+5.  NOX: Concentração de óxidos nítricos em pphm (partes por 100 milhões). Como o aumento dos valores de NOX representam uma piora da qualidade do ar, esperamos que esta variável esteja negativamente correlacionada com o valor dos imóveis. 
     Será representada como **Índice Oxido Nítrico**.
 
 6.  RM: Número médio de quartos em unidades proprietárias.
@@ -116,7 +114,7 @@ As variáveis presentes no banco de dados são descritas a seguir bem como a for
     Será representada por **N° de Cômodos**.
 
 7.  AGE: Proporção de unidades próprias construídas antes de 1940.
-    A idade da unidade geralmente está relacionada à qualidade da estrutura.
+    A idade da unidade geralmente está relacionada à qualidade da estrutura e portanto negativamente correlacionada ao valor do imóvel.
     Será representada por **Idade**
 
 8.  DIS: Distâncias ponderadas para cinco centros de emprego na região de Boston.
@@ -156,7 +154,7 @@ As variáveis presentes no banco de dados são descritas a seguir bem como a for
 
 ### Variável de Saída (Resposta):
 
--   Valor do Imóvel: Valor médio de residências ocupadas pelo proprietário em US\$1.000 \[k\$\].
+-   Valor do Imóvel: Valor médio de residências ocupadas pelo proprietário em US\$1.000 \[Milhares de dólares - k\$\].
 
 ### Fonte
 
@@ -216,7 +214,7 @@ Para facilitar a compreenção das medidas apresentadas na Tabela 1, a Figura 1 
 #| fig-width: 7
 
 # Histograma ----
-{
+
 ## g1 age ----
 g1 <- dados|>
   ggplot() +
@@ -520,21 +518,20 @@ g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 + g9 + g10 + g11 + g12 +
   plot_annotation(
     title = "Figura 1: Histogramas das variáveis em análise.",
     caption = "Fonte: StatLib - Carnegie Mellon University",
-    tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", tag_sep = ".",
-    tag_suffix = ":") &
+    tag_levels = c("A", "1"), tag_sep = ".")&
   theme(
-    plot.tag.position = c(0, 1),
-    plot.tag = element_text(size = 5.5, hjust = 0, vjust = -0.4))
-}
+    plot.tag.position = c(0.9, 0.8),
+    plot.tag = element_text(size = 12, hjust = 0.5, vjust = 1))
+
 ```
 
 Desta análise inicial, destancam-se algumas características:
 
--   O Índice de criminalidade per capita por bairro é bastante baixo na maioria dos bairros (Sub.Fig B);
--   A Proporção de terreno residencial zoneada para lotes acima de 25.000 sq.ft. contém uma alta concentração de valores zeros (Sub.Fig K);
--   Verifica-se uma concentração de empresas com cerca de 18 hectares em diversos bairros (Sub.Fig D);
--   Há uma concentração de imóveis com alto valor total do imposto predial (Sub.Fig J);
--   A maior parte dos bairros tinha alta proporção de negros (Sub.Fig L).
+-   O Índice de criminalidade per capita por bairro é bastante baixo na maioria dos bairros (Figura 1B);
+-   A Proporção de terreno residencial zoneada para lotes acima de 25.000 sq.ft. contém uma alta concentração de valores zeros (Figura 1K);
+-   Verifica-se uma concentração de empresas com cerca de 18 hectares em diversos bairros (Figura 1D);
+-   Há uma concentração de imóveis com alto valor total do imposto predial (Figura 1J);
+-   A maior parte dos bairros tinha alta proporção de negros (Figura 1L).
 
 Tendo em vista o fato de as variáveis categóricas não estarem representadas na Figura 1, foi construída a figura 2 com gráficos que possibilitam a avaliação do comportamento dessas variáveis de maneira mais adequada.
 
@@ -589,21 +586,20 @@ p1 + p2 +
   plot_annotation(
     title = "Figura 2: Distribuição de Frequência das Variáveis Categóricas.",
     caption = "Fonte: StatLib - Carnegie Mellon University",
-    tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", tag_sep = ".",
-    tag_suffix = ":") &
+    tag_levels = c("A", "1"), tag_sep = ".") &
   theme(
-    plot.tag.position = c(0, 1),
-    plot.tag = element_text(size = 5.5, hjust = 0, vjust = -0.4))
+    plot.tag.position = c(0.9, 0.8),
+    plot.tag = element_text(size = 12, hjust = 0, vjust = -0.4))
 
 ```
 
-Avaliando a Figura 2 é possível constatar na Sub.Fig A que representa a frequência do Índice de Acessibilidade às Rodovias a existência de um comportamento tri modal e que há uma lacuna entre os índices, sendo este *gap* entre o índice 8 e o índice 24 indicando assim que há uma concentração de imóveis próximos a acessos a rodovias e que há uma parcela, cerca de 26%, que estão distantes desses acessos, podendo pressupor que esses imóveis são desvalorizados em relação aos mais próximos.
+Avaliando a Figura 2 é possível constatar na Figura 2A que representa a frequência do Índice de Acessibilidade às Rodovias a existência de um comportamento tri modal e que há uma lacuna entre os índices, sendo este *gap* entre o índice 8 e o índice 24 indicando assim que há uma concentração de imóveis próximos a acessos a rodovias e que há uma parcela, cerca de 26%, que estão distantes desses acessos, podendo pressupor que esses imóveis são desvalorizados em relação aos mais próximos.
 
-A Sub.Fig B que retrata os Imóveis que margeiam o Rio Charles é possível identificar que mais de 93% não margeiam o rio, apenas uma pequena parcela margeia, podendo pressupor uma maior valorização dos imóveis que margeiam o rio.
+A Figura 2B que retrata os Imóveis que margeiam o Rio Charles é possível identificar que mais de 93% não margeiam o rio, apenas uma pequena parcela margeia, podendo pressupor uma maior valorização dos imóveis que margeiam o rio.
 
 ### Análise de Dados Atípicos
 
-Com base na variável que indica se o imóvel margeia ou não o Charles River, pode-se realizar a análise de disperção dos dados por meio de gráficos do tipo BoxPlot, como se vê na Figura 1.
+Com base na variável que indica se o imóvel margeia ou não o Charles River, pode-se realizar a análise de dispersão dos dados por meio de gráficos do tipo BoxPlot, como se vê na Figura 1.
 
 ```{r fig3:BoxPlot}
 #| echo: false
@@ -768,16 +764,15 @@ b1 + b2 + b3 + b4 + b5 + b6 + b7 + b8 + b9 + b10 + b11 + b12 +
     title = "Figura 3: BoxPlot das variáveis em análise.",
     caption = "Fonte: StatLib - Carnegie Mellon University",
     # theme = theme_minimal(plot.title = element_text(size = 10)),
-    tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", tag_sep = ".",
-    tag_suffix = ":") &
+    tag_levels = c("A", "1"), tag_sep = ".") &
   theme(
-    plot.tag.position = c(0, 1),
-    plot.tag = element_text(size = 5.5, hjust = 0, vjust = -0.4))
+    plot.tag.position = c(0.9, 0.8),
+    plot.tag = element_text(size = 12, hjust = 0, vjust = -0.4))
 }
 
 ```
 
-Pode-se verificar pela Figura 3 que cerca de 2/3 das variáveis apresentam valores atípicos (*outlayers*), entretanto o tratamento destes *outlayers* em todos os casos parece, salvo melhor juízo, ser o mesmo.
+Pode-se verificar pela Figura 3 que cerca de 2/3 das variáveis apresentam valores atípicos (*outliers*), entretanto o tratamento destes *outliers* em todos os casos parece, salvo melhor juízo, ser o mesmo.
 Observa-se que há coerência entre eles, isto é, são realizações possíveis e não devem ser desprezadas como se fossem erros ou dados irrelevantes.
 Isto se deve a tremenda variedade em tipos, propósitos e status dos imóveis avaliados.
 Esses dados por sua vez, representam um maior desafio ao modelamento a que esse trabalho se propõe.
@@ -1056,12 +1051,11 @@ A Figura 4 apresenta essas dispersões de pontos e já apresenta uma linha de te
     plot_layout(ncol = 3) + 
     plot_annotation(
       title = "Figura 4: Reta de regressão ajustada entre o Valor médio dos imóveis e \ndemais medições",
-      tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ", tag_sep = ".",
-      tag_suffix = ":") &
+      tag_levels = c("A", "1"), tag_sep = ".") &
     theme(
       legend.position = "none",
-      plot.tag.position = c(0, 1),
-      plot.tag = element_text(size = 5.5, hjust = 0, vjust = -0.4))
+      plot.tag.position = c(0.9, 0.8),
+      plot.tag = element_text(size = 12, hjust = 0, vjust = -0.4))
 
 }
 ```
@@ -1133,7 +1127,8 @@ aux <- rbind(cortestCrim$conf.int[1:2],
              cortestLstat$conf.int[1:2])
 
 resultados <- cbind(resultados, aux)
-
+resultados <- round(resultados,3)
+resultados[,2] <- "<0,0001"
 rownames(resultados) <- c("Índice Criminalidade", "Prop. Terreno Zoneado", "Área Industrial", "Índice Oxido Nítrico", "N° Cômodos", "Idade do Imóvel", "Dist. Empregos", "Imposto Propriedade", "Prop. Prof.-Aluno", "Prop. Negros/bairro", "Pop. Classe Baixa")
 colnames(resultados) <- c("t", "p-valor", "LI", "LS")
 
@@ -1162,7 +1157,7 @@ resultados|>
 
 Conforme expresso na Tabela 2, levando em consideração o **p-valor** a Hipótese Nula foi rejeitada, e com 95% de confiança se pode afirmar que **é significativa a relação linear entre todas as variáveis em estudo.**
 
-Na avaliação da Figura 4, observa-se que nenhuma das variáveis tem uma aparente forte correlação com o valor médio dos imóveis.
+Na avaliação da Figura 4, observa-se que nenhuma das variáveis tem uma forte correlação com o valor médio dos imóveis.
 A Tabela 3, apresenta os valores calculados de $\hat \beta_0$ e $\hat\beta_1$ que estimam os valores do modelo $Y_i =\beta_0 + \beta_1X_i + \epsilon_i$ com seus respectivos erros padrão ($\sigma_0$ e $\sigma_1$), além de calcular o p-valor desta regressão linear como forma de identificar a rejeição ou não do modelo proposto.
 Nesta mesma linha, o valor estimado do Coeficiente de Determinação ($R^2$) também foi calculado.
 
@@ -1254,7 +1249,9 @@ aux <-  rbind(
   summary(mB)$r.squared)
 
 resultados <- cbind(resultados, aux)
-
+resultados <- round(resultados,3)
+resultados[,3] <- "<0,0001"
+resultados[,6] <- "<0,0001"
 # Inserindo o nome das variáveis (colunas)
 rownames(resultados) <- c("Índice Criminalidade", "Área Industrial", "Índice Oxido Nítrico", "N° Cômodos", "Idade do Imóvel", "Dist. Empregos", "Imposto Propriedade", "Prop. Prof.-Aluno", "Pop. Classe Baixa", "Prop. Terreno Zoneado", "Prop. Negros/bairro")
 
@@ -1379,8 +1376,11 @@ colnames(resultados) = c("GL", "Soma de \nQuadrados", "Quadrado Médio", "Valor 
   # kable_material()
   # add_header_above(c(" " = 1, "ANOVA" = 5, "Intervalos de Confiança" = 2), bold = T)|>
 
-
-
+fit_anova <- round(fit_anova,2)
+fit_anova[1,5] <- "<0,0001"
+fit_anova[2,4] <- " "
+fit_anova[2,5] <- " "
+fit_anova <- cbind(c("Regressão","Resíduos"), fit_anova)
 fit_anova %>%
   kbl(
     caption = "Resultados da ANOVA.",
@@ -1389,7 +1389,7 @@ fit_anova %>%
     align = "c", 
     row.names = F,
     col.names =
-      c("GL", "Soma de Quadrados", "Quadrado Médio", "Valor F-Snedecor", "p-valor")
+      c(" ", "GL", "Soma de Quadrados", "Quadrado Médio", "Valor F-Snedecor", "p-valor")
   ) %>%
   # footnote(
   #   number = c(
@@ -1403,11 +1403,7 @@ fit_anova %>%
   #   number_title = "Legenda:",
   #   footnote_as_chunk = F
   # )|>
-  footnote(
-    number = c("Linha 1: Dados referentes a Beta 0", "Linha 2: Dados referentes a Beta 1"),
-    number_title = "Legenda:",
-    footnote_as_chunk = F
-  )|>
+  
   kable_styling(
     full_width = F, position = 'center', 
     latex_options = c("striped", "HOLD_position", "repeat_header")
@@ -1415,22 +1411,18 @@ fit_anova %>%
   column_spec(1, bold = F
   )|>
   kable_material()
-
+ic_parametros <- round(ic_parametros,3)
+ic_parametros <- cbind(c("Beta 0","Beta 1"), ic_parametros)
 ic_parametros %>% 
   kbl(
     caption = "Intervalo de Confiança.",
-    digits = 4,
+    digits = 3,
     format.args=list(big.mark=".", decimal.mark=","),
     align = "c", 
     row.names = F,
     col.names =
-      c("LI", "LS")
+      c("Parâmetro", "LI", "LS")
   ) %>%
-  footnote(
-    number = c("Linha 1: Dados referentes a Beta 0", "Linha 2: Dados referentes a Beta 1"),
-    number_title = "Legenda:",
-    footnote_as_chunk = F
-  )|>
   kable_styling(
     full_width = F, position = 'center', 
     latex_options = c("striped", "HOLD_position", "repeat_header")
@@ -1442,7 +1434,7 @@ ic_parametros %>%
 ```
 
 A Tabela 4, que traz os resultados da tabela ANOVA, para o modelo que avalia o **Valor Médio dos Imóveis** em relação a **Pop. Classe Baixa**, corrobora com a significância do $\hat{\beta_1}$, pois sendo o p-valor menor que o nível de significância ($\alpha = 5\%$) possibilita rejeitar $H_0$, indicando ser significante para o modelo.
-O Intervalo de Confiança para os parâmetros estimados, Tabela 5, mostra que **com 95% de confiança é possível afirmar que o verdadeiro valor de** $\hat{\beta_0}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[1,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[1,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')` e que o verdadeiro valor de $\hat{\beta_1}$ está entre (`r glue::glue('({scales::number(confint(mLstat)[2,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[2,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`).
+O Intervalo de Confiança para os parâmetros estimados, Tabela 5, mostra que **com 95% de confiança é possível afirmar que o verdadeiro valor de** $\hat{\beta_0}$ está entre `r glue::glue('({scales::number(confint(mLstat)[1,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[1,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')` e que o verdadeiro valor de $\hat{\beta_1}$ está entre `r glue::glue('({scales::number(confint(mLstat)[2,1], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")}; {scales::number(confint(mLstat)[2,2], accuracy = 0.0001, big.mark = ".", decimal.mark = ",")})')`.
 
 ### Análise de Resíduos
 
@@ -1507,24 +1499,20 @@ d1 + d2 + d3 +
   plot_layout(ncol = 2) +
   plot_annotation(
   title = "Figura 5: Análise de resíduos do modelo ajustado",
-  tag_levels = c("A", "1"), tag_prefix = "Sub Fig. ",
-  tag_sep = ".", tag_suffix = ":") &
+  tag_levels = c("A", "1"), tag_sep = ".") &
   theme(
     legend.position = "none",
-    plot.tag.position = c(0, 1),
-    plot.tag = element_text(size = 5.5, hjust = 0, vjust = -0.4)
+    plot.tag.position = c(0.5, 0.8),
+    plot.tag = element_text(size = 12, hjust = 0, vjust = -0.4)
   )
 
 ```
 
-Analisando a Figura 5, Sub.Fig.
-A, que traz o gráfico que avalia a **linearidade** do modelo se constata uma não aleatoriedade, possibilitando identificar um certo padrão, aparentando um afunilamento dos dados, indicando assim uma variância não constante (pela mudança da amplitude dos dados), em que mostra uma menor variabilidade dos resíduos no início e segue aumentando a medida que crescem os valores ajustados.
+Analisando a Figura 5A, que traz o gráfico que avalia a **linearidade** do modelo se constata uma não aleatoriedade, possibilitando identificar um certo padrão, aparentando um afunilamento dos dados, indicando assim uma variância não constante (pela mudança da amplitude dos dados), em que mostra uma menor variabilidade dos resíduos no início e segue aumentando a medida que crescem os valores ajustados.
 
-O gráfico que avalia a Normalidade dos Resíduos, Sub.Fig.
-B, também não mostra um comportamento adequado para considerar o modelo como bom, pois é possível identificar que as caldas fogem e muito da reta de referência e do intervalo de confiança, inclusive, demonstrando haver pontos significativamente influentes que afetam o comportamento dos resíduos, logo, **se conclui que este não é um bom modelo para explicar o valor médio dos imóveis**.
+O gráfico que avalia a Normalidade dos Resíduos, Figura 5B, também não mostra um comportamento adequado para considerar o modelo como bom, pois é possível identificar que as caldas fogem e muito da reta de referência e do intervalo de confiança, inclusive, demonstrando haver pontos significativamente influentes que afetam o comportamento dos resíduos, logo, **se conclui que este não é um bom modelo para explicar o valor médio dos imóveis**.
 
-O gráfico que avalia a Homogeneidade de Variâncias, Sub.Fig.
-C, mostra que a Variância não é constante.
+O gráfico que avalia a Homogeneidade de Variâncias, Figura 5C, mostra que a Variância não é constante.
 
 Ainda assim, para fins de implementação das técnicas apresndidas até o momento, serão realizados os **Testes de Diagnóstico** para avaliação dos resultados, com a expectativa dos mesmos correoborarem com as interpretações obtidas através da análise gráfica.
 
@@ -1694,7 +1682,7 @@ Ajustar um modelo de regressão linear múltiplo utilizando técnicas de retas c
 
 ## Criação de uma variável categórica
 
-Embora o banco de dados estudado apresente duas variáveis categóricas: a CHAS, que indica a se o imóvel se encontra ou não as margens do rio Charles e RAD, que representa o índice de acessibilidade às rodovias radiais, verificou-se que a correlação destas variáveis com o preço médio dos imóveis é muito pequena.
+Embora o banco de dados estudado apresente duas variáveis categóricas: a CHAS, que indica a se o imóvel se encontra ou não as margens do rio Charles e RAD, que representa o índice de acessibilidade às rodovias radiais, verificou-se que a correlação destas variáveis com o preço médio dos imóveis é muito pequena, como se pode ver na Figura 4.
 Assim pecebeu-se que o tamanho dos imóveis baseado no seu número de cômodos poderia melhor explicar o preço médio destes imóveis.
 Desta forma, com base na tabela 1, verificou-se que a mediana do número médio de cômodos dos imóveis poderia ser usada para criar dois grupos: "Imóveis Pequenos" e "Imóveis Maiores".
 
@@ -1913,10 +1901,10 @@ tab|>
   kable_material()
 
 aux <- summary(m_con)
-
+aux$adj.r.squared
 ```
 
-Com base nos resultados apresentados na Tabela 6, verifica-se que não é possível definir o melhor modelo apenas pelo teste F aplicado. Nota-se qua a exceção do modelo nulo, todos os demais são, com base neste teste, apropriados para descrever a variável preço médio dos imóveis de Boston com base nas variáveis população de baixa renda e tamanho dos imóveis. Dentre estes, valor da estatística F foi mínimo para o modelo de retas concorrentes que conforme a análise gráfica foi o mais adequado e será selecionado para avaliação diagnóstica do ajuste obtido. Neste modelo o valor do Coeficiente de Determinação de Pearson obtido foi de $R^2=$ `r round(as.numeric(aux$r.square),3)` e do valor do Coeficiente de Determinação de Pearson Ajustado obtido foi de $R^2_{aju}=$ `r round(as.numeric(aux$aju.r.square),3)`.
+Com base nos resultados apresentados na Tabela 6, verifica-se que não é possível definir o melhor modelo apenas pelo teste F aplicado. Nota-se qua a exceção do modelo nulo, todos os demais são, com base neste teste, apropriados para descrever a variável preço médio dos imóveis de Boston com base nas variáveis população de baixa renda e tamanho dos imóveis. Dentre estes, valor da estatística F foi mínimo para o modelo de retas concorrentes que conforme a análise gráfica foi o mais adequado e será selecionado para avaliação diagnóstica do ajuste obtido. Neste modelo o valor do Coeficiente de Determinação de Pearson obtido foi de $R^2=$ `r round(as.numeric(aux$r.square),3)` e do valor do Coeficiente de Determinação de Pearson Ajustado obtido foi de $R^2_{aju}=$ `r round(as.numeric(aux$adj.r.squared),3)`.
 
 
 ## Diagnóstico do ajuste
@@ -2590,7 +2578,8 @@ r2 <- round(as.numeric(aux$r.squared),3)
 r2a <- round(as.numeric(aux$aju.r.squared),3)
 
 ```
-Essas observaçãoes correspondem a 6,9% do total de observações do conjunto, desta forma entende-se que a eliminação delas não provocará uma perda significativa de informação para o modelo.  
+
+Observou-se que alguns dos pontos elencados na Tabela 9, correspondem a *outliers* também verificados na análise descritiva dos dados (Figura 3). A não eliminação dos pontos atípicos naquele momento era desaconselhável, entretanto após as análises realisadas há maior segurança no procedimento. Essas observaçãoes correspondem a 6,9% do total de observações do conjunto, desta forma entende-se que a eliminação delas não provocará uma perda significativa de informação para o modelo.  
 Desta forma, obteve-se o seguinte modelo resultante:  
 
 
