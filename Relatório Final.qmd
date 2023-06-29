@@ -2584,7 +2584,7 @@ dados4 <- dados3[-principais$Observação,]
 m_con_aju <- lm(medv ~ lstat * Imóveis, data =dados4)
 aux <- summary(m_con_aju)
 r2 <- round(as.numeric(aux$r.squared),3)
-r2a <- round(as.numeric(aux$aju.r.squared),3)
+r2a <- round(as.numeric(aux$adj.r.squared),3)
 
 ```
 
@@ -2816,7 +2816,7 @@ fit.final|>
   )|>
   kable_material()
 
-aux <- summary(m.total)
+aux <- summary(m.final)
 
 ```
                 
@@ -3045,7 +3045,7 @@ for (i in 1:506) {
 ```
 A Figura 19 demonstra que os resíduos em sua grande maioria dentro dos limites esperados, com exceção de poucas observações que ultrapassam o limite superior Não parece ser o caso de nenhuma intervenção por conta deste valor.
 
-
+\newpage
 
 
 **Figura 20: Valores Ajustados e Resíduos Padronizados.**
@@ -3065,7 +3065,7 @@ for (i in 1:506) {
 }
 ```
 
-Na análise da Figura 20, onde os resíduos foram padronizados, verifica-se queo número de observações além do limite de aceitação aumentou consideravelmente, inclusive o limite inferior tanbém foi ultrapassado.
+Na análise da Figura 20, onde os resíduos foram padronizados, verifica-se que o número de observações além do limite de aceitação aumentou consideravelmente, inclusive o limite inferior foi ultrapassado de maneira significativa.
 
 
 
@@ -3088,8 +3088,7 @@ for (i in 1:506) {
 
 A analise da distância de Cook apresentada na Figura 21 demonstra mais uma vez que muitas observações destoam do conjunto, alguns com distância muito expressiva.
 
-
-
+\newpage
 
 **Figura 22: Análise dos pontos de Alavanca e Resíduo Studentizado.**
 
@@ -3166,9 +3165,9 @@ for (i in 1:505) {
 }
 ```
 
-A Figura 23 apresenta os DFBetas para cada uma das variáveis utilizadas no modelo. Nota-se que as observações já identificadas como anômalas pelos gráficos anteriores se repetem com maior frequência na Figura 15.
+A Figura 23 apresenta os DFBetas para cada uma das variáveis utilizadas no modelo. Nota-se que as observações já identificadas como anômalas pelos gráficos anteriores se repetem com maior frequência na Figura.
 
-
+\newpage
 
 **Figura 24: DfFit para as variáveis do modelo.**
 
@@ -3257,11 +3256,11 @@ m.final.aju <- lm(medv ~ crim + zn + chas + nox + rm + dis + rad +
                 tax + ptratio + b + lstat, data=dados4)
 aux <- summary(m.final.aju)
 r2 <- round(as.numeric(aux$r.squared),3)
-r2a <- round(as.numeric(aux$aju.r.squared),3)
+r2a <- round(as.numeric(aux$adj.r.squared),3)
 
 ```
 
-Observou-se que alguns dos pontos elencados na Tabela 14, correspondem a *outliers* também verificados na análise descritiva dos dados (Figura 3). A não eliminação dos pontos atípicos naquele momento era desaconselhável, entretanto após as análises realisadas há maior segurança no procedimento. Essas observaçãoes correspondem a 6,9% do total de observações do conjunto, desta forma entende-se que a eliminação delas não provocará uma perda significativa de informação para o modelo.
+Observou-se que alguns dos pontos elencados na Tabela 14, correspondem a *outliers* também verificados na análise descritiva dos dados (Figura 3). A não eliminação dos pontos atípicos naquele momento era desaconselhável, entretanto após as análises realisadas há maior segurança no procedimento. Essas observaçãoes correspondem a 6,7% do total de observações do conjunto, desta forma entende-se que a eliminação delas não provocará uma perda significativa de informação para o modelo.
 
 
 
@@ -3272,7 +3271,7 @@ Neste novo modelo o coeficiente de determinação calculado foi de $R^2=$ `r r2`
 
 # Conclusão
 
-## Análise de Regressão Linear Simples
+### Análise de Regressão Linear Simples
 
 Da análise descritiva das variáveis deste banco de dados não se observa, situações impeditivas da proposta de modelamento por Regressão Linear Simples dos dados como forma de predizer o Valor Médio dos Imóveis de Boston.
 Mesmo a análise de valores atípicos contribui com essa possibilidade uma vez que os valores candidatos a valores atípicos na verdade compõem o rol de dados relevantes e que há enorme variedade em tipos, propósitos e status dos imóveis avaliados.
@@ -3282,7 +3281,7 @@ A implementação de técnicas de Regressão Linear Simples - RLS, para a variá
 Classe Baixa, não se mostrou muito eficiente como observado pela análise gráfica dos resíduos.
 Para melhor compreensão desta análise foram feitos testes de normalidade, homoscedasticidade e de independência dos resíduos, de onde se concluiu que se deve rejeitar as hipóteses de normalidade, homoscedasticidade e de independência serial dos dados, confirmando assim o que a análise gráfica demonstrou.
 
-## Análise de Regressão Linear Múltipla
+### Análise de Regressão Linear Múltipla
 
 A criação da variável Tamanho do Imóvel, dividindo os imóveis em dois grupos equivalentes, quanto ao número médio de cômodos, foi bastante útil para os propósitos desta segunda parte do relatório.    
 
@@ -3290,11 +3289,11 @@ A análise gráfica para a determinação do modelo retas concorrentes foi mais 
 
 O ajuste do modelo aos pressupostos da Regressão Linear Múltipla não foi satisfatório e o proseguimento dos calculos visou apenas observar o comportamento do modelo. Entretanto, a eliminação de observações anômalas fez com que a qualidade do modelo proposto fosse significativamente melhorada.
 
-## Análise de Regressão Linear Múltipla
+### Análise de Regressão Linear Múltipla
 
 
 
-
+A avaliação do coeficiente de determinação ao longo de todo o projeto revelou que no modelo baseado em apenas uma das variáveis, a Classe Baixa, atingiu um $R^2=0,544$. O modelo que combinou uma variável quantitativa contínua e uma varável categórica obteve um valor de $R^2=0,713$. Por fim o modelo completo obteve um $R^2=0,741$. O ajuste eliminando duas variáveis pouco significativas, manteve esse mesmo valor apresentando mínima variação no valor do $R^2_{aju}$. Mesmo com a eliminação de pontos atípicos não se observou melhora no valor de $R^2$ que se manteve em 0,741. Desta forma, pelo princípio da parcimônia é correto afirmar que o modelo com apenas duas variáveis explicativas é o mais adequado para descrever o comportamento do preço médio dos imóveis de Boston.
 
 
 
