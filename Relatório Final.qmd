@@ -3296,10 +3296,6 @@ O ajuste do modelo aos pressupostos da Regressão Linear Múltipla não foi sati
 A avaliação do coeficiente de determinação ao longo de todo o projeto revelou que no modelo baseado em apenas uma das variáveis, a Classe Baixa, atingiu um $R^2=0,544$. O modelo que combinou uma variável quantitativa contínua e uma varável categórica obteve um valor de $R^2=0,713$. Por fim o modelo completo obteve um $R^2=0,741$. O ajuste eliminando duas variáveis pouco significativas, manteve esse mesmo valor apresentando mínima variação no valor do $R^2_{aju}$. Mesmo com a eliminação de pontos atípicos não se observou melhora no valor de $R^2$ que se manteve em 0,741. Desta forma, pelo princípio da parcimônia é correto afirmar que o modelo com apenas duas variáveis explicativas é o mais adequado para descrever o comportamento do preço médio dos imóveis de Boston.
 
 
-
-
-
-
 # Referências
 
 -   Harrison, David & Rubinfeld, Daniel. (1978). Hedonic housing prices and the demand for clean air. Journal of Environmental Economics and Management. 5. 81-102. 10.1016/0095-0696(78)90006-2.
